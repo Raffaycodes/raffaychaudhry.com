@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muhammad Raffay Chaudhry</title>
+<meta name="description" content="Geoscience undergraduate at UW-Green Bay. Research in seismology, geophysical monitoring, and fluid-rock interaction. Applying to PhD programs for Fall 2027.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ───────────────────────── Tokens ───────────────────────── */
+/* Dark ("polar night") by default; light only when the visitor picks it with the toggle */
+:root {
+  --bg: #0d1418;            /* deep slate blue, not pure black */
+  --surface: #131d22;
+  --ink: #e8edee;
+  --ink-2: #a9b6bb;
+  --ink-3: #6f7d83;
+  --rule: #213037;
+  --accent: #8cc6de;        /* ice blue */
+  --accent-soft: #16303b;
+  --wash: #10303c;          /* glow behind the hero */
+  --trace: #c9d4d8;
+  --shadow: rgb(0 0 0 / .35);
+  --todo-bg: #3a3213;
+  --todo-ink: #f3d77a;
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --measure: 48rem;
+  color-scheme: dark;
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #fbfaf6; --surface: #ffffff; --ink: #1b2428; --ink-2: #4b565b; --ink-3: #87908f;
+  --rule: #e8e4db; --accent: #1d6382; --accent-soft: #e2eef3; --wash: #eaf3f6; --trace: #2b3a40;
+  --shadow: rgb(29 99 130 / .12); --todo-bg: #fff3c4; --todo-ink: #6b5200;
+}
+
+/* ───────────────────────── Base ───────────────────────── */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 400 1.125rem/1.6 var(--serif);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+a { color: inherit; text-decoration-color: var(--rule); text-underline-offset: .18em; text-decoration-thickness: 1px; transition: color .15s, text-decoration-color .15s; }
+a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+.wrap { max-width: var(--measure); margin: 0 auto; padding: 0 1rem; }
+@media (min-width: 640px) { .wrap { padding: 0 2rem; } }
+.mono, .label { font-family: var(--mono); font-size: .75rem; letter-spacing: .02em; }
+.label { text-transform: uppercase; letter-spacing: .12em; color: var(--ink-3); }
+.todo { background: var(--todo-bg); color: var(--todo-ink); padding: 0 .25em; border-radius: 2px; font-style: normal; }
+
+/* ───────────────────────── Nav ───────────────────────── */
+header.nav {
+  position: sticky; top: 0; z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid transparent; transition: border-color .2s;
+}
+header.nav.scrolled { border-bottom-color: var(--rule); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 3.5rem; gap: 1rem; }
+.nav .mark { font-family: var(--mono); font-size: .8rem; text-decoration: none; white-space: nowrap; }
+.nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.1rem; overflow-x: auto; scrollbar-width: none; }
+.nav ul::-webkit-scrollbar { display: none; }
+.nav li a { font-family: var(--mono); font-size: .75rem; color: var(--ink-2); text-decoration: none; white-space: nowrap; }
+.nav li a.active { color: var(--accent); }
+.theme-btn { background: none; border: 0; color: var(--ink-2); cursor: pointer; padding: .25rem; font: inherit; display: grid; place-items: center; }
+.theme-btn:hover { color: var(--accent); }
+@media (max-width: 560px) { .nav .mark { display: none; } }
+
+/* ───────────────────────── Hero ───────────────────────── */
+.hero { padding: 4.5rem 0 2.5rem; background: radial-gradient(56rem 30rem at 88% -4%, var(--wash), transparent 70%), radial-gradient(40rem 22rem at 0% 100%, color-mix(in srgb, var(--wash) 55%, transparent), transparent 70%); }
+@media (min-width: 640px) { .hero { padding: 7rem 0 3rem; } }
+.hero h1 { font-weight: 400; font-size: clamp(2.3rem, 6.5vw, 3.6rem); line-height: 1.05; letter-spacing: -.02em; margin: .9rem 0 1.25rem; }
+.hero h1 em { font-style: italic; font-weight: 300; color: var(--ink-2); }
+.hero .lede { font-size: 1.25rem; color: var(--ink-2); max-width: 36rem; margin: 0; font-weight: 300; }
+.hero .lede strong { color: var(--ink); font-weight: 400; }
+.status { display: inline-flex; align-items: center; gap: .5rem; }
+.status::before { content: ""; width: .45rem; height: .45rem; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.hero .links { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 2rem; }
+.hero .links a { font-family: var(--mono); font-size: .8rem; }
+
+/* Seismogram */
+.trace { margin: 3rem 0 0; }
+.trace svg { width: 100%; height: 120px; display: block; overflow: visible; }
+.trace path.wave { fill: none; stroke: var(--trace); stroke-width: 1; stroke-linejoin: round; }
+.trace .pick line { stroke: var(--accent); stroke-width: 1; }
+.trace .pick text { fill: var(--accent); font: 500 11px var(--mono); }
+.trace .axis { stroke: var(--rule); stroke-width: 1; }
+.trace figcaption { display: flex; justify-content: space-between; gap: 1rem; margin-top: .6rem; color: var(--ink-3); }
+
+/* ───────────────────────── Sections ───────────────────────── */
+section { padding: 3.5rem 0; border-top: 1px solid var(--rule); }
+section > .wrap > .label { display: block; margin-bottom: 1.5rem; }
+h2 { font-weight: 400; font-size: 1.9rem; letter-spacing: -.01em; line-height: 1.15; margin: 0 0 1.5rem; }
+h3 { font-weight: 500; font-size: 1.2rem; line-height: 1.3; margin: 0; }
+p { margin: 0 0 1rem; }
+.prose p { color: var(--ink-2); }
+.prose p strong { color: var(--ink); font-weight: 500; }
+
+/* Interests */
+.themes { display: grid; gap: .9rem; margin-top: 2rem; }
+@media (min-width: 640px) { .themes { grid-template-columns: repeat(3, 1fr); } }
+.theme { background: var(--surface); border: 1px solid var(--rule); border-top: 2px solid var(--accent); border-radius: 4px; padding: 1.25rem 1.25rem 1.4rem; box-shadow: 0 1px 2px rgb(0 0 0 / .04), 0 10px 28px -14px var(--shadow); }
+.theme .label { color: var(--accent); }
+.theme h3 { margin: .5rem 0 .4rem; font-size: 1.1rem; }
+.theme p { font-size: .98rem; color: var(--ink-2); margin: 0; line-height: 1.5; }
+
+/* Facts row */
+.facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 2.25rem; }
+@media (min-width: 640px) { .facts { grid-template-columns: repeat(4, 1fr); } }
+.fact { border-top: 1px solid var(--rule); padding-top: .9rem; }
+.fact .v { font-size: 1.75rem; line-height: 1.1; color: var(--accent); }
+.fact .k { margin-top: .3rem; }
+
+/* Projects */
+.project { padding: 1.75rem 0; border-bottom: 1px solid var(--rule); }
+.project:first-of-type { padding-top: 0; }
+.project:last-of-type { border-bottom: 0; }
+.project .meta { display: flex; flex-wrap: wrap; gap: .25rem 1rem; color: var(--ink-3); margin-bottom: .55rem; }
+.project h3 { margin-bottom: .6rem; }
+.project > p { color: var(--ink-2); }
+.tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: .9rem 0 0; padding: 0; list-style: none; }
+.tags li { font-family: var(--mono); font-size: .7rem; padding: .15rem .5rem; border: 1px solid var(--rule); border-radius: 999px; color: var(--ink-2); }
+details { margin-top: 1rem; }
+summary { cursor: pointer; font-family: var(--mono); font-size: .75rem; color: var(--accent); list-style: none; display: inline-flex; align-items: center; gap: .4rem; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "+"; display: inline-block; width: .8em; transition: transform .2s; }
+details[open] summary::before { content: "−"; }
+.detail { margin-top: 1rem; padding-left: 1rem; border-left: 1px solid var(--accent); }
+.detail dt { font-family: var(--mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-3); margin-top: .9rem; }
+.detail dt:first-child { margin-top: 0; }
+.detail dd { margin: .2rem 0 0; color: var(--ink-2); font-size: 1.02rem; }
+
+/* Timeline lists (experience, awards, etc.) */
+.rows { list-style: none; margin: 0; padding: 0; }
+.rows li { display: grid; gap: .15rem 1.5rem; padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+.rows li:first-child { padding-top: 0; }
+.rows li:last-child { border-bottom: 0; }
+@media (min-width: 640px) { .rows li { grid-template-columns: 7.5rem 1fr; } }
+.rows .when { font-family: var(--mono); font-size: .75rem; color: var(--ink-3); padding-top: .3rem; }
+.rows .what { font-weight: 500; }
+.rows .where { color: var(--ink-2); font-size: 1rem; }
+.rows .note { color: var(--ink-2); font-size: 1rem; margin-top: .25rem; }
+.subhead { margin: 2.5rem 0 1rem; }
+
+/* Skills */
+.skills { display: grid; gap: 1.5rem; }
+@media (min-width: 640px) { .skills { grid-template-columns: repeat(2, 1fr); gap: 2rem 2.5rem; } }
+.skills h3 { font-family: var(--mono); font-size: .72rem; font-weight: 500; text-transform: uppercase; letter-spacing: .12em; color: var(--ink-3); margin-bottom: .5rem; }
+.skills p { color: var(--ink-2); margin: 0; font-size: 1.02rem; }
+
+/* Beyond */
+.beyond { display: grid; gap: 1.5rem; margin-top: .5rem; }
+@media (min-width: 640px) { .beyond { grid-template-columns: repeat(2, 1fr); gap: 2rem 2.5rem; } }
+.beyond h3 { font-size: 1.05rem; margin-bottom: .3rem; }
+.beyond p { color: var(--ink-2); font-size: 1.02rem; margin: 0; }
+
+/* Contact */
+.contact h2 { font-size: clamp(1.8rem, 5vw, 2.4rem); }
+.contact .links { display: grid; gap: .6rem; margin-top: 1.5rem; }
+@media (min-width: 640px) { .contact .links { grid-template-columns: repeat(2, 1fr); } }
+.contact .links a { display: flex; justify-content: space-between; align-items: baseline; padding: .8rem 0; border-bottom: 1px solid var(--rule); text-decoration: none; }
+.contact .links a span:last-child { font-family: var(--mono); font-size: .75rem; color: var(--ink-3); }
+.contact .links a:hover span:last-child { color: var(--accent); }
+
+footer { padding: 2.5rem 0 3rem; color: var(--ink-3); }
+footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; }
+
+/* Hero photo */
+.hero-grid { display: grid; gap: 1.75rem; }
+.portrait { margin: 0; width: 8.5rem; }
+.portrait img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 28%; border-radius: 3px; background: var(--rule); }
+@media (min-width: 720px) {
+  .hero-grid { grid-template-columns: 1fr 12.5rem; align-items: end; gap: 3rem; }
+  .portrait { width: 100%; order: 2; }
+}
+
+/* Citations */
+.cites { list-style: none; margin: 0; padding: 0; }
+.cites li { padding: .9rem 0; border-bottom: 1px solid var(--rule); color: var(--ink-2); font-size: 1rem; }
+.cites li:first-child { padding-top: 0; }
+.cites li:last-child { border-bottom: 0; }
+.cites .t { color: var(--ink); }
+.cites .badge { font-family: var(--mono); font-size: .68rem; color: var(--accent); border: 1px solid currentColor; border-radius: 999px; padding: .05rem .45rem; margin-left: .35rem; white-space: nowrap; }
+
+/* Reveal on scroll */
+.reveal { opacity: 0; transform: translateY(10px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+@media print {
+  header.nav, .trace, .theme-btn { display: none; }
+  .reveal { opacity: 1; transform: none; }
+  details > *:not(summary) { display: block; }
+  section { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!--
+  HOW TO EDIT
+  Everything is plain HTML below. Spots marked <!- - ADD: … - -> are empty slots
+  where you can add things later (hobbies, LinkedIn, Google Scholar, etc.).
+-->
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="mark" href="#top">M. Raffay Chaudhry</a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#experience">Training</a></li>
+      <li><a href="#awards">Awards</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#beyond">Leadership</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode" title="Toggle theme">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8" cy="8" r="6"/><path d="M8 2a6 6 0 0 0 0 12z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ───────────── Hero ───────────── -->
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <figure class="portrait"><img src="photo.jpg" alt="Portrait of Muhammad Raffay Chaudhry" width="400" height="500"></figure>
+        <div>
+          <span class="label status">Applying to PhD programs · Fall 2027</span>
+          <h1>Muhammad Raffay Chaudhry<br><em>listening to the solid Earth.</em></h1>
+          <p class="lede">Geoscience senior at the <strong>University of Wisconsin–Green Bay</strong>. I study how fluids and stress move through rock and ice, using seismic signals and geophysical surveys to see what happens underground.</p>
+          <div class="links">
+            <a href="cv.pdf">Curriculum vitae ↓</a>
+            <a href="mailto:raffaychaudhary1@gmail.com">Email</a>
+            <a href="https://github.com/Raffaycodes">GitHub</a>
+            <!-- ADD: <a href="…">Google Scholar</a> / <a href="…">LinkedIn</a> -->
+          </div>
+        </div>
+      </div>
+
+      <figure class="trace" aria-hidden="true">
+        <svg id="seis" viewBox="0 0 1000 120" preserveAspectRatio="none">
+          <line class="axis" x1="0" y1="60" x2="1000" y2="60"/>
+          <path class="wave" id="wave" d=""/>
+          <g class="pick" id="pickP"><line x1="0" y1="8" x2="0" y2="112"/><text x="5" y="16">P</text></g>
+          <g class="pick" id="pickS"><line x1="0" y1="8" x2="0" y2="112"/><text x="5" y="16">S</text></g>
+        </svg>
+        <figcaption class="mono"><span>Synthetic seismogram · STA/LTA picks</span><span>BHZ</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- ───────────── About ───────────── -->
+  <section id="about">
+    <div class="wrap">
+      <span class="label">01 — About</span>
+      <h2 class="reveal">Fluids, rock, and ice under stress.</h2>
+      <div class="prose reveal">
+        <p>I'm from <strong>Pakistan</strong> and came to Wisconsin to study geoscience, first at St. Norbert College and then at UW–Green Bay. I've been drawn to the questions you can't see directly: what water is doing inside rock, how a slope weakens before it fails, how a reservoir responds when CO₂ is pushed into it.</p>
+        <p>I taught myself Python and began building my own tools for seismic data, from waveform processing in <strong>ObsPy</strong> and <strong>SAC</strong> to a pipeline that detects P-wave arrivals automatically. This summer I completed the 12-week <strong>NSF–EarthScope Seismology Skill Building Workshop</strong>. As a research assistant on four projects, I've run electromagnetic surveys, measured fluid inclusions from an ore deposit, and sampled soils and water across Wisconsin.</p>
+        <p>For my PhD I want to work where <strong>fluid flow meets rock and ice mechanics</strong>, whether that means monitoring induced seismicity at a carbon storage site, detecting landslides from seismic signals, or understanding how meltwater changes the way an ice sheet moves.</p>
+      </div>
+
+      <div class="themes reveal">
+        <div class="theme">
+          <span class="label">Subsurface</span>
+          <h3>Carbon storage</h3>
+          <p>Geomechanics and monitoring of CO₂ injection: pressure, fluid migration, and induced seismicity.</p>
+        </div>
+        <div class="theme">
+          <span class="label">Hazards</span>
+          <h3>Seismic monitoring</h3>
+          <p>Detecting earthquakes, landslides, and other mass movements in continuous seismic records.</p>
+        </div>
+        <div class="theme">
+          <span class="label">Cryosphere</span>
+          <h3>Ice sheet dynamics</h3>
+          <p>Basal hydrology, glacial seismicity, and models of how ice flows and fractures.</p>
+        </div>
+      </div>
+
+      <div class="facts reveal">
+        <div class="fact"><div class="v">3.96</div><div class="k label">GPA · Dean's List every term</div></div>
+        <div class="fact"><div class="v">4</div><div class="k label">Research assistantships</div></div>
+        <div class="fact"><div class="v">3</div><div class="k label">Conference posters</div></div>
+        <div class="fact"><div class="v">Dec 2026</div><div class="k label">B.S. Geoscience</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── Research ───────────── -->
+  <section id="research">
+    <div class="wrap">
+      <span class="label">02 — Research</span>
+      <h2 class="reveal">Projects</h2>
+
+      <article class="project reveal">
+        <div class="meta mono"><span>2026</span><span>Independent project</span></div>
+        <h3>Seismic signal processing &amp; P-wave detection</h3>
+        <p>A Python and ObsPy pipeline that pulls waveform data from FDSN web services and applies STA/LTA triggers to detect P-wave arrivals automatically.</p>
+        <ul class="tags"><li>Python</li><li>ObsPy</li><li>STA/LTA</li><li>FDSN</li></ul>
+        <details>
+          <summary>Methods &amp; validation</summary>
+          <dl class="detail">
+            <dt>Data</dt><dd>Waveforms retrieved programmatically through FDSN web services.</dd>
+            <dt>Method</dt><dd>Bandpass filtering followed by a short-term / long-term average (STA/LTA) trigger to flag the onset of the P-wave.</dd>
+            <dt>Validation</dt><dd>Tested on a real earthquake recorded at station COP (Copenhagen, Denmark) on 19 February 2009, bandpass filtered 0.5–8 Hz to isolate the arrival from background noise.</dd>
+            <dt>Code</dt><dd><a href="https://github.com/Raffaycodes/Seismic-P-wave-Detection">github.com/Raffaycodes/Seismic-P-wave-Detection</a></dd>
+          </dl>
+        </details>
+      </article>
+
+      <article class="project reveal">
+        <div class="meta mono"><span>Oct 2025 – Sep 2026</span><span>Geophysics RA · Dr. John Luczaj</span></div>
+        <h3>EM-31 survey for municipal water-main leak detection</h3>
+        <p>Electromagnetic surveys mapping subsurface conductivity around a suspected municipal water-main leak, turned into GIS conductivity maps and anomaly models.</p>
+        <ul class="tags"><li>EM-31</li><li>ArcGIS Pro</li><li>Gridding</li><li>Anomaly mapping</li></ul>
+        <details>
+          <summary>Methods &amp; results</summary>
+          <dl class="detail">
+            <dt>Problem</dt><dd>A suspected leak near a municipal water main, with utility records that disagreed on where the main actually ran.</dd>
+            <dt>Method</dt><dd>EM-31 terrain conductivity surveys over the site, gridded into high-resolution GIS conductivity maps and spatial anomaly models.</dd>
+            <dt>Result</dt><dd>The conductivity anomalies resolved the conflicting utility records of the main's location.</dd>
+            <dt>Output</dt><dd>Presented at the AIPG National Conference, Duluth, MN (2026). Awarded <strong>Best Poster Presentation</strong>.</dd>
+          </dl>
+        </details>
+      </article>
+
+      <article class="project reveal">
+        <div class="meta mono"><span>Dec 2025 – Jul 2026</span><span>Fluid inclusion RA · Dr. John Luczaj</span></div>
+        <h3>Ore-forming fluids at Eagle Mine, Michigan</h3>
+        <p>Fluid inclusion microthermometry to characterize the fluids that formed the ore at Eagle Mine and how their temperature changed through time.</p>
+        <ul class="tags"><li>Microthermometry</li><li>Thin sections</li><li>Petrography</li><li>Fluid–rock interaction</li></ul>
+        <details>
+          <summary>Methods</summary>
+          <dl class="detail">
+            <dt>Samples</dt><dd>Thin sections prepared from Eagle Mine material.</dd>
+            <dt>Method</dt><dd>Petrographic observation of inclusion assemblages combined with heating and freezing measurements.</dd>
+            <dt>Goal</dt><dd>Constrain the temperature evolution of the mineralizing fluids.</dd>
+          </dl>
+        </details>
+      </article>
+
+      <article class="project reveal">
+        <div class="meta mono"><span>Nov 2025 – Aug 2026</span><span>Soils RA · Dr. Kevin Fermanich, CSET</span></div>
+        <h3>Baseline soils for an agrivoltaic conversion</h3>
+        <p>Soil characterization of farmland being converted to solar, establishing a baseline before the panels go in.</p>
+        <ul class="tags"><li>Soil coring</li><li>Flash 2000 CHNS</li><li>GIS</li><li>Power analysis</li></ul>
+        <details>
+          <summary>Methods</summary>
+          <dl class="detail">
+            <dt>Field &amp; lab</dt><dd>Soil sampling, bulk density, and C/N concentration analysis on a Flash 2000 elemental analyzer.</dd>
+            <dt>Analysis</dt><dd>GIS spatial analysis across the study plots to evaluate site suitability and map nutrient distribution. Independently ran a power analysis to test whether the sampling design had an adequate sample size.</dd>
+            <dt>Water</dt><dd>Worked with a graduate researcher on water sampling to quantify metal concentrations.</dd>
+            <dt>Output</dt><dd>Poster at the UWGB Academic Excellence Symposium (2026).</dd>
+          </dl>
+        </details>
+      </article>
+
+      <article class="project reveal">
+        <div class="meta mono"><span>Nov 2025 – Mar 2026</span><span>Hydrology RA · Dr. Matthew Dougherty</span></div>
+        <h3>Phosphate transport in creeks, rivers, and lakes</h3>
+        <p>Collected and analyzed water samples across connected creek, river, and lake systems to assess total phosphate distribution and nutrient transport.</p>
+        <ul class="tags"><li>Water sampling</li><li>Nutrient analysis</li><li>Hydrology</li></ul>
+      </article>
+
+      <h3 class="label subhead">Presentations</h3>
+      <ul class="cites reveal">
+        <li><strong class="t">Chaudhry, M.R.</strong>, Luczaj, J., &amp; Warr, L. (2026). <span class="t">EM-31 Geophysical Survey for Municipal Water-Main Leak Detection.</span> AIPG National Conference, Duluth, MN. <span class="badge">Best Poster</span></li>
+        <li><strong class="t">Chaudhry, M.R.</strong> &amp; Warr, L. (2026). <span class="t">Storm Drains as a Source of Phosphate in a Small Southeast Wisconsin Lake.</span> St. Norbert College Symposium.</li>
+        <li><strong class="t">Chaudhry, M.R.</strong> &amp; Fermanich, K. (2026). <span class="t">Baseline Soil Characterization of a Site Undergoing Agrivoltaic Conversion.</span> UWGB Academic Excellence Symposium.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ───────────── Education & training ───────────── -->
+  <section id="experience">
+    <div class="wrap">
+      <span class="label">03 — Education &amp; training</span>
+      <h2 class="reveal">Education, field &amp; lab</h2>
+      <ul class="rows reveal">
+        <li><span class="when">2024 – 2026</span>
+          <div><div class="what">B.S. Geoscience</div>
+          <div class="where">University of Wisconsin–Green Bay · expected Dec 2026</div>
+          <div class="note">GPA 3.96 / 4.00 · Dean's List every semester</div></div></li>
+        <li><span class="when">2023 – 2024</span>
+          <div><div class="what">St. Norbert College</div>
+          <div class="where">De Pere, Wisconsin · GPA 4.00 / 4.00</div></div></li>
+        <li><span class="when">Jun – Aug 2026</span>
+          <div><div class="what">Seismology Skill Building Workshop</div>
+          <div class="where">NSF &amp; EarthScope</div>
+          <div class="note">12-week program in scientific computing, observational seismology, seismic data analysis, and applied Python (ObsPy).</div></div></li>
+      </ul>
+
+      <h3 class="label subhead">Field &amp; lab</h3>
+      <ul class="rows reveal">
+        <li><span class="when">Jan 2027</span>
+          <div><div class="what">Volcanology Field Camp, Big Island of Hawaiʻi</div>
+          <div class="where">South Dakota School of Mines &amp; Technology · AAPG-funded</div>
+          <div class="note">Mapping lava flow stratigraphy and pāhoehoe and ʻaʻā structures in an active rift zone with GPS traverses, compass-and-clinometer mapping, and sampling for petrography.</div></div></li>
+        <li><span class="when">2026</span>
+          <div><div class="what">Precambrian terranes of Lake Superior</div>
+          <div class="where">UW–Green Bay geoscience field trip</div>
+          <div class="note">Outcrop mapping and stratigraphic correlation across the Penokean, Yavapai, and Baraboo orogenic belts.</div></div></li>
+        <li><span class="when">2024</span>
+          <div><div class="what">Northwoods of Wisconsin &amp; Upper Peninsula, Michigan</div>
+          <div class="where">Mineralogy field trip</div>
+          <div class="note">Glacial stratigraphy, Penokean structures, and igneous assemblages including the Wolf River Batholith.</div></div></li>
+        <li><span class="when">2024</span>
+          <div><div class="what">Core &amp; geochemistry lab</div>
+          <div class="where">UW–Green Bay</div>
+          <div class="note">Logged over 1,000 feet of drill core for the composite stratigraphic column of northeastern Wisconsin. Measured chloride, phosphorus, nitrate, carbon, and nitrogen by flame photometry and colorimetry, plus TSS/VSS.</div></div></li>
+      </ul>
+
+      <h3 class="label subhead">Certifications</h3>
+      <ul class="rows reveal">
+        <li><span class="when">2025 – 2026</span><div><div class="what">MIT OpenCourseWare</div><div class="where">Intro to CS &amp; Python · Computational Thinking &amp; Data Science</div></div></li>
+        <li><span class="when">2025</span><div><div class="what">Seismic Data Processing Certification</div><div class="where">Universiti Sains Malaysia</div></div></li>
+        <li><span class="when">2024</span><div><div class="what">ArcGIS Certification</div><div class="where">Esri</div></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ───────────── Awards ───────────── -->
+  <section id="awards">
+    <div class="wrap">
+      <span class="label">04 — Recognition</span>
+      <h2 class="reveal">Honors &amp; awards</h2>
+      <ul class="rows reveal">
+        <li><span class="when">2026</span>
+          <div><div class="what">SEG / P.C. Havens / Seismic Exchange Scholarship</div>
+          <div class="where">Society of Exploration Geophysicists · one student per academic year</div></div></li>
+        <li><span class="when">2026</span>
+          <div><div class="what">Best Poster Presentation</div>
+          <div class="where">AIPG National Conference</div></div></li>
+        <li><span class="when">2026</span>
+          <div><div class="what">AAPG Field Camp Scholarship</div>
+          <div class="where">American Association of Petroleum Geologists · funds Hawaiʻi volcanology field camp</div></div></li>
+        <li><span class="when">2025 &amp; 2026</span>
+          <div><div class="what">AIPG National Award</div>
+          <div class="where">American Institute of Professional Geologists · consecutive years</div></div></li>
+        <li><span class="when">2026</span>
+          <div><div class="what">Morgan-Macaluso Scholarship</div>
+          <div class="where">College of Science, Engineering &amp; Technology, UW–Green Bay · one to three students a year</div></div></li>
+        <li><span class="when">2024</span>
+          <div><div class="what">Exemplary Leadership Award</div>
+          <div class="where">St. Norbert College · five first-year students</div>
+          <div class="note">For organizing a town hall during campus budget cuts, attended by a third of the student body.</div></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ───────────── Skills ───────────── -->
+  <section id="skills">
+    <div class="wrap">
+      <span class="label">05 — Toolkit</span>
+      <h2 class="reveal">Skills</h2>
+      <div class="skills reveal">
+        <div><h3>Computational</h3><p>Python (NumPy, ObsPy, Pandas, Matplotlib), Jupyter, SAC, GMT, Unix/Linux shell, ArcGIS Pro, QGIS</p></div>
+        <div><h3>Seismology</h3><p>STA/LTA event detection, filtering, component rotation, spectrograms, instrument response removal, FDSN/SAGE data retrieval</p></div>
+        <div><h3>Geophysics &amp; geodesy</h3><p>EM-31 conductivity surveying, data gridding and anomaly mapping, geodetic time-series analysis</p></div>
+        <div><h3>Field &amp; lab</h3><p>Geologic and volcanic mapping, drill-core logging, soil coring, water sampling, petrographic microscopy, fluid inclusion microthermometry, CHNS elemental analysis</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── Leadership & life ───────────── -->
+  <section id="beyond">
+    <div class="wrap">
+      <span class="label">06 — Outside the lab</span>
+      <h2 class="reveal">Leadership &amp; life</h2>
+      <ul class="rows reveal">
+        <li><span class="when">2025 – now</span>
+          <div><div class="what">Student Body President &amp; Shared Governance Chair</div>
+          <div class="where">UW–Green Bay Student Government Association</div>
+          <div class="note">Co-authored the first AI policy framework in UW System history with the Board of Regents. Represented 13,000 students, expanded the Senate from 4 to 30 members, and led a team of 40+ student leaders. Served as student representative on the search committee for the 10th President of the UW System, representing 165,000+ students, and coordinated student governance across 12 UW campuses.</div></div></li>
+        <li><span class="when">2025</span>
+          <div><div class="what">President, Muslim Students Association &amp; Geology Club</div>
+          <div class="where">UW–Green Bay</div>
+          <div class="note">Organized a campus-wide Ramadan iftar for 150+ attendees that raised $1,500, ran bi-weekly programming drawing 100+ participants, and rebuilt the Geology Club's visual identity with the Graphic Design department.</div></div></li>
+        <li><span class="when">2023 – 2025</span>
+          <div><div class="what">Competitive powerlifter</div>
+          <div class="where">USA Powerlifting &amp; Pakistan Powerlifting Federation</div>
+          <div class="note">Ranked 2nd in Pakistan (Junior, 59 kg). USAPL nationals qualifier representing St. Norbert College.</div></div></li>
+        <!-- ADD: hobbies or other interests as more <li> rows -->
+      </ul>
+    </div>
+  </section>
+
+  <!-- ───────────── Contact ───────────── -->
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <span class="label">07 — Contact</span>
+      <h2 class="reveal">Looking for a PhD lab for Fall 2027.</h2>
+      <p class="reveal" style="color:var(--ink-2)">If your group works on carbon storage, seismic monitoring, or ice dynamics, I'd be glad to hear from you.</p>
+      <div class="links reveal">
+        <a href="mailto:raffaychaudhary1@gmail.com"><span>Email</span><span>raffaychaudhary1@gmail.com</span></a>
+        <a href="cv.pdf"><span>Curriculum vitae</span><span>PDF ↓</span></a>
+        <a href="https://github.com/Raffaycodes"><span>GitHub</span><span>Raffaycodes</span></a>
+        <!-- ADD: <a href="…"><span>LinkedIn</span><span>username</span></a> -->
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap mono">
+    <span>© 2026 Muhammad Raffay Chaudhry</span>
+    <span>Green Bay, Wisconsin</span>
+  </div>
+</footer>
+
+<script>
+/* Theme toggle (remembered per visitor) */
+(() => {
+  const root = document.documentElement, btn = document.getElementById('themeBtn');
+  try { const t = localStorage.getItem('theme'); if (t) root.dataset.theme = t; } catch (e) {}
+  btn.addEventListener('click', () => {
+    const dark = root.dataset.theme !== "light";
+    root.dataset.theme = dark ? 'light' : 'dark';
+    try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+  });
+})();
+
+/* Synthetic seismogram: noise, then P arrival, then larger S arrival with coda */
+(() => {
+  const W = 1000, H = 120, mid = 60, N = 900;
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647 - .5;
+  const tP = 0.30, tS = 0.56;
+  const pts = [];
+  for (let i = 0; i <= N; i++) {
+    const t = i / N;
+    let y = rnd() * 2.2;                                    // background noise
+    if (t > tP) { const d = t - tP; y += Math.exp(-d * 9) * 22 * Math.sin(d * 420) * (0.6 + rnd()); }
+    if (t > tS) { const d = t - tS; y += Math.exp(-d * 5.5) * 48 * Math.sin(d * 260 + 1) * (0.55 + rnd()); }
+    pts.push([t * W, mid - y]);
+  }
+  const path = document.getElementById('wave');
+  path.setAttribute('d', 'M' + pts.map(p => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('L'));
+  document.getElementById('pickP').setAttribute('transform', `translate(${tP * W},0)`);
+  document.getElementById('pickS').setAttribute('transform', `translate(${tS * W},0)`);
+
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) {
+    const len = path.getTotalLength();
+    path.style.strokeDasharray = len; path.style.strokeDashoffset = len;
+    const picks = [document.getElementById('pickP'), document.getElementById('pickS')];
+    picks.forEach(p => { p.style.opacity = 0; p.style.transition = 'opacity .4s'; });
+    const dur = 2600, t0 = performance.now();
+    const step = now => {
+      const k = Math.min(1, (now - t0) / dur);
+      path.style.strokeDashoffset = len * (1 - k);
+      if (k > tP + .02) picks[0].style.opacity = 1;
+      if (k > tS + .02) picks[1].style.opacity = 1;
+      if (k < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+})();
+
+/* Nav border, active link, reveal-on-scroll */
+(() => {
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 8), { passive: true });
+
+  const links = [...document.querySelectorAll('.nav li a')];
+  const spy = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+  }), { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('section[id]').forEach(s => spy.observe(s));
+
+  const rev = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); rev.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => rev.observe(el));
+})();
+</script>
+</body>
+</html>
