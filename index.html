@@ -5,36 +5,61 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Muhammad Raffay Chaudhry</title>
 <meta name="description" content="Geoscience undergraduate at UW-Green Bay. Research in seismology, geophysical monitoring, and fluid-rock interaction. Applying to PhD programs for Fall 2027.">
+<link rel="canonical" href="https://raffaychaudhry.com/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#f4f7f6">
+<!-- Apply the saved theme before first paint (light unless the visitor chose dark) -->
+<script>try { if (localStorage.getItem('theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}</script>
+<!-- Link preview card (email, iMessage, Slack, LinkedIn, X) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://raffaychaudhry.com/">
+<meta property="og:title" content="Muhammad Raffay Chaudhry · Geoscience">
+<meta property="og:description" content="Geoscience senior at UW–Green Bay applying to PhD programs for Fall 2027. Seismology, geophysical monitoring, carbon storage, and ice dynamics.">
+<meta property="og:image" content="https://raffaychaudhry.com/preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Muhammad Raffay Chaudhry, PhD applicant for Fall 2027, with a seismogram trace">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ───────────────────────── Tokens ───────────────────────── */
-/* Dark ("polar night") by default; light only when the visitor picks it with the toggle */
+/* Light ("glacier") by default; dark ("polar night") when the visitor picks it with the toggle.
+   Three accents, one per research theme: Ice (ice sheets, links), Lichen (carbon storage), Ember (seismic energy). */
 :root {
-  --bg: #0d1418;            /* deep slate blue, not pure black */
-  --surface: #131d22;
-  --ink: #e8edee;
-  --ink-2: #a9b6bb;
-  --ink-3: #6f7d83;
-  --rule: #213037;
-  --accent: #8cc6de;        /* ice blue */
-  --accent-soft: #16303b;
-  --wash: #10303c;          /* glow behind the hero */
-  --trace: #c9d4d8;
-  --shadow: rgb(0 0 0 / .35);
-  --todo-bg: #3a3213;
-  --todo-ink: #f3d77a;
+  color-scheme: light;
+  --bg: #f4f7f6;            /* cool glacier white, not cream */
+  --surface: #ffffff;
+  --ink: #13212a;
+  --ink-2: #435259;
+  --ink-3: #5c6b71;         /* AA on bg */
+  --rule: #dce4e4;
+  --accent: #1b5f86;        /* ice */
+  --accent-2: #2c7356;      /* lichen */
+  --accent-3: #9a6200;      /* ember */
+  --accent-soft: #dfecf3;
+  --accent-2-soft: #dcefe5;
+  --accent-3-soft: #f6ead3;
+  --wash: #e3eff4;          /* glow behind the hero */
+  --trace: #2b3a40;
+  --shadow: rgb(27 95 134 / .14);
+  --grain: .05;
+  --band: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+  --t-ui: 180ms;
+  --t-hero: 900ms;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
   --serif: "Newsreader", Georgia, "Times New Roman", serif;
   --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --measure: 48rem;
-  color-scheme: dark;
 }
-:root[data-theme="light"] {
-  color-scheme: light;
-  --bg: #fbfaf6; --surface: #ffffff; --ink: #1b2428; --ink-2: #4b565b; --ink-3: #87908f;
-  --rule: #e8e4db; --accent: #1d6382; --accent-soft: #e2eef3; --wash: #eaf3f6; --trace: #2b3a40;
-  --shadow: rgb(29 99 130 / .12); --todo-bg: #fff3c4; --todo-ink: #6b5200;
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0d1418; --surface: #131d22; --ink: #e8edee; --ink-2: #a9b6bb; --ink-3: #7c8a90;
+  --rule: #213037; --accent: #8cc6de; --accent-2: #84d1ab; --accent-3: #e8b65c;
+  --accent-soft: #16303b; --accent-2-soft: #15302a; --accent-3-soft: #33281a;
+  --wash: #10303c; --trace: #c9d4d8; --shadow: rgb(0 0 0 / .35); --grain: .07;
 }
 
 /* ───────────────────────── Base ───────────────────────── */
@@ -45,20 +70,19 @@ body {
   font: 400 1.125rem/1.6 var(--serif);
   -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
 }
-a { color: inherit; text-decoration-color: var(--rule); text-underline-offset: .18em; text-decoration-thickness: 1px; transition: color .15s, text-decoration-color .15s; }
+a { color: inherit; text-decoration-color: var(--rule); text-underline-offset: .18em; text-decoration-thickness: 1px; transition: color var(--t-ui) var(--ease-out), text-decoration-color var(--t-ui) var(--ease-out); }
 a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 .wrap { max-width: var(--measure); margin: 0 auto; padding: 0 1rem; }
 @media (min-width: 640px) { .wrap { padding: 0 2rem; } }
 .mono, .label { font-family: var(--mono); font-size: .75rem; letter-spacing: .02em; }
 .label { text-transform: uppercase; letter-spacing: .12em; color: var(--ink-3); }
-.todo { background: var(--todo-bg); color: var(--todo-ink); padding: 0 .25em; border-radius: 2px; font-style: normal; }
 
 /* ───────────────────────── Nav ───────────────────────── */
 header.nav {
   position: sticky; top: 0; z-index: 10;
   background: color-mix(in srgb, var(--bg) 88%, transparent);
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid transparent; transition: border-color .2s;
+  border-bottom: 1px solid transparent; transition: border-color var(--t-ui) var(--ease-out);
 }
 header.nav.scrolled { border-bottom-color: var(--rule); }
 .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 3.5rem; gap: 1rem; }
@@ -78,8 +102,9 @@ header.nav.scrolled { border-bottom-color: var(--rule); }
 .hero h1 em { font-style: italic; font-weight: 300; color: var(--ink-2); }
 .hero .lede { font-size: 1.25rem; color: var(--ink-2); max-width: 36rem; margin: 0; font-weight: 300; }
 .hero .lede strong { color: var(--ink); font-weight: 400; }
-.status { display: inline-flex; align-items: center; gap: .5rem; }
-.status::before { content: ""; width: .45rem; height: .45rem; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.status { display: inline-flex; align-items: center; gap: .55rem; font-size: .8rem; color: var(--ink-2); }
+.status::before { content: ""; width: .45rem; height: .45rem; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 0 3px var(--accent-2-soft); animation: beacon 2.4s var(--ease-out) infinite; }
+@keyframes beacon { 0%, 100% { box-shadow: 0 0 0 3px var(--accent-2-soft); } 50% { box-shadow: 0 0 0 7px transparent; } }
 .hero .links { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 2rem; }
 .hero .links a { font-family: var(--mono); font-size: .8rem; }
 
@@ -89,12 +114,13 @@ header.nav.scrolled { border-bottom-color: var(--rule); }
 .trace path.wave { fill: none; stroke: var(--trace); stroke-width: 1; stroke-linejoin: round; }
 .trace .pick line { stroke: var(--accent); stroke-width: 1; }
 .trace .pick text { fill: var(--accent); font: 500 11px var(--mono); }
+.trace #pickS line { stroke: var(--accent-3); }
+.trace #pickS text { fill: var(--accent-3); }
 .trace .axis { stroke: var(--rule); stroke-width: 1; }
 .trace figcaption { display: flex; justify-content: space-between; gap: 1rem; margin-top: .6rem; color: var(--ink-3); }
 
 /* ───────────────────────── Sections ───────────────────────── */
 section { padding: 3.5rem 0; border-top: 1px solid var(--rule); }
-section > .wrap > .label { display: block; margin-bottom: 1.5rem; }
 h2 { font-weight: 400; font-size: 1.9rem; letter-spacing: -.01em; line-height: 1.15; margin: 0 0 1.5rem; }
 h3 { font-weight: 500; font-size: 1.2rem; line-height: 1.3; margin: 0; }
 p { margin: 0 0 1rem; }
@@ -102,18 +128,23 @@ p { margin: 0 0 1rem; }
 .prose p strong { color: var(--ink); font-weight: 500; }
 
 /* Interests */
-.themes { display: grid; gap: .9rem; margin-top: 2rem; }
+.themes { display: grid; gap: 1.5rem 2rem; margin-top: 2.25rem; }
 @media (min-width: 640px) { .themes { grid-template-columns: repeat(3, 1fr); } }
-.theme { background: var(--surface); border: 1px solid var(--rule); border-top: 2px solid var(--accent); border-radius: 4px; padding: 1.25rem 1.25rem 1.4rem; box-shadow: 0 1px 2px rgb(0 0 0 / .04), 0 10px 28px -14px var(--shadow); }
-.theme .label { color: var(--accent); }
-.theme h3 { margin: .5rem 0 .4rem; font-size: 1.1rem; }
+.theme { padding-top: 1rem; border-top: 2px solid var(--c, var(--accent)); }
+.theme:nth-child(1) { --c: var(--accent-2); }  /* carbon storage: lichen */
+.theme:nth-child(2) { --c: var(--accent-3); }  /* seismic: ember */
+.theme h3::before { content: ""; display: inline-block; width: .5rem; height: .5rem; border-radius: 50%; background: var(--c, var(--accent)); margin-right: .55rem; vertical-align: .12em; }
+.theme h3 { margin: 0 0 .4rem; font-size: 1.1rem; }
 .theme p { font-size: .98rem; color: var(--ink-2); margin: 0; line-height: 1.5; }
 
 /* Facts row */
 .facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 2.25rem; }
 @media (min-width: 640px) { .facts { grid-template-columns: repeat(4, 1fr); } }
 .fact { border-top: 1px solid var(--rule); padding-top: .9rem; }
-.fact .v { font-size: 1.75rem; line-height: 1.1; color: var(--accent); }
+.fact .v { font-size: 2rem; line-height: 1.1; color: var(--accent); font-variant-numeric: tabular-nums; }
+.fact:nth-child(2) .v { color: var(--accent-2); }
+.fact:nth-child(3) .v { color: var(--accent-3); }
+.fact:nth-child(4) .v { color: var(--ink); }
 .fact .k { margin-top: .3rem; }
 
 /* Projects */
@@ -126,9 +157,13 @@ p { margin: 0 0 1rem; }
 .tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: .9rem 0 0; padding: 0; list-style: none; }
 .tags li { font-family: var(--mono); font-size: .7rem; padding: .15rem .5rem; border: 1px solid var(--rule); border-radius: 999px; color: var(--ink-2); }
 details { margin-top: 1rem; }
-summary { cursor: pointer; font-family: var(--mono); font-size: .75rem; color: var(--accent); list-style: none; display: inline-flex; align-items: center; gap: .4rem; }
+summary { cursor: pointer; transition: color var(--t-ui) var(--ease-out); font-family: var(--mono); font-size: .75rem; color: var(--accent); list-style: none; display: inline-flex; align-items: center; gap: .4rem; }
 summary::-webkit-details-marker { display: none; }
-summary::before { content: "+"; display: inline-block; width: .8em; transition: transform .2s; }
+summary::before { content: "+"; display: inline-block; width: .8em; }
+summary:hover { color: var(--ink); }
+details[open] .detail { animation: open var(--t-ui) var(--ease-out); }
+@keyframes open { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { details[open] .detail { animation: none; } }
 details[open] summary::before { content: "−"; }
 .detail { margin-top: 1rem; padding-left: 1rem; border-left: 1px solid var(--accent); }
 .detail dt { font-family: var(--mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-3); margin-top: .9rem; }
@@ -153,30 +188,17 @@ details[open] summary::before { content: "−"; }
 .skills h3 { font-family: var(--mono); font-size: .72rem; font-weight: 500; text-transform: uppercase; letter-spacing: .12em; color: var(--ink-3); margin-bottom: .5rem; }
 .skills p { color: var(--ink-2); margin: 0; font-size: 1.02rem; }
 
-/* Beyond */
-.beyond { display: grid; gap: 1.5rem; margin-top: .5rem; }
-@media (min-width: 640px) { .beyond { grid-template-columns: repeat(2, 1fr); gap: 2rem 2.5rem; } }
-.beyond h3 { font-size: 1.05rem; margin-bottom: .3rem; }
-.beyond p { color: var(--ink-2); font-size: 1.02rem; margin: 0; }
-
-/* Contact */
-.contact h2 { font-size: clamp(1.8rem, 5vw, 2.4rem); }
-.contact .links { display: grid; gap: .6rem; margin-top: 1.5rem; }
-@media (min-width: 640px) { .contact .links { grid-template-columns: repeat(2, 1fr); } }
-.contact .links a { display: flex; justify-content: space-between; align-items: baseline; padding: .8rem 0; border-bottom: 1px solid var(--rule); text-decoration: none; }
-.contact .links a span:last-child { font-family: var(--mono); font-size: .75rem; color: var(--ink-3); }
-.contact .links a:hover span:last-child { color: var(--accent); }
-
 footer { padding: 2.5rem 0 3rem; color: var(--ink-3); }
 footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; }
 
 /* Hero photo */
-.hero-grid { display: grid; gap: 1.75rem; }
-.portrait { margin: 0; width: 8.5rem; }
-.portrait img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 28%; border-radius: 3px; background: var(--rule); }
-@media (min-width: 720px) {
-  .hero-grid { grid-template-columns: 1fr 12.5rem; align-items: end; gap: 3rem; }
-  .portrait { width: 100%; order: 2; }
+.hero > .wrap, header.nav .wrap { max-width: 68rem; }
+.hero-grid { display: grid; gap: 2rem; }
+.portrait { margin: 0; width: 100%; max-width: 26rem; }
+.portrait img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 28%; border-radius: 6px; background: var(--rule); box-shadow: 0 24px 60px -28px var(--shadow); }
+@media (min-width: 820px) {
+  .hero-grid { grid-template-columns: 1fr 24rem; align-items: center; gap: 4rem; }
+  .portrait { order: 2; }
 }
 
 /* Citations */
@@ -187,16 +209,147 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
 .cites .t { color: var(--ink); }
 .cites .badge { font-family: var(--mono); font-size: .68rem; color: var(--accent); border: 1px solid currentColor; border-radius: 999px; padding: .05rem .45rem; margin-left: .35rem; white-space: nowrap; }
 
-/* Reveal on scroll */
-.reveal { opacity: 0; transform: translateY(10px); transition: opacity .7s ease, transform .7s ease; }
-.reveal.in { opacity: 1; transform: none; }
+/* ───────────────────────── Motion ───────────────────────── */
+/* Aurora: two slow-drifting blurred lights behind the hero */
+.hero { position: relative; overflow: hidden; isolation: isolate; }
+.hero::before, .hero::after { content: ""; position: absolute; pointer-events: none; z-index: -1; }
+.hero::before {
+  inset: -30% -10% auto -10%; height: 90%;
+  background:
+    radial-gradient(40% 50% at 30% 50%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%),
+    radial-gradient(35% 45% at 70% 40%, color-mix(in srgb, var(--accent-2) 18%, transparent), transparent 70%),
+    radial-gradient(25% 35% at 92% 70%, color-mix(in srgb, var(--accent-3) 14%, transparent), transparent 70%);
+  filter: blur(40px); opacity: .5;
+  animation: aurora 22s ease-in-out infinite alternate;
+}
+@keyframes aurora {
+  0%   { transform: translate3d(-6%, 0, 0) rotate(-4deg) scaleY(1); }
+  50%  { transform: translate3d(4%, 4%, 0) rotate(3deg) scaleY(1.15); }
+  100% { transform: translate3d(8%, -2%, 0) rotate(-2deg) scaleY(.95); }
+}
+:root[data-theme="dark"] .hero::before { opacity: .6; }
+/* Cursor glow that follows the pointer */
+.hero::after {
+  inset: 0; opacity: 0; transition: opacity 400ms var(--ease-out);
+  background: radial-gradient(28rem 28rem at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%);
+}
+.hero.glow::after { opacity: 1; }
+
+/* Portrait: 3D tilt with a soft glare on hover */
+.portrait { perspective: 900px; }
+.portrait img { transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 500ms var(--ease-out), box-shadow 500ms var(--ease-out); will-change: transform; }
+.portrait { position: relative; }
+.portrait::after {
+  content: ""; position: absolute; inset: 0; border-radius: 6px; pointer-events: none; opacity: 0;
+  background: radial-gradient(60% 50% at var(--gx, 50%) var(--gy, 30%), rgb(255 255 255 / .18), transparent 70%);
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: opacity 300ms var(--ease-out), transform 500ms var(--ease-out);
+}
+.portrait.tilt img { transition-duration: 120ms; box-shadow: 0 40px 80px -30px var(--shadow); }
+.portrait.tilt::after { opacity: 1; transition-duration: 300ms, 120ms; }
+
+
+/* Section headings get an ice-blue rule that draws in */
+section h2 { position: relative; padding-bottom: .6rem; }
+section h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 3.5rem; height: 2px; border-radius: 2px; background: var(--band); transform-origin: left; }
+
+/* Hover answers */
+.nav li a { position: relative; }
+.nav li a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform var(--t-ui) var(--ease-out); }
+.nav li a:hover::after, .nav li a.active::after { transform: scaleX(1); }
+.project { position: relative; }
+.project::before { content: ""; position: absolute; left: -1rem; top: 1.75rem; bottom: 1.75rem; width: 2px; background: linear-gradient(var(--accent), var(--accent-2), var(--accent-3)); transform: scaleY(0); transform-origin: top; transition: transform 300ms var(--ease-out); }
+.project:first-of-type::before { top: 0; }
+.project:hover::before { transform: scaleY(1); }
+.tags li { transition: border-color var(--t-ui) var(--ease-out), color var(--t-ui) var(--ease-out); }
+.project:hover .tags li { border-color: color-mix(in srgb, var(--accent) 45%, var(--rule)); color: var(--ink); }
+.rows li { transition: background-color var(--t-ui) var(--ease-out); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::before { animation: none; }
+  .hero::after, .portrait::after { display: none; }
+  .portrait img { transform: none; transition: none; }
+}
+
+/* ───────────────────────── Finish ───────────────────────── */
+/* Fine film grain over everything, so flat colour reads like paper or ice */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: 100; pointer-events: none; opacity: var(--grain);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+::selection { background: var(--accent-soft); color: var(--ink); }
+
+/* Reading progress: the three-colour band along the top of the nav */
+.progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--band); transform-origin: left; transform: scaleX(0); }
+
+/* Headline: the italic line carries the three accents, drifting slowly */
+.hero h1 em {
+  background: linear-gradient(100deg, var(--accent) 0%, var(--accent-2) 45%, var(--accent-3) 80%, var(--accent) 100%);
+  background-size: 150% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: drift 14s ease-in-out infinite alternate; padding-right: .05em;
+}
+@keyframes drift { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+
+/* Primary link in the hero */
+.hero .links { align-items: center; }
+.hero .links a.btn {
+  display: inline-flex; align-items: center; gap: .5rem; padding: .7rem 1.1rem; border-radius: 999px;
+  background: var(--ink); color: var(--bg); text-decoration: none;
+  transition: transform var(--t-ui) var(--ease-out), box-shadow var(--t-ui) var(--ease-out), background-color var(--t-ui) var(--ease-out);
+}
+.hero .links a.btn:hover { background: var(--accent); color: var(--bg); transform: translateY(-1px); box-shadow: 0 10px 24px -12px var(--accent); }
+
+/* ── Field gallery ── */
+.wrap.wide { max-width: 68rem; }
+.gallery { columns: 2 12rem; column-gap: .9rem; margin-top: .5rem; }
+@media (min-width: 820px) { .gallery { columns: 3; } }
+.shot { break-inside: avoid; margin: 0 0 .9rem; }
+.shot button { all: unset; display: block; position: relative; width: 100%; border-radius: 6px; overflow: hidden; cursor: zoom-in; background: var(--rule); box-shadow: 0 18px 40px -26px var(--shadow); }
+.shot button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.shot img { display: block; width: 100%; height: auto; transition: transform 900ms var(--ease-out), filter 900ms var(--ease-out); }
+.shot button::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgb(8 16 20 / .55), transparent 45%); opacity: 0; transition: opacity 400ms var(--ease-out); }
+.shot figcaption { position: absolute; left: .9rem; right: .9rem; bottom: .75rem; z-index: 1; color: #fff; font: .72rem/1.4 var(--mono); opacity: 0; transform: translateY(6px); transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out); pointer-events: none; }
+.shot button:hover img, .shot button:focus-visible img { transform: scale(1.045); }
+.shot button:hover::after, .shot button:focus-visible::after,
+.shot button:hover figcaption, .shot button:focus-visible figcaption { opacity: 1; transform: none; }
+@media (hover: none) { .shot button::after, .shot figcaption { opacity: 1; transform: none; } }
+
+.lightbox { border: 0; padding: 0; margin: auto; max-width: min(92vw, 80rem); max-height: 92vh; background: transparent; color: #fff; overflow: visible; }
+.lightbox::backdrop { background: rgb(6 12 15 / .86); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.lightbox img { display: block; max-width: 100%; max-height: 82vh; margin: 0 auto; border-radius: 6px; box-shadow: 0 40px 100px -30px rgb(0 0 0 / .6); }
+.lightbox p { margin: .9rem 0 0; text-align: center; font: .78rem/1.5 var(--mono); color: rgb(255 255 255 / .82); }
+.lb-btn { position: fixed; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1px solid rgb(255 255 255 / .25); background: rgb(255 255 255 / .06); color: #fff; font: 1.1rem var(--mono); cursor: pointer; transition: background-color var(--t-ui) var(--ease-out); }
+.lb-btn:hover { background: rgb(255 255 255 / .18); }
+.lb-close { top: 1rem; right: 1rem; }
+.lb-prev { left: 1rem; top: 50%; transform: translateY(-50%); }
+.lb-next { right: 1rem; top: 50%; transform: translateY(-50%); }
+@media (max-width: 640px) { .lb-prev, .lb-next { top: auto; bottom: 1rem; transform: none; } }
+
+/* ── Sign-off ── */
+.signoff { padding: 5rem 0 3.5rem; border-top: 1px solid var(--rule); position: relative; overflow: hidden; }
+.signoff::before { content: ""; position: absolute; inset: auto -10% -60% -10%; height: 120%; z-index: -1; background: radial-gradient(40% 50% at 20% 50%, var(--accent-soft), transparent 70%), radial-gradient(35% 45% at 60% 60%, var(--accent-2-soft), transparent 70%), radial-gradient(30% 40% at 90% 40%, var(--accent-3-soft), transparent 70%); opacity: .8; }
+.signoff h2 { font-size: clamp(2rem, 6vw, 3.4rem); line-height: 1.05; letter-spacing: -.02em; max-width: 18ch; margin: 0 0 1.75rem; }
+.signoff h2 em { font-weight: 300; color: var(--ink-2); }
+.signoff .mail { font-size: clamp(1.15rem, 3.2vw, 1.6rem); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: .2rem; word-break: break-word; }
+.signoff .mail:hover { border-color: var(--accent); }
+.signoff .mail span { display: inline-block; transition: transform var(--t-ui) var(--ease-out); }
+.signoff .mail:hover span { transform: translateX(4px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero h1 em, .status::before { animation: none; }
+  .shot img { transition: none; }
+}
+@media print { body::after, .progress, .signoff::before { display: none; } }
+
+/* Focus: always visible for keyboard users */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+/* Hero load sequence is the seismogram drawing itself (JS); nothing else animates on load */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal { opacity: 1; transform: none; transition: none; }
 }
 @media print {
   header.nav, .trace, .theme-btn { display: none; }
-  .reveal { opacity: 1; transform: none; }
+  .hero::before, .hero::after { display: none; }
   details > *:not(summary) { display: block; }
   section { break-inside: avoid; }
 }
@@ -216,16 +369,17 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#research">Research</a></li>
+      <li><a href="#field">Field</a></li>
       <li><a href="#experience">Training</a></li>
       <li><a href="#awards">Awards</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#beyond">Leadership</a></li>
-      <li><a href="#contact">Contact</a></li>
     </ul>
     <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode" title="Toggle theme">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8" cy="8" r="6"/><path d="M8 2a6 6 0 0 0 0 12z" fill="currentColor"/></svg>
     </button>
   </div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
 </header>
 
 <main id="top">
@@ -236,11 +390,11 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
       <div class="hero-grid">
         <figure class="portrait"><img src="photo.jpg" alt="Portrait of Muhammad Raffay Chaudhry" width="400" height="500"></figure>
         <div>
-          <span class="label status">Applying to PhD programs · Fall 2027</span>
+          <span class="mono status">Applying to PhD programs for Fall 2027</span>
           <h1>Muhammad Raffay Chaudhry<br><em>listening to the solid Earth.</em></h1>
           <p class="lede">Geoscience senior at the <strong>University of Wisconsin–Green Bay</strong>. I study how fluids and stress move through rock and ice, using seismic signals and geophysical surveys to see what happens underground.</p>
           <div class="links">
-            <a href="cv.pdf">Curriculum vitae ↓</a>
+            <a class="btn" href="cv.pdf">Curriculum vitae <span aria-hidden="true">↓</span></a>
             <a href="mailto:raffaychaudhary1@gmail.com">Email</a>
             <a href="https://github.com/Raffaycodes">GitHub</a>
             <!-- ADD: <a href="…">Google Scholar</a> / <a href="…">LinkedIn</a> -->
@@ -263,33 +417,29 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
   <!-- ───────────── About ───────────── -->
   <section id="about">
     <div class="wrap">
-      <span class="label">01 — About</span>
-      <h2 class="reveal">Fluids, rock, and ice under stress.</h2>
-      <div class="prose reveal">
+      <h2>Fluids, rock, and ice under stress.</h2>
+      <div class="prose">
         <p>I'm from <strong>Pakistan</strong> and came to Wisconsin to study geoscience, first at St. Norbert College and then at UW–Green Bay. I've been drawn to the questions you can't see directly: what water is doing inside rock, how a slope weakens before it fails, how a reservoir responds when CO₂ is pushed into it.</p>
         <p>I taught myself Python and began building my own tools for seismic data, from waveform processing in <strong>ObsPy</strong> and <strong>SAC</strong> to a pipeline that detects P-wave arrivals automatically. This summer I completed the 12-week <strong>NSF–EarthScope Seismology Skill Building Workshop</strong>. As a research assistant on four projects, I've run electromagnetic surveys, measured fluid inclusions from an ore deposit, and sampled soils and water across Wisconsin.</p>
         <p>For my PhD I want to work where <strong>fluid flow meets rock and ice mechanics</strong>, whether that means monitoring induced seismicity at a carbon storage site, detecting landslides from seismic signals, or understanding how meltwater changes the way an ice sheet moves.</p>
       </div>
 
-      <div class="themes reveal">
+      <div class="themes">
         <div class="theme">
-          <span class="label">Subsurface</span>
           <h3>Carbon storage</h3>
           <p>Geomechanics and monitoring of CO₂ injection: pressure, fluid migration, and induced seismicity.</p>
         </div>
         <div class="theme">
-          <span class="label">Hazards</span>
           <h3>Seismic monitoring</h3>
           <p>Detecting earthquakes, landslides, and other mass movements in continuous seismic records.</p>
         </div>
         <div class="theme">
-          <span class="label">Cryosphere</span>
           <h3>Ice sheet dynamics</h3>
           <p>Basal hydrology, glacial seismicity, and models of how ice flows and fractures.</p>
         </div>
       </div>
 
-      <div class="facts reveal">
+      <div class="facts">
         <div class="fact"><div class="v">3.96</div><div class="k label">GPA · Dean's List every term</div></div>
         <div class="fact"><div class="v">4</div><div class="k label">Research assistantships</div></div>
         <div class="fact"><div class="v">3</div><div class="k label">Conference posters</div></div>
@@ -301,10 +451,9 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
   <!-- ───────────── Research ───────────── -->
   <section id="research">
     <div class="wrap">
-      <span class="label">02 — Research</span>
-      <h2 class="reveal">Projects</h2>
+      <h2>Projects</h2>
 
-      <article class="project reveal">
+      <article class="project">
         <div class="meta mono"><span>2026</span><span>Independent project</span></div>
         <h3>Seismic signal processing &amp; P-wave detection</h3>
         <p>A Python and ObsPy pipeline that pulls waveform data from FDSN web services and applies STA/LTA triggers to detect P-wave arrivals automatically.</p>
@@ -320,7 +469,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
         </details>
       </article>
 
-      <article class="project reveal">
+      <article class="project">
         <div class="meta mono"><span>Oct 2025 – Sep 2026</span><span>Geophysics RA · Dr. John Luczaj</span></div>
         <h3>EM-31 survey for municipal water-main leak detection</h3>
         <p>Electromagnetic surveys mapping subsurface conductivity around a suspected municipal water-main leak, turned into GIS conductivity maps and anomaly models.</p>
@@ -336,7 +485,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
         </details>
       </article>
 
-      <article class="project reveal">
+      <article class="project">
         <div class="meta mono"><span>Dec 2025 – Jul 2026</span><span>Fluid inclusion RA · Dr. John Luczaj</span></div>
         <h3>Ore-forming fluids at Eagle Mine, Michigan</h3>
         <p>Fluid inclusion microthermometry to characterize the fluids that formed the ore at Eagle Mine and how their temperature changed through time.</p>
@@ -351,7 +500,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
         </details>
       </article>
 
-      <article class="project reveal">
+      <article class="project">
         <div class="meta mono"><span>Nov 2025 – Aug 2026</span><span>Soils RA · Dr. Kevin Fermanich, CSET</span></div>
         <h3>Baseline soils for an agrivoltaic conversion</h3>
         <p>Soil characterization of farmland being converted to solar, establishing a baseline before the panels go in.</p>
@@ -367,7 +516,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
         </details>
       </article>
 
-      <article class="project reveal">
+      <article class="project">
         <div class="meta mono"><span>Nov 2025 – Mar 2026</span><span>Hydrology RA · Dr. Matthew Dougherty</span></div>
         <h3>Phosphate transport in creeks, rivers, and lakes</h3>
         <p>Collected and analyzed water samples across connected creek, river, and lake systems to assess total phosphate distribution and nutrient transport.</p>
@@ -375,7 +524,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
       </article>
 
       <h3 class="label subhead">Presentations</h3>
-      <ul class="cites reveal">
+      <ul class="cites">
         <li><strong class="t">Chaudhry, M.R.</strong>, Luczaj, J., &amp; Warr, L. (2026). <span class="t">EM-31 Geophysical Survey for Municipal Water-Main Leak Detection.</span> AIPG National Conference, Duluth, MN. <span class="badge">Best Poster</span></li>
         <li><strong class="t">Chaudhry, M.R.</strong> &amp; Warr, L. (2026). <span class="t">Storm Drains as a Source of Phosphate in a Small Southeast Wisconsin Lake.</span> St. Norbert College Symposium.</li>
         <li><strong class="t">Chaudhry, M.R.</strong> &amp; Fermanich, K. (2026). <span class="t">Baseline Soil Characterization of a Site Undergoing Agrivoltaic Conversion.</span> UWGB Academic Excellence Symposium.</li>
@@ -383,12 +532,27 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
     </div>
   </section>
 
+  <!-- ───────────── Field gallery ─────────────
+       HOW TO ADD A PHOTO: put the image in a folder called "field" next to index.html,
+       then copy one <figure> block below and change the file name and caption.
+       Photos of any shape work; the grid arranges them. Keep each file under ~500 KB (1600 px wide is plenty).
+       This whole section stays hidden until it has at least one photo. -->
+  <section id="field">
+    <div class="wrap wide">
+      <h2>In the field</h2>
+      <div class="gallery" id="gallery">
+        <!-- EXAMPLE (remove the two dashes-and-angle marks around it to use):
+        <figure class="shot"><button type="button"><img src="field/example.jpg" alt="Describe the photo" loading="lazy"><figcaption>Place · What you were doing · 2026</figcaption></button></figure>
+        -->
+      </div>
+    </div>
+  </section>
+
   <!-- ───────────── Education & training ───────────── -->
   <section id="experience">
     <div class="wrap">
-      <span class="label">03 — Education &amp; training</span>
-      <h2 class="reveal">Education, field &amp; lab</h2>
-      <ul class="rows reveal">
+      <h2>Education, field &amp; lab</h2>
+      <ul class="rows">
         <li><span class="when">2024 – 2026</span>
           <div><div class="what">B.S. Geoscience</div>
           <div class="where">University of Wisconsin–Green Bay · expected Dec 2026</div>
@@ -403,7 +567,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
       </ul>
 
       <h3 class="label subhead">Field &amp; lab</h3>
-      <ul class="rows reveal">
+      <ul class="rows">
         <li><span class="when">Jan 2027</span>
           <div><div class="what">Volcanology Field Camp, Big Island of Hawaiʻi</div>
           <div class="where">South Dakota School of Mines &amp; Technology · AAPG-funded</div>
@@ -423,7 +587,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
       </ul>
 
       <h3 class="label subhead">Certifications</h3>
-      <ul class="rows reveal">
+      <ul class="rows">
         <li><span class="when">2025 – 2026</span><div><div class="what">MIT OpenCourseWare</div><div class="where">Intro to CS &amp; Python · Computational Thinking &amp; Data Science</div></div></li>
         <li><span class="when">2025</span><div><div class="what">Seismic Data Processing Certification</div><div class="where">Universiti Sains Malaysia</div></div></li>
         <li><span class="when">2024</span><div><div class="what">ArcGIS Certification</div><div class="where">Esri</div></div></li>
@@ -434,9 +598,8 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
   <!-- ───────────── Awards ───────────── -->
   <section id="awards">
     <div class="wrap">
-      <span class="label">04 — Recognition</span>
-      <h2 class="reveal">Honors &amp; awards</h2>
-      <ul class="rows reveal">
+      <h2>Honors &amp; awards</h2>
+      <ul class="rows">
         <li><span class="when">2026</span>
           <div><div class="what">SEG / P.C. Havens / Seismic Exchange Scholarship</div>
           <div class="where">Society of Exploration Geophysicists · one student per academic year</div></div></li>
@@ -463,9 +626,8 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
   <!-- ───────────── Skills ───────────── -->
   <section id="skills">
     <div class="wrap">
-      <span class="label">05 — Toolkit</span>
-      <h2 class="reveal">Skills</h2>
-      <div class="skills reveal">
+      <h2>Skills</h2>
+      <div class="skills">
         <div><h3>Computational</h3><p>Python (NumPy, ObsPy, Pandas, Matplotlib), Jupyter, SAC, GMT, Unix/Linux shell, ArcGIS Pro, QGIS</p></div>
         <div><h3>Seismology</h3><p>STA/LTA event detection, filtering, component rotation, spectrograms, instrument response removal, FDSN/SAGE data retrieval</p></div>
         <div><h3>Geophysics &amp; geodesy</h3><p>EM-31 conductivity surveying, data gridding and anomaly mapping, geodetic time-series analysis</p></div>
@@ -477,9 +639,8 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
   <!-- ───────────── Leadership & life ───────────── -->
   <section id="beyond">
     <div class="wrap">
-      <span class="label">06 — Outside the lab</span>
-      <h2 class="reveal">Leadership &amp; life</h2>
-      <ul class="rows reveal">
+      <h2>Leadership &amp; life</h2>
+      <ul class="rows">
         <li><span class="when">2025 – now</span>
           <div><div class="what">Student Body President &amp; Shared Governance Chair</div>
           <div class="where">UW–Green Bay Student Government Association</div>
@@ -496,19 +657,11 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
       </ul>
     </div>
   </section>
-
-  <!-- ───────────── Contact ───────────── -->
-  <section id="contact" class="contact">
+  <!-- ───────────── Sign-off ───────────── -->
+  <section class="signoff" aria-label="Contact">
     <div class="wrap">
-      <span class="label">07 — Contact</span>
-      <h2 class="reveal">Looking for a PhD lab for Fall 2027.</h2>
-      <p class="reveal" style="color:var(--ink-2)">If your group works on carbon storage, seismic monitoring, or ice dynamics, I'd be glad to hear from you.</p>
-      <div class="links reveal">
-        <a href="mailto:raffaychaudhary1@gmail.com"><span>Email</span><span>raffaychaudhary1@gmail.com</span></a>
-        <a href="cv.pdf"><span>Curriculum vitae</span><span>PDF ↓</span></a>
-        <a href="https://github.com/Raffaycodes"><span>GitHub</span><span>Raffaycodes</span></a>
-        <!-- ADD: <a href="…"><span>LinkedIn</span><span>username</span></a> -->
-      </div>
+      <h2>Let's talk about what's happening <em>underground.</em></h2>
+      <a class="mail" href="mailto:raffaychaudhary1@gmail.com">raffaychaudhary1@gmail.com <span aria-hidden="true">→</span></a>
     </div>
   </section>
 </main>
@@ -520,69 +673,253 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
   </div>
 </footer>
 
+<dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
+  <img alt="">
+  <p></p>
+  <button class="lb-btn lb-close" type="button" aria-label="Close">✕</button>
+  <button class="lb-btn lb-prev" type="button" aria-label="Previous photo">←</button>
+  <button class="lb-btn lb-next" type="button" aria-label="Next photo">→</button>
+</dialog>
+
 <script>
 /* Theme toggle (remembered per visitor) */
 (() => {
   const root = document.documentElement, btn = document.getElementById('themeBtn');
-  try { const t = localStorage.getItem('theme'); if (t) root.dataset.theme = t; } catch (e) {}
+  const meta = document.querySelector('meta[name="theme-color"]');
+  const sync = () => { const dark = root.dataset.theme === 'dark'; btn.setAttribute('aria-pressed', dark); meta.content = dark ? '#0d1418' : '#f4f7f6'; };
+  sync();
   btn.addEventListener('click', () => {
-    const dark = root.dataset.theme !== "light";
-    root.dataset.theme = dark ? 'light' : 'dark';
-    try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+    const go = () => {
+      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+      sync();
+    };
+    // Cross-fade the whole page between themes where the browser supports it
+    if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.startViewTransition(go); else go();
   });
 })();
 
-/* Synthetic seismogram: noise, then P arrival, then larger S arrival with coda */
-(() => {
-  const W = 1000, H = 120, mid = 60, N = 900;
-  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647 - .5;
-  const tP = 0.30, tS = 0.56;
-  const pts = [];
-  for (let i = 0; i <= N; i++) {
-    const t = i / N;
-    let y = rnd() * 2.2;                                    // background noise
-    if (t > tP) { const d = t - tP; y += Math.exp(-d * 9) * 22 * Math.sin(d * 420) * (0.6 + rnd()); }
-    if (t > tS) { const d = t - tS; y += Math.exp(-d * 5.5) * 48 * Math.sin(d * 260 + 1) * (0.55 + rnd()); }
-    pts.push([t * W, mid - y]);
-  }
-  const path = document.getElementById('wave');
-  path.setAttribute('d', 'M' + pts.map(p => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('L'));
-  document.getElementById('pickP').setAttribute('transform', `translate(${tP * W},0)`);
-  document.getElementById('pickS').setAttribute('transform', `translate(${tS * W},0)`);
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const easeOut = x => 1 - Math.pow(1 - x, 3);
 
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reduce) {
-    const len = path.getTotalLength();
-    path.style.strokeDasharray = len; path.style.strokeDashoffset = len;
-    const picks = [document.getElementById('pickP'), document.getElementById('pickS')];
-    picks.forEach(p => { p.style.opacity = 0; p.style.transition = 'opacity .4s'; });
-    const dur = 2600, t0 = performance.now();
-    const step = now => {
-      const k = Math.min(1, (now - t0) / dur);
-      path.style.strokeDashoffset = len * (1 - k);
-      if (k > tP + .02) picks[0].style.opacity = 1;
-      if (k > tS + .02) picks[1].style.opacity = 1;
-      if (k < 1) requestAnimationFrame(step);
+/* Hero intro: text rises out of a blur, photo wipes up. Uses the Web Animations API and
+   force-finishes after 2.5 s, so nothing can stay hidden if the browser pauses animation. */
+(() => {
+  if (reduceMotion || !Element.prototype.animate) return;
+  const ease = 'cubic-bezier(.22, 1, .36, 1)';
+  const items = ['.hero .status', '.hero h1', '.hero .lede', '.hero .links'].map(s => document.querySelector(s));
+  const anims = items.map((el, i) => el.animate(
+    [{ opacity: 0, transform: 'translateY(22px)', filter: 'blur(8px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }],
+    { duration: 900, delay: 80 + i * 110, easing: ease, fill: 'backwards' }));
+  const img = document.querySelector('.portrait img');
+  anims.push(img.animate(
+    [{ clipPath: 'inset(100% 0 0 0 round 6px)', transform: 'scale(1.08)' }, { clipPath: 'inset(0 0 0 0 round 6px)', transform: 'none' }],
+    { duration: 1300, delay: 150, easing: ease, fill: 'backwards' }));
+  setTimeout(() => anims.forEach(a => { try { a.finish(); } catch (e) {} }), 2500);
+})();
+
+/* Seismogram: draws in, then keeps recording like a live helicorder, with a new
+   synthetic earthquake (P and S picks scroll with it) every 8–14 seconds. */
+(() => {
+  const W = 1000, mid = 60, N = 900, SP = Math.round(0.26 * N);   // S arrives 0.26 widths after P
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647 - .5;
+  const quake = (age, amp) => {                                    // signal of one event at a given age (samples)
+    let y = 0, d = age / N;
+    if (age >= 0) y += Math.exp(-d * 9) * 22 * amp * Math.sin(d * 420) * (0.6 + rnd());
+    if (age >= SP) { d = (age - SP) / N; y += Math.exp(-d * 5.5) * 48 * amp * Math.sin(d * 260 + 1) * (0.55 + rnd()); }
+    return y;
+  };
+  const tP = Math.round(0.30 * N);
+  let events = [{ age: -tP, amp: 1 }];
+  const buf = [];
+  const next = () => {                                             // generate one new sample
+    let y = rnd() * 2.2;
+    events.forEach(e => { y += quake(e.age, e.amp); e.age++; });
+    events = events.filter(e => e.age < N * 0.9);
+    return y;
+  };
+  for (let i = 0; i <= N; i++) buf.push(next());
+
+  const path = document.getElementById('wave');
+  const pickP = document.getElementById('pickP'), pickS = document.getElementById('pickS');
+  let picks = [{ x: tP, el: pickP }, { x: tP + SP, el: pickS }];
+  const render = () => {
+    let d = 'M';
+    for (let i = 0; i <= N; i++) d += (i ? 'L' : '') + (i * W / N).toFixed(1) + ' ' + (mid - buf[i]).toFixed(1);
+    path.setAttribute('d', d);
+    picks.forEach(p => {
+      p.el.setAttribute('transform', `translate(${(p.x * W / N).toFixed(1)},0)`);
+      p.el.style.opacity = p.x < 4 ? 0 : 1;
+    });
+  };
+  render();
+  if (reduceMotion) return;
+
+  // 1) draw-in
+  const len = path.getTotalLength();
+  path.style.strokeDasharray = len; path.style.strokeDashoffset = len;
+  [pickP, pickS].forEach(p => { p.style.transition = 'opacity .25s ease-out'; p.style.opacity = 0; });
+  const dur = 1400, delay = 450;
+  let t0 = null, drawn = false;
+  const finishDraw = () => {
+    if (drawn) return; drawn = true;
+    path.style.strokeDasharray = ''; path.style.strokeDashoffset = '';
+    render(); startLive();
+  };
+  const draw = now => {
+    if (t0 === null) t0 = now + delay;
+    const k = easeOut(Math.max(0, Math.min(1, (now - t0) / dur)));
+    path.style.strokeDashoffset = len * (1 - k);
+    pickP.style.opacity = k > 0.32 ? 1 : 0;
+    pickS.style.opacity = k > 0.58 ? 1 : 0;
+    k < 1 ? requestAnimationFrame(draw) : finishDraw();
+  };
+  requestAnimationFrame(draw);
+  setTimeout(finishDraw, delay + dur + 600);                       // fallback if frames are throttled
+
+  // 2) live recording
+  let visible = true, last = 0, carry = 0, nextQuake = 9 + Math.random() * 5;
+  const speed = 55;                                                // samples per second (~16 s across)
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(path.closest('figure'));
+  function startLive() {
+    const tick = now => {
+      if (last && visible && !document.hidden) {
+        const dt = Math.min(0.1, (now - last) / 1000);
+        carry += dt * speed;
+        const k = Math.floor(carry); carry -= k;
+        nextQuake -= dt;
+        if (nextQuake <= 0) {
+          nextQuake = 8 + Math.random() * 6;
+          events.push({ age: 0, amp: 0.35 + Math.random() * 0.75 });
+          picks.push({ x: N + 1, el: null, kind: 'P' }, { x: N + 1 + SP, el: null, kind: 'S' });
+        }
+        for (let i = 0; i < k; i++) { buf.shift(); buf.push(next()); }
+        picks.forEach(p => p.x -= k);
+        // reuse the two pick markers for the newest event still on screen
+        const onScreen = picks.filter(p => p.x > 0);
+        const lastP = [...onScreen].reverse().find(p => p.kind === 'P' || p.el === pickP);
+        const lastS = [...onScreen].reverse().find(p => p.kind === 'S' || p.el === pickS);
+        picks = onScreen;
+        if (lastP) { pickP.setAttribute('transform', `translate(${(lastP.x * W / N).toFixed(1)},0)`); pickP.style.opacity = lastP.x <= N ? 1 : 0; } else pickP.style.opacity = 0;
+        if (lastS) { pickS.setAttribute('transform', `translate(${(lastS.x * W / N).toFixed(1)},0)`); pickS.style.opacity = lastS.x <= N ? 1 : 0; } else pickS.style.opacity = 0;
+        let d = 'M';
+        for (let i = 0; i <= N; i++) d += (i ? 'L' : '') + (i * W / N).toFixed(1) + ' ' + (mid - buf[i]).toFixed(1);
+        path.setAttribute('d', d);
+      }
+      last = now;
+      requestAnimationFrame(tick);
     };
-    requestAnimationFrame(step);
+    requestAnimationFrame(tick);
   }
 })();
 
-/* Nav border, active link, reveal-on-scroll */
+/* Scroll reveals (staggered), count-ups, cursor glow and photo tilt */
 (() => {
-  const nav = document.getElementById('nav');
-  addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 8), { passive: true });
+  if (reduceMotion) return;
+  // Reveal: content is never hidden by CSS. Just before an element scrolls into view it plays a short
+  // rise-out-of-blur animation (Web Animations, fill "backwards"), force-finished after 2 s.
+  if (Element.prototype.animate) {
+    const ease = 'cubic-bezier(.22, 1, .36, 1)';
+    const groups = ['.prose p', '.themes > .theme', '.facts > .fact', '.project', '.rows > li', '.cites > li', '.skills > div', 'section h2', '.shot', '.signoff .mail'];
+    const delay = new Map();
+    const play = el => {
+      const d = delay.get(el) || 0;
+      const a = el.matches('.shot')
+        ? el.animate([{ clipPath: 'inset(18% 0 0 0 round 6px)', opacity: 0, transform: 'translateY(30px)' }, { clipPath: 'inset(0 0 0 0 round 6px)', opacity: 1, transform: 'none' }], { duration: 1000, delay: d, easing: ease, fill: 'backwards' })
+        : el.animate([{ opacity: 0, transform: 'translateY(26px)', filter: 'blur(4px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }], { duration: 850, delay: d, easing: ease, fill: 'backwards' });
+      setTimeout(() => { try { a.finish(); } catch (e) {} }, 2000);
+    };
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target); play(e.target);
+    }), { rootMargin: '0px 0px 8% 0px' });
+    groups.forEach(sel => {
+      const seen = new Map();
+      document.querySelectorAll(sel).forEach(el => {
+        if (el.getBoundingClientRect().top < innerHeight) return;
+        const i = seen.get(el.parentNode) || 0; seen.set(el.parentNode, i + 1);
+        delay.set(el, Math.min(i, 6) * 80); io.observe(el);
+      });
+    });
+  }
+
+  // Count-ups: the real number is in the HTML; it only animates from zero once in view.
+  const cio = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return; cio.unobserve(e.target);
+    const el = e.target, final = el.textContent, target = parseFloat(final), dp = (final.split('.')[1] || '').length;
+    const t0 = performance.now();
+    const step = now => {
+      const k = easeOut(Math.min(1, (now - t0) / 1300));
+      el.textContent = k < 1 ? (target * k).toFixed(dp) : final;
+      if (k < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+    setTimeout(() => { el.textContent = final; }, 1800);
+  }), { threshold: 0.6 });
+  document.querySelectorAll('.fact .v').forEach(v => { if (/^\d+(\.\d+)?$/.test(v.textContent.trim())) cio.observe(v); });
+
+  // Cursor glow in the hero and a gentle 3D tilt on the portrait (mouse/trackpad only)
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const hero = document.querySelector('.hero');
+  hero.addEventListener('pointermove', e => {
+    const r = hero.getBoundingClientRect();
+    hero.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    hero.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    hero.classList.add('glow');
+  });
+  hero.addEventListener('pointerleave', () => hero.classList.remove('glow'));
+  const fig = document.querySelector('.portrait');
+  fig.addEventListener('pointermove', e => {
+    const r = fig.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    fig.style.setProperty('--rx', (-y * 7).toFixed(2) + 'deg');
+    fig.style.setProperty('--ry', (x * 9).toFixed(2) + 'deg');
+    fig.style.setProperty('--gx', ((x + .5) * 100).toFixed(1) + '%');
+    fig.style.setProperty('--gy', ((y + .5) * 100).toFixed(1) + '%');
+    fig.classList.add('tilt');
+  });
+  fig.addEventListener('pointerleave', () => { fig.classList.remove('tilt'); fig.style.setProperty('--rx', '0deg'); fig.style.setProperty('--ry', '0deg'); });
+})();
+
+/* Field gallery: hidden until it has photos; click any photo for a full-screen viewer */
+(() => {
+  const section = document.getElementById('field'), shots = [...document.querySelectorAll('#gallery .shot')];
+  if (!shots.length) { section.remove(); document.querySelector('.nav a[href="#field"]').parentNode.remove(); return; }
+  const box = document.getElementById('lightbox'), img = box.querySelector('img'), cap = box.querySelector('p');
+  let at = 0;
+  const show = (i, dir = 0) => {
+    at = (i + shots.length) % shots.length;
+    const s = shots[at].querySelector('img');
+    img.src = s.currentSrc || s.src; img.alt = s.alt;
+    cap.textContent = shots[at].querySelector('figcaption')?.textContent || '';
+    if (img.animate && !reduceMotion) img.animate([{ opacity: 0, transform: `translateX(${dir * 24}px) scale(${dir ? 1 : .96})` }, { opacity: 1, transform: 'none' }], { duration: 450, easing: 'cubic-bezier(.22, 1, .36, 1)' });
+  };
+  shots.forEach((s, i) => s.querySelector('button').addEventListener('click', () => { show(i); box.showModal(); }));
+  box.querySelector('.lb-close').onclick = () => box.close();
+  box.querySelector('.lb-prev').onclick = () => show(at - 1, -1);
+  box.querySelector('.lb-next').onclick = () => show(at + 1, 1);
+  box.addEventListener('click', e => { if (e.target === box) box.close(); });
+  box.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') show(at - 1, -1); if (e.key === 'ArrowRight') show(at + 1, 1); });
+  let x0 = null;
+  box.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+  box.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) show(at + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1); x0 = null; });
+  if (shots.length < 2) box.querySelectorAll('.lb-prev, .lb-next').forEach(b => b.hidden = true);
+})();
+
+/* Nav border, reading progress and active link */
+(() => {
+  const nav = document.getElementById('nav'), bar = document.getElementById('progress');
+  const onScroll = () => {
+    nav.classList.toggle('scrolled', scrollY > 8);
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
+  };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
   const links = [...document.querySelectorAll('.nav li a')];
   const spy = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
   }), { rootMargin: '-45% 0px -50% 0px' });
   document.querySelectorAll('section[id]').forEach(s => spy.observe(s));
-
-  const rev = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('in'); rev.unobserve(e.target); }
-  }), { rootMargin: '0px 0px -8% 0px' });
-  document.querySelectorAll('.reveal').forEach(el => rev.observe(el));
 })();
 </script>
 </body>
