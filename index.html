@@ -3,14 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Muhammad Raffay Chaudhry</title>
-<meta name="description" content="Geoscience undergraduate at UW-Green Bay. Research in seismology, geophysical monitoring, and fluid-rock interaction. Applying to PhD programs for Fall 2027.">
+<title>Muhammad Raffay Chaudhry · Geoscience</title>
+<meta name="description" content="Geoscience senior at UW–Green Bay applying to PhD programs for Fall 2027. Seismology, geophysical monitoring, carbon storage, and ice sheet dynamics.">
 <link rel="canonical" href="https://raffaychaudhry.com/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" content="#f4f7f6">
-<!-- Apply the saved theme before first paint (light unless the visitor chose dark) -->
-<script>try { if (localStorage.getItem('theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}</script>
+<meta name="theme-color" content="#0b1a24">
 <!-- Link preview card (email, iMessage, Slack, LinkedIn, X) -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://raffaychaudhry.com/">
@@ -23,867 +21,721 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
 <style>
-/* ───────────────────────── Tokens ───────────────────────── */
-/* Light ("glacier") by default; dark ("polar night") when the visitor picks it with the toggle.
-   Three accents, one per research theme: Ice (ice sheets, links), Lichen (carbon storage), Ember (seismic energy). */
+/* ═══════════════════════════ Brand tokens ═══════════════════════════
+   Every section has its own ground colour. As you scroll, the whole page
+   morphs from one to the next (JS); without JS each section just paints its own. */
 :root {
-  color-scheme: light;
-  --bg: #f4f7f6;            /* cool glacier white, not cream */
-  --surface: #ffffff;
-  --ink: #13212a;
-  --ink-2: #435259;
-  --ink-3: #5c6b71;         /* AA on bg */
-  --rule: #dce4e4;
-  --accent: #1b5f86;        /* ice */
-  --accent-2: #2c7356;      /* lichen */
-  --accent-3: #9a6200;      /* ember */
-  --accent-soft: #dfecf3;
-  --accent-2-soft: #dcefe5;
-  --accent-3-soft: #f6ead3;
-  --wash: #e3eff4;          /* glow behind the hero */
-  --trace: #2b3a40;
-  --shadow: rgb(27 95 134 / .14);
-  --grain: .05;
-  --band: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
-  --t-ui: 180ms;
-  --t-hero: 900ms;
-  --ease-out: cubic-bezier(.22, 1, .36, 1);
-  --serif: "Newsreader", Georgia, "Times New Roman", serif;
-  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --measure: 48rem;
-}
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #0d1418; --surface: #131d22; --ink: #e8edee; --ink-2: #a9b6bb; --ink-3: #7c8a90;
-  --rule: #213037; --accent: #8cc6de; --accent-2: #84d1ab; --accent-3: #e8b65c;
-  --accent-soft: #16303b; --accent-2-soft: #15302a; --accent-3-soft: #33281a;
-  --wash: #10303c; --trace: #c9d4d8; --shadow: rgb(0 0 0 / .35); --grain: .07;
-}
+  --c-ink:    #0b1a24;   /* polar night */
+  --c-snow:   #eef4f3;   /* text on dark */
+  --c-ice:    #d3e7ee;   /* pale glacier blue */
+  --c-ember:  #f1b84a;   /* seismic gold */
+  --c-stone:  #ebe4d6;   /* outcrop */
+  --c-moss:   #cbdcb9;   /* tundra green */
+  --c-lichen: #1d4a3a;   /* deep forest */
+  --c-deep:   #15466a;   /* ocean */
+  --a-ice:    #8cc6de;
+  --a-lichen: #84d1ab;
+  --a-ember:  #f1b84a;
 
-/* ───────────────────────── Base ───────────────────────── */
+  --bg: var(--c-ink);
+  --fg: var(--c-snow);
+
+  --display: "Instrument Serif", "Times New Roman", serif;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --gutter: clamp(1.1rem, 4vw, 3.5rem);
+  --max: 90rem;
+}
+/* Muted text and hairlines are mixed from whatever ground the element sits on */
+:root, section, .card, .band, footer {
+  --fg-2: color-mix(in srgb, var(--fg) 72%, var(--bg));
+  --line: color-mix(in srgb, var(--fg) 18%, transparent);
+}
+html:not(.morph) [data-c="ink"]    { --bg: var(--c-ink);    --fg: var(--c-snow); }
+html:not(.morph) [data-c="ice"]    { --bg: var(--c-ice);    --fg: var(--c-ink); }
+html:not(.morph) [data-c="stone"]  { --bg: var(--c-stone);  --fg: var(--c-ink); }
+html:not(.morph) [data-c="moss"]   { --bg: var(--c-moss);   --fg: var(--c-ink); }
+html:not(.morph) [data-c="lichen"] { --bg: var(--c-lichen); --fg: var(--c-snow); }
+html:not(.morph) [data-c="deep"]   { --bg: var(--c-deep);   --fg: var(--c-snow); }
+html:not(.morph) [data-c="ember"]  { --bg: var(--c-ember);  --fg: var(--c-ink); }
+
+/* ═══════════════════════════ Base ═══════════════════════════ */
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+html { -webkit-text-size-adjust: 100%; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
 body {
-  margin: 0; background: var(--bg); color: var(--ink);
-  font: 400 1.125rem/1.6 var(--serif);
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 400 1.0625rem/1.6 var(--sans); letter-spacing: -.005em;
   -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  overflow-x: clip;
 }
-a { color: inherit; text-decoration-color: var(--rule); text-underline-offset: .18em; text-decoration-thickness: 1px; transition: color var(--t-ui) var(--ease-out), text-decoration-color var(--t-ui) var(--ease-out); }
-a:hover { color: var(--accent); text-decoration-color: var(--accent); }
-.wrap { max-width: var(--measure); margin: 0 auto; padding: 0 1rem; }
-@media (min-width: 640px) { .wrap { padding: 0 2rem; } }
-.mono, .label { font-family: var(--mono); font-size: .75rem; letter-spacing: .02em; }
-.label { text-transform: uppercase; letter-spacing: .12em; color: var(--ink-3); }
+section, header.hero, footer { background: var(--bg); color: var(--fg); }
+html.morph section, html.morph header.hero, html.morph footer { background: transparent; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+::selection { background: var(--a-ember); color: var(--c-ink); }
+:focus-visible { outline: 2px solid var(--a-ember); outline-offset: 3px; border-radius: 4px; }
+.container { max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+.mono { font-family: var(--mono); font-size: .75rem; letter-spacing: .02em; }
+.skip { position: absolute; left: -999px; top: 0; z-index: 200; background: var(--c-ember); color: var(--c-ink); padding: .6rem 1rem; }
+.skip:focus { left: 1rem; top: 1rem; }
 
-/* ───────────────────────── Nav ───────────────────────── */
-header.nav {
-  position: sticky; top: 0; z-index: 10;
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid transparent; transition: border-color var(--t-ui) var(--ease-out);
+/* Film grain over everything */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: 150; pointer-events: none; opacity: .06; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-header.nav.scrolled { border-bottom-color: var(--rule); }
-.nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 3.5rem; gap: 1rem; }
-.nav .mark { font-family: var(--mono); font-size: .8rem; text-decoration: none; white-space: nowrap; }
-.nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.1rem; overflow-x: auto; scrollbar-width: none; }
-.nav ul::-webkit-scrollbar { display: none; }
-.nav li a { font-family: var(--mono); font-size: .75rem; color: var(--ink-2); text-decoration: none; white-space: nowrap; }
-.nav li a.active { color: var(--accent); }
-.theme-btn { background: none; border: 0; color: var(--ink-2); cursor: pointer; padding: .25rem; font: inherit; display: grid; place-items: center; }
-.theme-btn:hover { color: var(--accent); }
-@media (max-width: 560px) { .nav .mark { display: none; } }
 
-/* ───────────────────────── Hero ───────────────────────── */
-.hero { padding: 4.5rem 0 2.5rem; background: radial-gradient(56rem 30rem at 88% -4%, var(--wash), transparent 70%), radial-gradient(40rem 22rem at 0% 100%, color-mix(in srgb, var(--wash) 55%, transparent), transparent 70%); }
-@media (min-width: 640px) { .hero { padding: 7rem 0 3rem; } }
-.hero h1 { font-weight: 400; font-size: clamp(2.3rem, 6.5vw, 3.6rem); line-height: 1.05; letter-spacing: -.02em; margin: .9rem 0 1.25rem; }
-.hero h1 em { font-style: italic; font-weight: 300; color: var(--ink-2); }
-.hero .lede { font-size: 1.25rem; color: var(--ink-2); max-width: 36rem; margin: 0; font-weight: 300; }
-.hero .lede strong { color: var(--ink); font-weight: 400; }
-.status { display: inline-flex; align-items: center; gap: .55rem; font-size: .8rem; color: var(--ink-2); }
-.status::before { content: ""; width: .45rem; height: .45rem; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 0 3px var(--accent-2-soft); animation: beacon 2.4s var(--ease-out) infinite; }
-@keyframes beacon { 0%, 100% { box-shadow: 0 0 0 3px var(--accent-2-soft); } 50% { box-shadow: 0 0 0 7px transparent; } }
-.hero .links { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 2rem; }
-.hero .links a { font-family: var(--mono); font-size: .8rem; }
+/* Split-text masks (JS wraps words; each rises from behind its own mask) */
+.w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 .08em .22em 0; margin: 0 -.08em -.22em 0; }
+.wi { display: inline-block; will-change: transform; }
 
-/* Seismogram */
-.trace { margin: 3rem 0 0; }
-.trace svg { width: 100%; height: 120px; display: block; overflow: visible; }
-.trace path.wave { fill: none; stroke: var(--trace); stroke-width: 1; stroke-linejoin: round; }
-.trace .pick line { stroke: var(--accent); stroke-width: 1; }
-.trace .pick text { fill: var(--accent); font: 500 11px var(--mono); }
-.trace #pickS line { stroke: var(--accent-3); }
-.trace #pickS text { fill: var(--accent-3); }
-.trace .axis { stroke: var(--rule); stroke-width: 1; }
-.trace figcaption { display: flex; justify-content: space-between; gap: 1rem; margin-top: .6rem; color: var(--ink-3); }
+/* ═══════════════════════════ Loader ═══════════════════════════ */
+.loader { display: none; }
+html.js.gsap .loader:not(.done) {
+  display: flex; position: fixed; inset: 0; z-index: 300; background: var(--c-ink); color: var(--c-snow);
+  flex-direction: column; justify-content: space-between; padding: var(--gutter);
+}
+.loader .l-top, .loader .l-bot { display: flex; justify-content: space-between; align-items: end; gap: 1rem; }
+.loader .l-num { font: 400 clamp(5rem, 22vw, 18rem)/.8 var(--display); letter-spacing: -.03em; }
+.loader svg { width: 100%; height: 60px; overflow: visible; }
+.loader path { fill: none; stroke: var(--a-ember); stroke-width: 1.4; }
 
-/* ───────────────────────── Sections ───────────────────────── */
-section { padding: 3.5rem 0; border-top: 1px solid var(--rule); }
-h2 { font-weight: 400; font-size: 1.9rem; letter-spacing: -.01em; line-height: 1.15; margin: 0 0 1.5rem; }
-h3 { font-weight: 500; font-size: 1.2rem; line-height: 1.3; margin: 0; }
-p { margin: 0 0 1rem; }
-.prose p { color: var(--ink-2); }
-.prose p strong { color: var(--ink); font-weight: 500; }
+/* ═══════════════════════════ Nav ═══════════════════════════ */
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 100; color: #fff; mix-blend-mode: difference;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 1.1rem var(--gutter);
+}
+.nav a { text-decoration: none; }
+.brand { display: flex; align-items: center; gap: .6rem; font: 500 .8rem var(--mono); letter-spacing: .02em; }
+.brand b { font: 400 1.6rem/1 var(--display); letter-spacing: -.02em; }
+.nav ul { display: flex; gap: 1.6rem; list-style: none; margin: 0; padding: 0; }
+.nav ul a { font: 400 .78rem var(--mono); position: relative; padding: .2rem 0; }
+.nav ul a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .45s var(--ease); }
+.nav ul a:hover::after, .nav ul a.active::after { transform: scaleX(1); transform-origin: left; }
+.nav .cv { font: 500 .78rem var(--mono); border: 1px solid currentColor; border-radius: 999px; padding: .5rem .95rem; transition: background-color .3s var(--ease), color .3s var(--ease); }
+.nav .cv:hover { background: #fff; color: #000; }
+.menu-btn { display: none; background: none; border: 0; color: inherit; font: 500 .8rem var(--mono); cursor: pointer; padding: .5rem 0; }
+@media (max-width: 900px) {
+  .nav ul, .nav .cv { display: none; }
+  .menu-btn { display: block; }
+}
+.progress { position: fixed; left: 0; right: 0; top: 0; height: 2px; z-index: 101; transform-origin: left; transform: scaleX(0); background: linear-gradient(90deg, var(--a-ice), var(--a-lichen), var(--a-ember)); }
 
-/* Interests */
-.themes { display: grid; gap: 1.5rem 2rem; margin-top: 2.25rem; }
-@media (min-width: 640px) { .themes { grid-template-columns: repeat(3, 1fr); } }
-.theme { padding-top: 1rem; border-top: 2px solid var(--c, var(--accent)); }
-.theme:nth-child(1) { --c: var(--accent-2); }  /* carbon storage: lichen */
-.theme:nth-child(2) { --c: var(--accent-3); }  /* seismic: ember */
-.theme h3::before { content: ""; display: inline-block; width: .5rem; height: .5rem; border-radius: 50%; background: var(--c, var(--accent)); margin-right: .55rem; vertical-align: .12em; }
-.theme h3 { margin: 0 0 .4rem; font-size: 1.1rem; }
-.theme p { font-size: .98rem; color: var(--ink-2); margin: 0; line-height: 1.5; }
+/* Full-screen mobile menu */
+.overlay {
+  position: fixed; inset: 0; z-index: 99; background: var(--c-ember); color: var(--c-ink);
+  display: flex; flex-direction: column; justify-content: center; padding: var(--gutter);
+  clip-path: inset(0 0 100% 0); visibility: hidden; transition: clip-path .7s var(--ease), visibility 0s .7s;
+}
+.overlay.open { clip-path: inset(0 0 0 0); visibility: visible; transition: clip-path .7s var(--ease); }
+.overlay a { font: 400 clamp(2.8rem, 13vw, 5rem)/1.05 var(--display); text-decoration: none; display: block; }
+html.gsap .overlay, html.gsap .overlay.open { transition: none; }
+.overlay a em { font-style: italic; }
+.overlay .mono { margin-top: 2rem; }
 
-/* Facts row */
-.facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 2.25rem; }
-@media (min-width: 640px) { .facts { grid-template-columns: repeat(4, 1fr); } }
-.fact { border-top: 1px solid var(--rule); padding-top: .9rem; }
-.fact .v { font-size: 2rem; line-height: 1.1; color: var(--accent); font-variant-numeric: tabular-nums; }
-.fact:nth-child(2) .v { color: var(--accent-2); }
-.fact:nth-child(3) .v { color: var(--accent-3); }
-.fact:nth-child(4) .v { color: var(--ink); }
-.fact .k { margin-top: .3rem; }
+/* ═══════════════════════════ Hero ═══════════════════════════ */
+.hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; overflow: hidden; isolation: isolate; }
+#topo { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; opacity: .9; }
+.hero::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(70% 60% at 75% 35%, transparent, color-mix(in srgb, var(--c-ink) 70%, transparent)); }
+.hero-in { flex: 1; width: 100%; display: grid; grid-template-columns: 1fr; align-content: end; gap: 1.5rem; padding-top: 6.5rem; padding-bottom: 1.5rem; position: relative; }
+.hero-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .75rem 2rem; }
+.pill { display: inline-flex; align-items: center; gap: .6rem; font: 500 .75rem var(--mono); padding: .45rem .9rem .45rem .7rem; border: 1px solid var(--line); border-radius: 999px; backdrop-filter: blur(6px); background: color-mix(in srgb, var(--c-ink) 40%, transparent); }
+.pill i { width: .5rem; height: .5rem; border-radius: 50%; background: var(--a-lichen); box-shadow: 0 0 0 0 var(--a-lichen); animation: ping 2.2s var(--ease) infinite; }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--a-lichen) 60%, transparent); } 100% { box-shadow: 0 0 0 10px transparent; } }
+.coords { color: var(--fg-2); align-self: center; }
+.hero-photo { margin: 0; justify-self: start; width: min(78vw, 22rem); aspect-ratio: 4 / 5; border-radius: 999px 999px 18px 18px; overflow: hidden; position: relative; box-shadow: 0 40px 80px -30px rgb(0 0 0 / .6); }
+.hero-photo img { width: 100%; height: 115%; object-fit: cover; object-position: 50% 25%; }
+.hero-name { margin: 0; font: 400 clamp(4.4rem, 17vw, 16.5rem)/.84 var(--display); letter-spacing: -.035em; position: relative; z-index: 2; }
+.hero-name .first { display: block; font: italic 400 clamp(1.4rem, 3vw, 2.6rem)/1 var(--display); letter-spacing: -.01em; color: var(--a-ice); margin-bottom: .4em; }
+.hero-name .l { display: block; }
+.hero-name em { font-style: italic; color: var(--a-ember); padding-left: .12em; }
+.hero-foot { display: grid; gap: 1.5rem; align-items: end; }
+.lede { margin: 0; max-width: 34rem; font-size: clamp(1.05rem, 1.4vw, 1.25rem); color: var(--fg-2); font-weight: 300; }
+.lede strong { color: var(--fg); font-weight: 500; }
+.ctas { display: flex; flex-wrap: wrap; gap: .6rem; }
+.btn {
+  --b: var(--a-ember); --t: var(--c-ink);
+  position: relative; display: inline-flex; align-items: center; gap: .55rem; overflow: hidden; isolation: isolate;
+  font: 500 .8rem var(--mono); text-decoration: none; padding: .85rem 1.25rem; border-radius: 999px;
+  background: var(--b); color: var(--t); border: 1px solid var(--b);
+}
+.btn::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--fg); border-radius: inherit; transform: translateY(101%); transition: transform .5s var(--ease); }
+.btn:hover::before { transform: none; }
+.btn:hover { color: var(--bg); border-color: var(--fg); }
+.btn.ghost { --b: transparent; --t: var(--fg); border-color: var(--line); }
+.btn .arr { transition: transform .4s var(--ease); }
+.btn:hover .arr { transform: translate(2px, -2px); }
+@media (min-width: 900px) {
+  .hero-in { grid-template-columns: 1fr auto; grid-template-rows: auto 1fr auto auto; padding-top: 7rem; }
+  .hero-top { grid-column: 1 / -1; }
+  .hero-photo { grid-column: 2; grid-row: 2 / 4; align-self: end; justify-self: end; width: clamp(16rem, 24vw, 24rem); margin-bottom: -1.5rem; }
+  .hero-name { grid-column: 1 / -1; grid-row: 3; margin-right: clamp(10rem, 18vw, 18rem); }
+  .hero-foot { grid-column: 1 / -1; grid-row: 4; grid-template-columns: 1fr auto; }
+}
 
-/* Projects */
-.project { padding: 1.75rem 0; border-bottom: 1px solid var(--rule); }
-.project:first-of-type { padding-top: 0; }
-.project:last-of-type { border-bottom: 0; }
-.project .meta { display: flex; flex-wrap: wrap; gap: .25rem 1rem; color: var(--ink-3); margin-bottom: .55rem; }
-.project h3 { margin-bottom: .6rem; }
-.project > p { color: var(--ink-2); }
-.tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: .9rem 0 0; padding: 0; list-style: none; }
-.tags li { font-family: var(--mono); font-size: .7rem; padding: .15rem .5rem; border: 1px solid var(--rule); border-radius: 999px; color: var(--ink-2); }
-details { margin-top: 1rem; }
-summary { cursor: pointer; transition: color var(--t-ui) var(--ease-out); font-family: var(--mono); font-size: .75rem; color: var(--accent); list-style: none; display: inline-flex; align-items: center; gap: .4rem; }
-summary::-webkit-details-marker { display: none; }
-summary::before { content: "+"; display: inline-block; width: .8em; }
-summary:hover { color: var(--ink); }
-details[open] .detail { animation: open var(--t-ui) var(--ease-out); }
-@keyframes open { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) { details[open] .detail { animation: none; } }
-details[open] summary::before { content: "−"; }
-.detail { margin-top: 1rem; padding-left: 1rem; border-left: 1px solid var(--accent); }
-.detail dt { font-family: var(--mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-3); margin-top: .9rem; }
-.detail dt:first-child { margin-top: 0; }
-.detail dd { margin: .2rem 0 0; color: var(--ink-2); font-size: 1.02rem; }
+/* Live helicorder strip */
+.heli { position: relative; border-top: 1px solid var(--line); padding: .7rem var(--gutter) .9rem; display: grid; grid-template-columns: auto 1fr auto; gap: 1.25rem; align-items: center; background: color-mix(in srgb, var(--c-ink) 55%, transparent); backdrop-filter: blur(4px); }
+.heli svg { width: 100%; height: 56px; overflow: visible; display: block; }
+.heli .wave { fill: none; stroke: var(--c-snow); stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; opacity: .9; }
+.heli .pick line { stroke-width: 1; vector-effect: non-scaling-stroke; }
+.heli #pP line { stroke: var(--a-ice); } .heli #pP text { fill: var(--a-ice); }
+.heli #pS line { stroke: var(--a-ember); } .heli #pS text { fill: var(--a-ember); }
+.heli text { font: 500 10px var(--mono); }
+.heli .live { display: flex; align-items: center; gap: .5rem; color: var(--fg-2); }
+.heli .live i { width: .45rem; height: .45rem; border-radius: 50%; background: #ff5a4e; animation: blink 1.2s steps(2) infinite; }
+@keyframes blink { 50% { opacity: .25; } }
+.heli .meta { color: var(--fg-2); text-align: right; }
+@media (max-width: 640px) { .heli { grid-template-columns: 1fr; gap: .3rem; } .heli .meta { display: none; } }
 
-/* Timeline lists (experience, awards, etc.) */
-.rows { list-style: none; margin: 0; padding: 0; }
-.rows li { display: grid; gap: .15rem 1.5rem; padding: 1rem 0; border-bottom: 1px solid var(--rule); }
-.rows li:first-child { padding-top: 0; }
-.rows li:last-child { border-bottom: 0; }
-@media (min-width: 640px) { .rows li { grid-template-columns: 7.5rem 1fr; } }
-.rows .when { font-family: var(--mono); font-size: .75rem; color: var(--ink-3); padding-top: .3rem; }
-.rows .what { font-weight: 500; }
-.rows .where { color: var(--ink-2); font-size: 1rem; }
-.rows .note { color: var(--ink-2); font-size: 1rem; margin-top: .25rem; }
-.subhead { margin: 2.5rem 0 1rem; }
+/* ═══════════════════════════ Marquee band ═══════════════════════════ */
+.band { background: var(--c-ember); color: var(--c-ink); --bg: var(--c-ember); --fg: var(--c-ink); overflow: hidden; padding: 1.4rem 0; border-block: 1px solid rgb(0 0 0 / .1); }
+.marquee { display: flex; white-space: nowrap; width: max-content; }
+.marquee span { font: 400 clamp(2.4rem, 6vw, 5.2rem)/1.1 var(--display); padding-right: .6em; display: inline-flex; align-items: center; gap: .6em; }
+.marquee span:nth-child(even) { font-style: italic; }
+.marquee svg { width: .55em; height: .55em; flex: none; }
+.marquee.rev span { -webkit-text-stroke: 1px var(--c-ink); color: transparent; }
+html:not(.gsap) .marquee { animation: mq 40s linear infinite; }
+html:not(.gsap) .marquee.rev { animation-direction: reverse; }
+@keyframes mq { to { transform: translateX(-50%); } }
+
+/* ═══════════════════════════ Sections ═══════════════════════════ */
+section { position: relative; padding: clamp(5rem, 12vw, 10rem) 0; }
+.eyebrow { display: flex; align-items: center; gap: .6rem; font: 500 .75rem var(--mono); color: var(--fg-2); margin: 0 0 2rem; }
+.eyebrow::before { content: ""; width: .55rem; height: .55rem; border-radius: 50%; background: currentColor; }
+.title { font: 400 clamp(3.2rem, 10vw, 9rem)/.88 var(--display); letter-spacing: -.035em; margin: 0 0 clamp(2.5rem, 6vw, 5rem); }
+.title em { font-style: italic; }
+.sub { font: 500 .75rem var(--mono); color: var(--fg-2); margin: clamp(3rem, 7vw, 5rem) 0 1rem; padding-bottom: .9rem; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; }
+
+/* About */
+.statement { font: 400 clamp(1.9rem, 4.6vw, 4.6rem)/1.06 var(--display); letter-spacing: -.02em; margin: 0 0 clamp(3rem, 7vw, 6rem); max-width: 26ch; }
+.statement em { font-style: italic; }
+.cols { display: grid; gap: 1.25rem 4rem; color: var(--fg-2); }
+.cols p { margin: 0; }
+.cols strong { color: var(--fg); font-weight: 500; }
+@media (min-width: 900px) { .cols { grid-template-columns: 1fr 1fr; margin-left: 33%; } }
+
+.pillars { display: grid; gap: 1rem; margin-top: clamp(4rem, 9vw, 7rem); }
+@media (min-width: 900px) { .pillars { grid-template-columns: repeat(3, 1fr); } }
+.card { --fg: var(--c-ink); color: var(--fg); background: var(--bg); border-radius: 22px; position: relative; overflow: hidden; }
+.card[data-tone="ink"]    { --bg: var(--c-ink);    --fg: var(--c-snow); }
+.card[data-tone="lichen"] { --bg: var(--c-lichen); --fg: var(--c-snow); }
+.card[data-tone="ember"]  { --bg: var(--c-ember); }
+.card[data-tone="ice"]    { --bg: var(--c-ice); }
+.card[data-tone="stone"]  { --bg: var(--c-stone); }
+.card[data-tone="moss"]   { --bg: var(--c-moss); }
+.card[data-tone="deep"]   { --bg: var(--c-deep);   --fg: var(--c-snow); }
+.card[data-tone="snow"]   { --bg: var(--c-snow); }
+.pillar { padding: 1.6rem 1.6rem 1.8rem; min-height: 26rem; display: flex; flex-direction: column; justify-content: space-between; transition: transform .6s var(--ease), border-radius .6s var(--ease); }
+.pillar:hover { transform: translateY(-6px) rotate(-.6deg); border-radius: 34px; }
+.pillar svg { width: 100%; height: 10rem; overflow: visible; }
+.pillar h3 { font: 400 clamp(2.2rem, 3.4vw, 3rem)/1 var(--display); letter-spacing: -.02em; margin: 1.5rem 0 .6rem; }
+.pillar p { margin: 0; color: var(--fg-2); }
+.pillar .tag { font: 500 .72rem var(--mono); color: var(--fg-2); display: flex; justify-content: space-between; }
+/* the little motifs keep moving, slowly */
+.bub circle { animation: rise 6s linear infinite; }
+.bub circle:nth-child(2n) { animation-duration: 8s; animation-delay: -3s; }
+.bub circle:nth-child(3n) { animation-duration: 7s; animation-delay: -5s; }
+@keyframes rise { from { transform: translateY(40px); opacity: 0; } 20% { opacity: 1; } to { transform: translateY(-120px); opacity: 0; } }
+.wig { animation: wig 3.6s ease-in-out infinite alternate; transform-origin: center; }
+@keyframes wig { to { transform: scaleY(1.35); } }
+.strata path { animation: flow 9s ease-in-out infinite alternate; }
+.strata path:nth-child(2n) { animation-delay: -4s; }
+@keyframes flow { to { transform: translateX(-14px); } }
+
+.facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem 1rem; margin-top: clamp(4rem, 9vw, 7rem); border-top: 1px solid var(--line); padding-top: 2rem; }
+@media (min-width: 900px) { .facts { grid-template-columns: repeat(4, 1fr); } }
+.fact .v { font: 400 clamp(3.4rem, 7vw, 6.5rem)/.9 var(--display); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.fact .k { font: 500 .72rem var(--mono); color: var(--fg-2); margin-top: .6rem; }
+
+/* Research: stacking cards */
+.stack { display: grid; gap: 1.25rem; }
+.project { padding: clamp(1.5rem, 3.5vw, 3rem); display: grid; gap: 1.5rem 3rem; transform-origin: 50% 0; box-shadow: 0 -20px 60px -30px rgb(0 0 0 / .5); }
+@media (min-width: 900px) {
+  .project { position: sticky; top: calc(6rem + var(--i, 0) * 1.1rem); grid-template-columns: 1.1fr 1fr; min-height: 30rem; }
+}
+.project .meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .4rem 1rem; font: 500 .74rem var(--mono); color: var(--fg-2); grid-column: 1 / -1; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+.project h3 { font: 400 clamp(2.2rem, 4.6vw, 4.4rem)/.98 var(--display); letter-spacing: -.025em; margin: 0; }
+.project .body > p { margin: 0 0 1.25rem; color: var(--fg-2); font-size: 1.08rem; }
+.tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0 0 1.25rem; padding: 0; list-style: none; }
+.tags li { font: 500 .7rem var(--mono); padding: .3rem .65rem; border: 1px solid var(--line); border-radius: 999px; }
+details summary { cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: .6rem; font: 500 .76rem var(--mono); padding: .55rem .95rem; border-radius: 999px; background: var(--fg); color: var(--bg); }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; font-size: 1rem; line-height: 1; transition: transform .4s var(--ease); }
+details[open] summary::after { transform: rotate(45deg); }
+.detail { margin: 1.1rem 0 0; display: grid; gap: .8rem; }
+.detail dt { font: 500 .7rem var(--mono); color: var(--fg-2); }
+.detail dd { margin: .15rem 0 0; font-size: .98rem; }
+.detail a { text-underline-offset: .2em; }
+
+/* Timeline rows (presentations, training, awards, leadership) */
+.rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.row { position: relative; display: grid; gap: .3rem 2rem; padding: 1.5rem 0; border-bottom: 1px solid var(--line); isolation: isolate; }
+.row::before { content: ""; position: absolute; inset: 0 calc(var(--gutter) * -1); z-index: -1; background: color-mix(in srgb, var(--fg) 7%, transparent); transform: scaleY(0); transform-origin: bottom; transition: transform .5s var(--ease); }
+.row:hover::before { transform: none; }
+@media (min-width: 900px) { .row { grid-template-columns: 11rem 1fr; } }
+.row .when { font: 500 .75rem var(--mono); color: var(--fg-2); padding-top: .55rem; }
+.row h3 { font: 400 clamp(1.6rem, 2.6vw, 2.3rem)/1.1 var(--display); letter-spacing: -.015em; margin: 0; transition: transform .5s var(--ease); }
+.row:hover h3 { transform: translateX(.5rem); }
+.row .where { margin: .3rem 0 0; color: var(--fg-2); }
+.row .note { margin: .5rem 0 0; color: var(--fg-2); max-width: 46rem; font-size: .98rem; }
+.badge { font: 500 .66rem var(--mono); background: var(--a-ember); color: var(--c-ink); border-radius: 999px; padding: .2rem .55rem; margin-left: .4rem; vertical-align: .35em; white-space: nowrap; }
+.cite h3 { font-size: clamp(1.35rem, 2vw, 1.75rem); }
 
 /* Skills */
-.skills { display: grid; gap: 1.5rem; }
-@media (min-width: 640px) { .skills { grid-template-columns: repeat(2, 1fr); gap: 2rem 2.5rem; } }
-.skills h3 { font-family: var(--mono); font-size: .72rem; font-weight: 500; text-transform: uppercase; letter-spacing: .12em; color: var(--ink-3); margin-bottom: .5rem; }
-.skills p { color: var(--ink-2); margin: 0; font-size: 1.02rem; }
+.kit { display: grid; gap: 1rem; }
+@media (min-width: 900px) { .kit { grid-template-columns: repeat(2, 1fr); } }
+.kit .card { padding: 1.6rem; }
+.kit h3 { font: 400 2rem/1 var(--display); margin: 0 0 1.2rem; letter-spacing: -.015em; }
+.chips { display: flex; flex-wrap: wrap; gap: .45rem; list-style: none; margin: 0; padding: 0; }
+.chips li { font: 500 .74rem var(--mono); padding: .45rem .8rem; border-radius: 999px; border: 1px solid var(--line); transition: background-color .3s var(--ease), color .3s var(--ease); }
+.chips li:hover { background: var(--fg); color: var(--bg); }
 
-footer { padding: 2.5rem 0 3rem; color: var(--ink-3); }
-footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; }
-
-/* Hero photo */
-.hero > .wrap, header.nav .wrap { max-width: 68rem; }
-.hero-grid { display: grid; gap: 2rem; }
-.portrait { margin: 0; width: 100%; max-width: 26rem; }
-.portrait img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 28%; border-radius: 6px; background: var(--rule); box-shadow: 0 24px 60px -28px var(--shadow); }
-@media (min-width: 820px) {
-  .hero-grid { grid-template-columns: 1fr 24rem; align-items: center; gap: 4rem; }
-  .portrait { order: 2; }
-}
-
-/* Citations */
-.cites { list-style: none; margin: 0; padding: 0; }
-.cites li { padding: .9rem 0; border-bottom: 1px solid var(--rule); color: var(--ink-2); font-size: 1rem; }
-.cites li:first-child { padding-top: 0; }
-.cites li:last-child { border-bottom: 0; }
-.cites .t { color: var(--ink); }
-.cites .badge { font-family: var(--mono); font-size: .68rem; color: var(--accent); border: 1px solid currentColor; border-radius: 999px; padding: .05rem .45rem; margin-left: .35rem; white-space: nowrap; }
-
-/* ───────────────────────── Motion ───────────────────────── */
-/* Aurora: two slow-drifting blurred lights behind the hero */
-.hero { position: relative; overflow: hidden; isolation: isolate; }
-.hero::before, .hero::after { content: ""; position: absolute; pointer-events: none; z-index: -1; }
-.hero::before {
-  inset: -30% -10% auto -10%; height: 90%;
-  background:
-    radial-gradient(40% 50% at 30% 50%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%),
-    radial-gradient(35% 45% at 70% 40%, color-mix(in srgb, var(--accent-2) 18%, transparent), transparent 70%),
-    radial-gradient(25% 35% at 92% 70%, color-mix(in srgb, var(--accent-3) 14%, transparent), transparent 70%);
-  filter: blur(40px); opacity: .5;
-  animation: aurora 22s ease-in-out infinite alternate;
-}
-@keyframes aurora {
-  0%   { transform: translate3d(-6%, 0, 0) rotate(-4deg) scaleY(1); }
-  50%  { transform: translate3d(4%, 4%, 0) rotate(3deg) scaleY(1.15); }
-  100% { transform: translate3d(8%, -2%, 0) rotate(-2deg) scaleY(.95); }
-}
-:root[data-theme="dark"] .hero::before { opacity: .6; }
-/* Cursor glow that follows the pointer */
-.hero::after {
-  inset: 0; opacity: 0; transition: opacity 400ms var(--ease-out);
-  background: radial-gradient(28rem 28rem at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%);
-}
-.hero.glow::after { opacity: 1; }
-
-/* Portrait: 3D tilt with a soft glare on hover */
-.portrait { perspective: 900px; }
-.portrait img { transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 500ms var(--ease-out), box-shadow 500ms var(--ease-out); will-change: transform; }
-.portrait { position: relative; }
-.portrait::after {
-  content: ""; position: absolute; inset: 0; border-radius: 6px; pointer-events: none; opacity: 0;
-  background: radial-gradient(60% 50% at var(--gx, 50%) var(--gy, 30%), rgb(255 255 255 / .18), transparent 70%);
-  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: opacity 300ms var(--ease-out), transform 500ms var(--ease-out);
-}
-.portrait.tilt img { transition-duration: 120ms; box-shadow: 0 40px 80px -30px var(--shadow); }
-.portrait.tilt::after { opacity: 1; transition-duration: 300ms, 120ms; }
-
-
-/* Section headings get an ice-blue rule that draws in */
-section h2 { position: relative; padding-bottom: .6rem; }
-section h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 3.5rem; height: 2px; border-radius: 2px; background: var(--band); transform-origin: left; }
-
-/* Hover answers */
-.nav li a { position: relative; }
-.nav li a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform var(--t-ui) var(--ease-out); }
-.nav li a:hover::after, .nav li a.active::after { transform: scaleX(1); }
-.project { position: relative; }
-.project::before { content: ""; position: absolute; left: -1rem; top: 1.75rem; bottom: 1.75rem; width: 2px; background: linear-gradient(var(--accent), var(--accent-2), var(--accent-3)); transform: scaleY(0); transform-origin: top; transition: transform 300ms var(--ease-out); }
-.project:first-of-type::before { top: 0; }
-.project:hover::before { transform: scaleY(1); }
-.tags li { transition: border-color var(--t-ui) var(--ease-out), color var(--t-ui) var(--ease-out); }
-.project:hover .tags li { border-color: color-mix(in srgb, var(--accent) 45%, var(--rule)); color: var(--ink); }
-.rows li { transition: background-color var(--t-ui) var(--ease-out); }
-
-@media (prefers-reduced-motion: reduce) {
-  .hero::before { animation: none; }
-  .hero::after, .portrait::after { display: none; }
-  .portrait img { transform: none; transition: none; }
-}
-
-/* ───────────────────────── Finish ───────────────────────── */
-/* Fine film grain over everything, so flat colour reads like paper or ice */
-body::after {
-  content: ""; position: fixed; inset: 0; z-index: 100; pointer-events: none; opacity: var(--grain);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-::selection { background: var(--accent-soft); color: var(--ink); }
-
-/* Reading progress: the three-colour band along the top of the nav */
-.progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--band); transform-origin: left; transform: scaleX(0); }
-
-/* Headline: the italic line carries the three accents, drifting slowly */
-.hero h1 em {
-  background: linear-gradient(100deg, var(--accent) 0%, var(--accent-2) 45%, var(--accent-3) 80%, var(--accent) 100%);
-  background-size: 150% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
-  animation: drift 14s ease-in-out infinite alternate; padding-right: .05em;
-}
-@keyframes drift { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
-
-/* Primary link in the hero */
-.hero .links { align-items: center; }
-.hero .links a.btn {
-  display: inline-flex; align-items: center; gap: .5rem; padding: .7rem 1.1rem; border-radius: 999px;
-  background: var(--ink); color: var(--bg); text-decoration: none;
-  transition: transform var(--t-ui) var(--ease-out), box-shadow var(--t-ui) var(--ease-out), background-color var(--t-ui) var(--ease-out);
-}
-.hero .links a.btn:hover { background: var(--accent); color: var(--bg); transform: translateY(-1px); box-shadow: 0 10px 24px -12px var(--accent); }
-
-/* ── Field gallery ── */
-.wrap.wide { max-width: 68rem; }
-.gallery { columns: 2 12rem; column-gap: .9rem; margin-top: .5rem; }
-@media (min-width: 820px) { .gallery { columns: 3; } }
-.shot { break-inside: avoid; margin: 0 0 .9rem; }
-.shot button { all: unset; display: block; position: relative; width: 100%; border-radius: 6px; overflow: hidden; cursor: zoom-in; background: var(--rule); box-shadow: 0 18px 40px -26px var(--shadow); }
-.shot button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.shot img { display: block; width: 100%; height: auto; transition: transform 900ms var(--ease-out), filter 900ms var(--ease-out); }
-.shot button::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgb(8 16 20 / .55), transparent 45%); opacity: 0; transition: opacity 400ms var(--ease-out); }
-.shot figcaption { position: absolute; left: .9rem; right: .9rem; bottom: .75rem; z-index: 1; color: #fff; font: .72rem/1.4 var(--mono); opacity: 0; transform: translateY(6px); transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out); pointer-events: none; }
-.shot button:hover img, .shot button:focus-visible img { transform: scale(1.045); }
-.shot button:hover::after, .shot button:focus-visible::after,
-.shot button:hover figcaption, .shot button:focus-visible figcaption { opacity: 1; transform: none; }
-@media (hover: none) { .shot button::after, .shot figcaption { opacity: 1; transform: none; } }
-
+/* Field gallery */
+.gallery { columns: 2 14rem; column-gap: 1rem; }
+@media (min-width: 900px) { .gallery { columns: 3; } }
+.shot { break-inside: avoid; margin: 0 0 1rem; }
+.shot button { all: unset; display: block; position: relative; width: 100%; border-radius: 18px; overflow: hidden; cursor: zoom-in; }
+.shot button:focus-visible { outline: 2px solid var(--a-ember); outline-offset: 3px; }
+.shot img { width: 100%; height: auto; transition: transform 1.1s var(--ease); }
+.shot button:hover img { transform: scale(1.06); }
+.shot figcaption { position: absolute; left: 1rem; right: 1rem; bottom: .9rem; color: #fff; font: 500 .72rem var(--mono); text-shadow: 0 1px 12px rgb(0 0 0 / .6); }
 .lightbox { border: 0; padding: 0; margin: auto; max-width: min(92vw, 80rem); max-height: 92vh; background: transparent; color: #fff; overflow: visible; }
-.lightbox::backdrop { background: rgb(6 12 15 / .86); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-.lightbox img { display: block; max-width: 100%; max-height: 82vh; margin: 0 auto; border-radius: 6px; box-shadow: 0 40px 100px -30px rgb(0 0 0 / .6); }
-.lightbox p { margin: .9rem 0 0; text-align: center; font: .78rem/1.5 var(--mono); color: rgb(255 255 255 / .82); }
-.lb-btn { position: fixed; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1px solid rgb(255 255 255 / .25); background: rgb(255 255 255 / .06); color: #fff; font: 1.1rem var(--mono); cursor: pointer; transition: background-color var(--t-ui) var(--ease-out); }
-.lb-btn:hover { background: rgb(255 255 255 / .18); }
-.lb-close { top: 1rem; right: 1rem; }
-.lb-prev { left: 1rem; top: 50%; transform: translateY(-50%); }
-.lb-next { right: 1rem; top: 50%; transform: translateY(-50%); }
-@media (max-width: 640px) { .lb-prev, .lb-next { top: auto; bottom: 1rem; transform: none; } }
+.lightbox::backdrop { background: rgb(6 12 15 / .9); backdrop-filter: blur(10px); }
+.lightbox img { max-width: 100%; max-height: 82vh; margin: 0 auto; border-radius: 14px; }
+.lightbox p { margin: .9rem 0 0; text-align: center; font: .78rem var(--mono); color: rgb(255 255 255 / .8); }
+.lb { position: fixed; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid rgb(255 255 255 / .25); background: rgb(255 255 255 / .06); color: #fff; font: 1.1rem var(--mono); cursor: pointer; }
+.lb:hover { background: rgb(255 255 255 / .18); }
+.lb-x { top: 1rem; right: 1rem; } .lb-p { left: 1rem; top: 50%; translate: 0 -50%; } .lb-n { right: 1rem; top: 50%; translate: 0 -50%; }
+@media (max-width: 640px) { .lb-p, .lb-n { top: auto; bottom: 1rem; translate: none; } }
 
-/* ── Sign-off ── */
-.signoff { padding: 5rem 0 3.5rem; border-top: 1px solid var(--rule); position: relative; overflow: hidden; }
-.signoff::before { content: ""; position: absolute; inset: auto -10% -60% -10%; height: 120%; z-index: -1; background: radial-gradient(40% 50% at 20% 50%, var(--accent-soft), transparent 70%), radial-gradient(35% 45% at 60% 60%, var(--accent-2-soft), transparent 70%), radial-gradient(30% 40% at 90% 40%, var(--accent-3-soft), transparent 70%); opacity: .8; }
-.signoff h2 { font-size: clamp(2rem, 6vw, 3.4rem); line-height: 1.05; letter-spacing: -.02em; max-width: 18ch; margin: 0 0 1.75rem; }
-.signoff h2 em { font-weight: 300; color: var(--ink-2); }
-.signoff .mail { font-size: clamp(1.15rem, 3.2vw, 1.6rem); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: .2rem; word-break: break-word; }
-.signoff .mail:hover { border-color: var(--accent); }
-.signoff .mail span { display: inline-block; transition: transform var(--t-ui) var(--ease-out); }
-.signoff .mail:hover span { transform: translateX(4px); }
+/* Sign-off + footer */
+.signoff { padding-bottom: 3rem; overflow: hidden; }
+.big { font: 400 clamp(5rem, 22vw, 22rem)/.8 var(--display); letter-spacing: -.045em; margin: 0 0 3rem; }
+.big em { font-style: italic; color: var(--a-ember); }
+.signoff .row2 { display: grid; gap: 2rem; align-items: end; }
+@media (min-width: 900px) { .signoff .row2 { grid-template-columns: 1fr auto; } }
+.signoff p { max-width: 32rem; color: var(--fg-2); margin: 0; font-size: 1.15rem; }
+.mail { display: inline-block; font: 400 clamp(1.6rem, 4vw, 3.2rem)/1.1 var(--display); text-decoration: none; margin-top: 1rem; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .6s var(--ease); word-break: break-word; }
+.mail:hover { background-size: 100% 1px; }
+footer { padding: 1.5rem 0 2rem; }
+footer .container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .75rem 2rem; border-top: 1px solid var(--line); padding-top: 1.5rem; color: var(--fg-2); }
+footer a { text-decoration: none; }
+footer a:hover { color: var(--fg); }
+
+/* ═══════════════════════════ Cursor ═══════════════════════════ */
+.cursor { position: fixed; left: 0; top: 0; z-index: 250; pointer-events: none; mix-blend-mode: difference; display: none; }
+html.has-cursor .cursor { display: block; }
+.cursor .dot { position: absolute; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: #fff; }
+.cursor .ring { position: absolute; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; border: 1px solid #fff; display: grid; place-items: center; transition: width .4s var(--ease), height .4s var(--ease), margin .4s var(--ease), background-color .4s var(--ease); }
+.cursor .ring span { font: 500 .66rem var(--mono); color: #000; opacity: 0; transition: opacity .3s; }
+.cursor.big .ring { width: 86px; height: 86px; margin: -43px 0 0 -43px; background: #fff; }
+.cursor.big .ring span { opacity: 1; }
+.cursor.link .ring { width: 64px; height: 64px; margin: -32px 0 0 -32px; }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero h1 em, .status::before { animation: none; }
-  .shot img { transition: none; }
-}
-@media print { body::after, .progress, .signoff::before { display: none; } }
-
-/* Focus: always visible for keyboard users */
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
-
-/* Hero load sequence is the seismogram drawing itself (JS); nothing else animates on load */
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
 }
 @media print {
-  header.nav, .trace, .theme-btn { display: none; }
-  .hero::before, .hero::after { display: none; }
-  details > *:not(summary) { display: block; }
-  section { break-inside: avoid; }
+  .nav, .loader, .cursor, .band, .heli, #topo, .progress, body::after { display: none !important; }
+  section, .hero { min-height: 0; padding: 2rem 0; }
+  .project { position: static; }
 }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
 </head>
 <body>
+<a class="skip" href="#about">Skip to content</a>
 
 <!--
   HOW TO EDIT
-  Everything is plain HTML below. Spots marked <!- - ADD: … - -> are empty slots
-  where you can add things later (hobbies, LinkedIn, Google Scholar, etc.).
+  Everything is plain HTML below. Spots marked ADD are empty slots for things
+  you can fill in later (Google Scholar, LinkedIn, field photos, more rows).
 -->
 
-<header class="nav" id="nav">
-  <div class="wrap">
-    <a class="mark" href="#top">M. Raffay Chaudhry</a>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#research">Research</a></li>
-      <li><a href="#field">Field</a></li>
-      <li><a href="#experience">Training</a></li>
-      <li><a href="#awards">Awards</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#beyond">Leadership</a></li>
-    </ul>
-    <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode" title="Toggle theme">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8" cy="8" r="6"/><path d="M8 2a6 6 0 0 0 0 12z" fill="currentColor"/></svg>
-    </button>
-  </div>
-  <div class="progress" id="progress" aria-hidden="true"></div>
-</header>
+<div class="loader" aria-hidden="true">
+  <div class="l-top mono"><span>Muhammad Raffay Chaudhry</span><span>Geoscience · Fall 2027</span></div>
+  <svg viewBox="0 0 1000 60" preserveAspectRatio="none"><path id="lpath" d=""/></svg>
+  <div class="l-bot"><span class="mono">Listening to the solid Earth</span><span class="l-num" id="lnum">0</span></div>
+</div>
 
-<main id="top">
+<div class="progress" id="progress" aria-hidden="true"></div>
 
-  <!-- ───────────── Hero ───────────── -->
-  <div class="hero">
-    <div class="wrap">
-      <div class="hero-grid">
-        <figure class="portrait"><img src="photo.jpg" alt="Portrait of Muhammad Raffay Chaudhry" width="400" height="500"></figure>
-        <div>
-          <span class="mono status">Applying to PhD programs for Fall 2027</span>
-          <h1>Muhammad Raffay Chaudhry<br><em>listening to the solid Earth.</em></h1>
-          <p class="lede">Geoscience senior at the <strong>University of Wisconsin–Green Bay</strong>. I study how fluids and stress move through rock and ice, using seismic signals and geophysical surveys to see what happens underground.</p>
-          <div class="links">
-            <a class="btn" href="cv.pdf">Curriculum vitae <span aria-hidden="true">↓</span></a>
-            <a href="mailto:raffaychaudhary1@gmail.com">Email</a>
-            <a href="https://github.com/Raffaycodes">GitHub</a>
-            <!-- ADD: <a href="…">Google Scholar</a> / <a href="…">LinkedIn</a> -->
-          </div>
+<nav class="nav" aria-label="Main">
+  <a class="brand" href="#top" data-cursor="link"><b>RC</b><span>Raffay Chaudhry</span></a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Research</a></li>
+    <li><a href="#field">Field</a></li>
+    <li><a href="#training">Training</a></li>
+    <li><a href="#honors">Honors</a></li>
+    <li><a href="#toolkit">Toolkit</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="cv" href="cv.pdf" data-magnetic>CV ↓</a>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="overlay">Menu</button>
+</nav>
+
+<div class="overlay" id="overlay" aria-hidden="true">
+  <a href="#about">About</a>
+  <a href="#work"><em>Research</em></a>
+  <a href="#field">Field</a>
+  <a href="#training"><em>Training</em></a>
+  <a href="#honors">Honors</a>
+  <a href="#toolkit"><em>Toolkit</em></a>
+  <a href="#contact">Contact</a>
+  <p class="mono"><a style="font: inherit; display: inline" href="cv.pdf">Download CV ↓</a></p>
+</div>
+
+<main>
+  <!-- ═════════════ Hero ═════════════ -->
+  <header class="hero" id="top" data-c="ink">
+    <canvas id="topo" aria-hidden="true"></canvas>
+    <div class="container hero-in">
+      <div class="hero-top">
+        <span class="pill"><i></i>Applying to PhD programs · Fall 2027</span>
+        <span class="mono coords">44.53° N, 87.92° W · Green Bay, Wisconsin</span>
+      </div>
+      <figure class="hero-photo"><img src="photo.jpg" alt="Portrait of Muhammad Raffay Chaudhry" width="400" height="500"></figure>
+      <h1 class="hero-name" aria-label="Muhammad Raffay Chaudhry">
+        <span class="first" aria-hidden="true">Muhammad</span>
+        <span class="l" aria-hidden="true">Raffay</span>
+        <span class="l" aria-hidden="true"><em>Chaudhry</em></span>
+      </h1>
+      <div class="hero-foot">
+        <p class="lede">Geoscience senior at the <strong>University of Wisconsin–Green Bay</strong>. I study how fluids and stress move through rock and ice, using seismic signals and geophysical surveys to see what happens underground.</p>
+        <div class="ctas">
+          <a class="btn" href="cv.pdf" data-magnetic>Curriculum vitae <span class="arr">↓</span></a>
+          <a class="btn ghost" href="mailto:raffaychaudhary1@gmail.com" data-magnetic>Email <span class="arr">↗</span></a>
+          <a class="btn ghost" href="https://github.com/Raffaycodes" data-magnetic>GitHub <span class="arr">↗</span></a>
+          <!-- ADD: <a class="btn ghost" href="…">Google Scholar <span class="arr">↗</span></a> -->
         </div>
       </div>
+    </div>
+    <div class="heli" aria-hidden="true">
+      <span class="mono live"><i></i>Live · synthetic</span>
+      <svg id="heli" viewBox="0 0 1000 56" preserveAspectRatio="none">
+        <path class="wave" id="hwave" d=""/>
+        <g class="pick" id="pP" opacity="0"><line x1="0" y1="2" x2="0" y2="54"/><text x="4" y="10">P</text></g>
+        <g class="pick" id="pS" opacity="0"><line x1="0" y1="2" x2="0" y2="54"/><text x="4" y="10">S</text></g>
+      </svg>
+      <span class="mono meta">SYN.BHZ · STA/LTA picks</span>
+    </div>
+  </header>
 
-      <figure class="trace" aria-hidden="true">
-        <svg id="seis" viewBox="0 0 1000 120" preserveAspectRatio="none">
-          <line class="axis" x1="0" y1="60" x2="1000" y2="60"/>
-          <path class="wave" id="wave" d=""/>
-          <g class="pick" id="pickP"><line x1="0" y1="8" x2="0" y2="112"/><text x="5" y="16">P</text></g>
-          <g class="pick" id="pickS"><line x1="0" y1="8" x2="0" y2="112"/><text x="5" y="16">S</text></g>
-        </svg>
-        <figcaption class="mono"><span>Synthetic seismogram · STA/LTA picks</span><span>BHZ</span></figcaption>
-      </figure>
+  <!-- ═════════════ Marquee ═════════════ -->
+  <div class="band" aria-hidden="true">
+    <div class="marquee" data-dir="1">
+      <span>Seismology <svg viewBox="0 0 20 20"><path d="M10 0v20M0 10h20M3 3l14 14M17 3 3 17" stroke="currentColor" stroke-width="2"/></svg></span>
+      <span>Carbon storage <svg viewBox="0 0 20 20"><path d="M10 0v20M0 10h20M3 3l14 14M17 3 3 17" stroke="currentColor" stroke-width="2"/></svg></span>
+      <span>Ice sheet dynamics <svg viewBox="0 0 20 20"><path d="M10 0v20M0 10h20M3 3l14 14M17 3 3 17" stroke="currentColor" stroke-width="2"/></svg></span>
+      <span>Landslide monitoring <svg viewBox="0 0 20 20"><path d="M10 0v20M0 10h20M3 3l14 14M17 3 3 17" stroke="currentColor" stroke-width="2"/></svg></span>
+    </div>
+    <div class="marquee rev" data-dir="-1">
+      <span>Fluid–rock interaction <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/></svg></span>
+      <span>Induced seismicity <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/></svg></span>
+      <span>Geophysical surveys <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/></svg></span>
+      <span>Basal hydrology <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/></svg></span>
     </div>
   </div>
 
-  <!-- ───────────── About ───────────── -->
-  <section id="about">
-    <div class="wrap">
-      <h2>Fluids, rock, and ice under stress.</h2>
-      <div class="prose">
-        <p>I'm from <strong>Pakistan</strong> and came to Wisconsin to study geoscience, first at St. Norbert College and then at UW–Green Bay. I've been drawn to the questions you can't see directly: what water is doing inside rock, how a slope weakens before it fails, how a reservoir responds when CO₂ is pushed into it.</p>
-        <p>I taught myself Python and began building my own tools for seismic data, from waveform processing in <strong>ObsPy</strong> and <strong>SAC</strong> to a pipeline that detects P-wave arrivals automatically. This summer I completed the 12-week <strong>NSF–EarthScope Seismology Skill Building Workshop</strong>. As a research assistant on four projects, I've run electromagnetic surveys, measured fluid inclusions from an ore deposit, and sampled soils and water across Wisconsin.</p>
-        <p>For my PhD I want to work where <strong>fluid flow meets rock and ice mechanics</strong>, whether that means monitoring induced seismicity at a carbon storage site, detecting landslides from seismic signals, or understanding how meltwater changes the way an ice sheet moves.</p>
+  <!-- ═════════════ About ═════════════ -->
+  <section id="about" data-c="ice">
+    <div class="container">
+      <p class="eyebrow">About</p>
+      <p class="statement" data-scrub>I'm drawn to the questions you can't see directly: what water is doing inside rock, how a slope weakens before it fails, and how a reservoir <em>answers</em> when CO₂ is pushed into it.</p>
+      <div class="cols" data-reveal>
+        <p>I'm from <strong>Pakistan</strong> and came to Wisconsin to study geoscience, first at St. Norbert College and then at UW–Green Bay. I taught myself Python and began building my own tools for seismic data, from waveform processing in <strong>ObsPy</strong> and <strong>SAC</strong> to a pipeline that detects P-wave arrivals automatically.</p>
+        <p>This summer I completed the 12-week <strong>NSF–EarthScope Seismology Skill Building Workshop</strong>. As a research assistant on four projects, I've run electromagnetic surveys, measured fluid inclusions from an ore deposit, and sampled soils and water across Wisconsin. For my PhD I want to work where <strong>fluid flow meets rock and ice mechanics</strong>.</p>
       </div>
 
-      <div class="themes">
-        <div class="theme">
-          <h3>Carbon storage</h3>
-          <p>Geomechanics and monitoring of CO₂ injection: pressure, fluid migration, and induced seismicity.</p>
-        </div>
-        <div class="theme">
-          <h3>Seismic monitoring</h3>
-          <p>Detecting earthquakes, landslides, and other mass movements in continuous seismic records.</p>
-        </div>
-        <div class="theme">
-          <h3>Ice sheet dynamics</h3>
-          <p>Basal hydrology, glacial seismicity, and models of how ice flows and fractures.</p>
-        </div>
+      <div class="pillars" data-reveal>
+        <article class="card pillar" data-tone="lichen">
+          <div class="tag"><span>Carbon storage</span><span>CO₂</span></div>
+          <svg class="bub" viewBox="0 0 300 160" aria-hidden="true">
+            <path d="M0 150h300M0 120h300" stroke="currentColor" stroke-opacity=".25"/>
+            <circle cx="40" cy="140" r="5" fill="var(--a-lichen)"/><circle cx="90" cy="140" r="3" fill="currentColor"/><circle cx="130" cy="140" r="7" fill="var(--a-lichen)"/>
+            <circle cx="175" cy="140" r="4" fill="currentColor"/><circle cx="220" cy="140" r="6" fill="var(--a-lichen)"/><circle cx="260" cy="140" r="3" fill="currentColor"/>
+          </svg>
+          <div><h3>Carbon storage</h3><p>Geomechanics and monitoring of CO₂ injection: pressure, fluid migration, and induced seismicity.</p></div>
+        </article>
+        <article class="card pillar" data-tone="ember">
+          <div class="tag"><span>Seismic monitoring</span><span>Hz</span></div>
+          <svg viewBox="0 0 300 160" aria-hidden="true">
+            <path d="M0 80h300" stroke="currentColor" stroke-opacity=".25"/>
+            <path class="wig" d="M0 80h70l6-6 5 12 5-20 6 30 6-44 7 56 6-62 6 48 6-30 6 18 6-10 6 6 6-4h20l8-16 8 30 8-40 8 50 8-36 8 22 8-12 8 6h86" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+          <div><h3>Seismic monitoring</h3><p>Detecting earthquakes, landslides, and other mass movements in continuous seismic records.</p></div>
+        </article>
+        <article class="card pillar" data-tone="ink">
+          <div class="tag"><span>Ice sheet dynamics</span><span>m/yr</span></div>
+          <svg class="strata" viewBox="0 0 300 160" aria-hidden="true">
+            <path d="M-20 40 C60 30 120 55 180 42 S280 30 320 44" fill="none" stroke="var(--a-ice)" stroke-width="2"/>
+            <path d="M-20 70 C60 62 120 84 180 72 S280 60 320 76" fill="none" stroke="currentColor" stroke-opacity=".6" stroke-width="1.5"/>
+            <path d="M-20 100 C60 94 120 112 180 102 S280 92 320 106" fill="none" stroke="var(--a-ice)" stroke-opacity=".7" stroke-width="1.5"/>
+            <path d="M-20 130 C60 126 120 140 180 132 S280 124 320 136" fill="none" stroke="currentColor" stroke-opacity=".4" stroke-width="1.5"/>
+          </svg>
+          <div><h3>Ice sheet dynamics</h3><p>Basal hydrology, glacial seismicity, and models of how ice flows and fractures.</p></div>
+        </article>
       </div>
 
       <div class="facts">
-        <div class="fact"><div class="v">3.96</div><div class="k label">GPA · Dean's List every term</div></div>
-        <div class="fact"><div class="v">4</div><div class="k label">Research assistantships</div></div>
-        <div class="fact"><div class="v">3</div><div class="k label">Conference posters</div></div>
-        <div class="fact"><div class="v">Dec 2026</div><div class="k label">B.S. Geoscience</div></div>
+        <div class="fact"><div class="v" data-count>3.96</div><div class="k">GPA · Dean's List every term</div></div>
+        <div class="fact"><div class="v" data-count>4</div><div class="k">Research assistantships</div></div>
+        <div class="fact"><div class="v" data-count>3</div><div class="k">Conference posters</div></div>
+        <div class="fact"><div class="v" data-count>6</div><div class="k">Honors &amp; scholarships</div></div>
       </div>
     </div>
   </section>
 
-  <!-- ───────────── Research ───────────── -->
-  <section id="research">
-    <div class="wrap">
-      <h2>Projects</h2>
+  <!-- ═════════════ Research ═════════════ -->
+  <section id="work" data-c="ink">
+    <div class="container">
+      <p class="eyebrow">Research</p>
+      <h2 class="title" data-split>Selected <em>work</em></h2>
 
-      <article class="project">
-        <div class="meta mono"><span>2026</span><span>Independent project</span></div>
-        <h3>Seismic signal processing &amp; P-wave detection</h3>
-        <p>A Python and ObsPy pipeline that pulls waveform data from FDSN web services and applies STA/LTA triggers to detect P-wave arrivals automatically.</p>
-        <ul class="tags"><li>Python</li><li>ObsPy</li><li>STA/LTA</li><li>FDSN</li></ul>
-        <details>
-          <summary>Methods &amp; validation</summary>
-          <dl class="detail">
-            <dt>Data</dt><dd>Waveforms retrieved programmatically through FDSN web services.</dd>
-            <dt>Method</dt><dd>Bandpass filtering followed by a short-term / long-term average (STA/LTA) trigger to flag the onset of the P-wave.</dd>
-            <dt>Validation</dt><dd>Tested on a real earthquake recorded at station COP (Copenhagen, Denmark) on 19 February 2009, bandpass filtered 0.5–8 Hz to isolate the arrival from background noise.</dd>
-            <dt>Code</dt><dd><a href="https://github.com/Raffaycodes/Seismic-P-wave-Detection">github.com/Raffaycodes/Seismic-P-wave-Detection</a></dd>
-          </dl>
-        </details>
-      </article>
+      <div class="stack">
+        <article class="card project" data-tone="ice" style="--i:0">
+          <div class="meta"><span>2026 · Independent project</span><span>01 / 05</span></div>
+          <h3>Seismic signal processing &amp; P-wave detection</h3>
+          <div class="body">
+            <p>A Python and ObsPy pipeline that pulls waveform data from FDSN web services and applies STA/LTA triggers to detect P-wave arrivals automatically.</p>
+            <ul class="tags"><li>Python</li><li>ObsPy</li><li>STA/LTA</li><li>FDSN</li></ul>
+            <details>
+              <summary>Methods &amp; validation</summary>
+              <dl class="detail">
+                <div><dt>Data</dt><dd>Waveforms retrieved programmatically through FDSN web services.</dd></div>
+                <div><dt>Method</dt><dd>Bandpass filtering followed by a short-term / long-term average (STA/LTA) trigger to flag the onset of the P-wave.</dd></div>
+                <div><dt>Validation</dt><dd>Tested on a real earthquake recorded at station COP (Copenhagen, Denmark) on 19 February 2009, bandpass filtered 0.5–8 Hz to isolate the arrival from background noise.</dd></div>
+                <div><dt>Code</dt><dd><a href="https://github.com/Raffaycodes/Seismic-P-wave-Detection">github.com/Raffaycodes/Seismic-P-wave-Detection</a></dd></div>
+              </dl>
+            </details>
+          </div>
+        </article>
 
-      <article class="project">
-        <div class="meta mono"><span>Oct 2025 – Sep 2026</span><span>Geophysics RA · Dr. John Luczaj</span></div>
-        <h3>EM-31 survey for municipal water-main leak detection</h3>
-        <p>Electromagnetic surveys mapping subsurface conductivity around a suspected municipal water-main leak, turned into GIS conductivity maps and anomaly models.</p>
-        <ul class="tags"><li>EM-31</li><li>ArcGIS Pro</li><li>Gridding</li><li>Anomaly mapping</li></ul>
-        <details>
-          <summary>Methods &amp; results</summary>
-          <dl class="detail">
-            <dt>Problem</dt><dd>A suspected leak near a municipal water main, with utility records that disagreed on where the main actually ran.</dd>
-            <dt>Method</dt><dd>EM-31 terrain conductivity surveys over the site, gridded into high-resolution GIS conductivity maps and spatial anomaly models.</dd>
-            <dt>Result</dt><dd>The conductivity anomalies resolved the conflicting utility records of the main's location.</dd>
-            <dt>Output</dt><dd>Presented at the AIPG National Conference, Duluth, MN (2026). Awarded <strong>Best Poster Presentation</strong>.</dd>
-          </dl>
-        </details>
-      </article>
+        <article class="card project" data-tone="ember" style="--i:1">
+          <div class="meta"><span>Oct 2025 – Sep 2026 · Geophysics RA · Dr. John Luczaj</span><span>02 / 05</span></div>
+          <h3>EM-31 survey for municipal water-main leak detection</h3>
+          <div class="body">
+            <p>Electromagnetic surveys mapping subsurface conductivity around a suspected municipal water-main leak, turned into GIS conductivity maps and anomaly models.</p>
+            <ul class="tags"><li>EM-31</li><li>ArcGIS Pro</li><li>Gridding</li><li>Anomaly mapping</li><li>Best Poster</li></ul>
+            <details>
+              <summary>Methods &amp; results</summary>
+              <dl class="detail">
+                <div><dt>Problem</dt><dd>A suspected leak near a municipal water main, with utility records that disagreed on where the main actually ran.</dd></div>
+                <div><dt>Method</dt><dd>EM-31 terrain conductivity surveys over the site, gridded into high-resolution GIS conductivity maps and spatial anomaly models.</dd></div>
+                <div><dt>Result</dt><dd>The conductivity anomalies resolved the conflicting utility records of the main's location.</dd></div>
+                <div><dt>Output</dt><dd>Presented at the AIPG National Conference, Duluth, MN (2026). Awarded <strong>Best Poster Presentation</strong>.</dd></div>
+              </dl>
+            </details>
+          </div>
+        </article>
 
-      <article class="project">
-        <div class="meta mono"><span>Dec 2025 – Jul 2026</span><span>Fluid inclusion RA · Dr. John Luczaj</span></div>
-        <h3>Ore-forming fluids at Eagle Mine, Michigan</h3>
-        <p>Fluid inclusion microthermometry to characterize the fluids that formed the ore at Eagle Mine and how their temperature changed through time.</p>
-        <ul class="tags"><li>Microthermometry</li><li>Thin sections</li><li>Petrography</li><li>Fluid–rock interaction</li></ul>
-        <details>
-          <summary>Methods</summary>
-          <dl class="detail">
-            <dt>Samples</dt><dd>Thin sections prepared from Eagle Mine material.</dd>
-            <dt>Method</dt><dd>Petrographic observation of inclusion assemblages combined with heating and freezing measurements.</dd>
-            <dt>Goal</dt><dd>Constrain the temperature evolution of the mineralizing fluids.</dd>
-          </dl>
-        </details>
-      </article>
+        <article class="card project" data-tone="moss" style="--i:2">
+          <div class="meta"><span>Dec 2025 – Jul 2026 · Fluid inclusion RA · Dr. John Luczaj</span><span>03 / 05</span></div>
+          <h3>Ore-forming fluids at Eagle Mine, Michigan</h3>
+          <div class="body">
+            <p>Fluid inclusion microthermometry to characterize the fluids that formed the ore at Eagle Mine and how their temperature changed through time.</p>
+            <ul class="tags"><li>Microthermometry</li><li>Thin sections</li><li>Petrography</li><li>Fluid–rock interaction</li></ul>
+            <details>
+              <summary>Methods</summary>
+              <dl class="detail">
+                <div><dt>Samples</dt><dd>Thin sections prepared from Eagle Mine material.</dd></div>
+                <div><dt>Method</dt><dd>Petrographic observation of inclusion assemblages combined with heating and freezing measurements.</dd></div>
+                <div><dt>Goal</dt><dd>Constrain the temperature evolution of the mineralizing fluids.</dd></div>
+              </dl>
+            </details>
+          </div>
+        </article>
 
-      <article class="project">
-        <div class="meta mono"><span>Nov 2025 – Aug 2026</span><span>Soils RA · Dr. Kevin Fermanich, CSET</span></div>
-        <h3>Baseline soils for an agrivoltaic conversion</h3>
-        <p>Soil characterization of farmland being converted to solar, establishing a baseline before the panels go in.</p>
-        <ul class="tags"><li>Soil coring</li><li>Flash 2000 CHNS</li><li>GIS</li><li>Power analysis</li></ul>
-        <details>
-          <summary>Methods</summary>
-          <dl class="detail">
-            <dt>Field &amp; lab</dt><dd>Soil sampling, bulk density, and C/N concentration analysis on a Flash 2000 elemental analyzer.</dd>
-            <dt>Analysis</dt><dd>GIS spatial analysis across the study plots to evaluate site suitability and map nutrient distribution. Independently ran a power analysis to test whether the sampling design had an adequate sample size.</dd>
-            <dt>Water</dt><dd>Worked with a graduate researcher on water sampling to quantify metal concentrations.</dd>
-            <dt>Output</dt><dd>Poster at the UWGB Academic Excellence Symposium (2026).</dd>
-          </dl>
-        </details>
-      </article>
+        <article class="card project" data-tone="stone" style="--i:3">
+          <div class="meta"><span>Nov 2025 – Aug 2026 · Soils RA · Dr. Kevin Fermanich, CSET</span><span>04 / 05</span></div>
+          <h3>Baseline soils for an agrivoltaic conversion</h3>
+          <div class="body">
+            <p>Soil characterization of farmland being converted to solar, establishing a baseline before the panels go in.</p>
+            <ul class="tags"><li>Soil coring</li><li>Flash 2000 CHNS</li><li>GIS</li><li>Power analysis</li></ul>
+            <details>
+              <summary>Methods</summary>
+              <dl class="detail">
+                <div><dt>Field &amp; lab</dt><dd>Soil sampling, bulk density, and C/N concentration analysis on a Flash 2000 elemental analyzer.</dd></div>
+                <div><dt>Analysis</dt><dd>GIS spatial analysis across the study plots to evaluate site suitability and map nutrient distribution. Independently ran a power analysis to test whether the sampling design had an adequate sample size.</dd></div>
+                <div><dt>Water</dt><dd>Worked with a graduate researcher on water sampling to quantify metal concentrations.</dd></div>
+                <div><dt>Output</dt><dd>Poster at the UWGB Academic Excellence Symposium (2026).</dd></div>
+              </dl>
+            </details>
+          </div>
+        </article>
 
-      <article class="project">
-        <div class="meta mono"><span>Nov 2025 – Mar 2026</span><span>Hydrology RA · Dr. Matthew Dougherty</span></div>
-        <h3>Phosphate transport in creeks, rivers, and lakes</h3>
-        <p>Collected and analyzed water samples across connected creek, river, and lake systems to assess total phosphate distribution and nutrient transport.</p>
-        <ul class="tags"><li>Water sampling</li><li>Nutrient analysis</li><li>Hydrology</li></ul>
-      </article>
+        <article class="card project" data-tone="deep" style="--i:4">
+          <div class="meta"><span>Nov 2025 – Mar 2026 · Hydrology RA · Dr. Matthew Dougherty</span><span>05 / 05</span></div>
+          <h3>Phosphate transport in creeks, rivers, and lakes</h3>
+          <div class="body">
+            <p>Collected and analyzed water samples across connected creek, river, and lake systems to assess total phosphate distribution and nutrient transport.</p>
+            <ul class="tags"><li>Water sampling</li><li>Nutrient analysis</li><li>Hydrology</li></ul>
+          </div>
+        </article>
+      </div>
 
-      <h3 class="label subhead">Presentations</h3>
-      <ul class="cites">
-        <li><strong class="t">Chaudhry, M.R.</strong>, Luczaj, J., &amp; Warr, L. (2026). <span class="t">EM-31 Geophysical Survey for Municipal Water-Main Leak Detection.</span> AIPG National Conference, Duluth, MN. <span class="badge">Best Poster</span></li>
-        <li><strong class="t">Chaudhry, M.R.</strong> &amp; Warr, L. (2026). <span class="t">Storm Drains as a Source of Phosphate in a Small Southeast Wisconsin Lake.</span> St. Norbert College Symposium.</li>
-        <li><strong class="t">Chaudhry, M.R.</strong> &amp; Fermanich, K. (2026). <span class="t">Baseline Soil Characterization of a Site Undergoing Agrivoltaic Conversion.</span> UWGB Academic Excellence Symposium.</li>
+      <p class="sub"><span>Presentations</span><span>2026</span></p>
+      <ul class="rows" data-reveal>
+        <li class="row cite"><span class="when">AIPG National · Duluth</span><div><h3>EM-31 Geophysical Survey for Municipal Water-Main Leak Detection <span class="badge">Best Poster</span></h3><p class="where">Chaudhry, M.R., Luczaj, J., &amp; Warr, L.</p></div></li>
+        <li class="row cite"><span class="when">St. Norbert Symposium</span><div><h3>Storm Drains as a Source of Phosphate in a Small Southeast Wisconsin Lake</h3><p class="where">Chaudhry, M.R. &amp; Warr, L.</p></div></li>
+        <li class="row cite"><span class="when">UWGB Symposium</span><div><h3>Baseline Soil Characterization of a Site Undergoing Agrivoltaic Conversion</h3><p class="where">Chaudhry, M.R. &amp; Fermanich, K.</p></div></li>
       </ul>
     </div>
   </section>
 
-  <!-- ───────────── Field gallery ─────────────
+  <!-- ═════════════ Field gallery ═════════════
        HOW TO ADD A PHOTO: put the image in a folder called "field" next to index.html,
-       then copy one <figure> block below and change the file name and caption.
-       Photos of any shape work; the grid arranges them. Keep each file under ~500 KB (1600 px wide is plenty).
-       This whole section stays hidden until it has at least one photo. -->
-  <section id="field">
-    <div class="wrap wide">
-      <h2>In the field</h2>
+       then add a <figure> line inside the gallery like the example below.
+       Any shape works; keep each file under ~500 KB (1600 px wide is plenty).
+       This section stays hidden until it has at least one photo.
+       EXAMPLE:
+       <figure class="shot"><button type="button"><img src="field/example.jpg" alt="Describe the photo" loading="lazy"><figcaption>Place · What you were doing · 2026</figcaption></button></figure>
+  -->
+  <section id="field" data-c="lichen">
+    <div class="container">
+      <p class="eyebrow">Field</p>
+      <h2 class="title" data-split>In the <em>field</em></h2>
       <div class="gallery" id="gallery">
-        <!-- EXAMPLE (remove the two dashes-and-angle marks around it to use):
-        <figure class="shot"><button type="button"><img src="field/example.jpg" alt="Describe the photo" loading="lazy"><figcaption>Place · What you were doing · 2026</figcaption></button></figure>
-        -->
       </div>
     </div>
   </section>
 
-  <!-- ───────────── Education & training ───────────── -->
-  <section id="experience">
-    <div class="wrap">
-      <h2>Education, field &amp; lab</h2>
-      <ul class="rows">
-        <li><span class="when">2024 – 2026</span>
-          <div><div class="what">B.S. Geoscience</div>
-          <div class="where">University of Wisconsin–Green Bay · expected Dec 2026</div>
-          <div class="note">GPA 3.96 / 4.00 · Dean's List every semester</div></div></li>
-        <li><span class="when">2023 – 2024</span>
-          <div><div class="what">St. Norbert College</div>
-          <div class="where">De Pere, Wisconsin · GPA 4.00 / 4.00</div></div></li>
-        <li><span class="when">Jun – Aug 2026</span>
-          <div><div class="what">Seismology Skill Building Workshop</div>
-          <div class="where">NSF &amp; EarthScope</div>
-          <div class="note">12-week program in scientific computing, observational seismology, seismic data analysis, and applied Python (ObsPy).</div></div></li>
+  <!-- ═════════════ Training ═════════════ -->
+  <section id="training" data-c="stone">
+    <div class="container">
+      <p class="eyebrow">Training</p>
+      <h2 class="title" data-split>Education, field <em>&amp; lab</em></h2>
+      <ul class="rows" data-reveal>
+        <li class="row"><span class="when">2024 – 2026</span><div><h3>B.S. Geoscience</h3><p class="where">University of Wisconsin–Green Bay · expected Dec 2026</p><p class="note">GPA 3.96 / 4.00 · Dean's List every semester</p></div></li>
+        <li class="row"><span class="when">2023 – 2024</span><div><h3>St. Norbert College</h3><p class="where">De Pere, Wisconsin · GPA 4.00 / 4.00</p></div></li>
+        <li class="row"><span class="when">Jun – Aug 2026</span><div><h3>Seismology Skill Building Workshop</h3><p class="where">NSF &amp; EarthScope</p><p class="note">12-week program in scientific computing, observational seismology, seismic data analysis, and applied Python (ObsPy).</p></div></li>
       </ul>
 
-      <h3 class="label subhead">Field &amp; lab</h3>
-      <ul class="rows">
-        <li><span class="when">Jan 2027</span>
-          <div><div class="what">Volcanology Field Camp, Big Island of Hawaiʻi</div>
-          <div class="where">South Dakota School of Mines &amp; Technology · AAPG-funded</div>
-          <div class="note">Mapping lava flow stratigraphy and pāhoehoe and ʻaʻā structures in an active rift zone with GPS traverses, compass-and-clinometer mapping, and sampling for petrography.</div></div></li>
-        <li><span class="when">2026</span>
-          <div><div class="what">Precambrian terranes of Lake Superior</div>
-          <div class="where">UW–Green Bay geoscience field trip</div>
-          <div class="note">Outcrop mapping and stratigraphic correlation across the Penokean, Yavapai, and Baraboo orogenic belts.</div></div></li>
-        <li><span class="when">2024</span>
-          <div><div class="what">Northwoods of Wisconsin &amp; Upper Peninsula, Michigan</div>
-          <div class="where">Mineralogy field trip</div>
-          <div class="note">Glacial stratigraphy, Penokean structures, and igneous assemblages including the Wolf River Batholith.</div></div></li>
-        <li><span class="when">2024</span>
-          <div><div class="what">Core &amp; geochemistry lab</div>
-          <div class="where">UW–Green Bay</div>
-          <div class="note">Logged over 1,000 feet of drill core for the composite stratigraphic column of northeastern Wisconsin. Measured chloride, phosphorus, nitrate, carbon, and nitrogen by flame photometry and colorimetry, plus TSS/VSS.</div></div></li>
+      <p class="sub"><span>Field &amp; lab</span><span>2024 – 2027</span></p>
+      <ul class="rows" data-reveal>
+        <li class="row"><span class="when">Jan 2027</span><div><h3>Volcanology Field Camp, Big Island of Hawaiʻi</h3><p class="where">South Dakota School of Mines &amp; Technology · AAPG-funded</p><p class="note">Mapping lava flow stratigraphy and pāhoehoe and ʻaʻā structures in an active rift zone with GPS traverses, compass-and-clinometer mapping, and sampling for petrography.</p></div></li>
+        <li class="row"><span class="when">2026</span><div><h3>Precambrian terranes of Lake Superior</h3><p class="where">UW–Green Bay geoscience field trip</p><p class="note">Outcrop mapping and stratigraphic correlation across the Penokean, Yavapai, and Baraboo orogenic belts.</p></div></li>
+        <li class="row"><span class="when">2024</span><div><h3>Northwoods of Wisconsin &amp; Upper Peninsula, Michigan</h3><p class="where">Mineralogy field trip</p><p class="note">Glacial stratigraphy, Penokean structures, and igneous assemblages including the Wolf River Batholith.</p></div></li>
+        <li class="row"><span class="when">2024</span><div><h3>Core &amp; geochemistry lab</h3><p class="where">UW–Green Bay</p><p class="note">Logged over 1,000 feet of drill core for the composite stratigraphic column of northeastern Wisconsin. Measured chloride, phosphorus, nitrate, carbon, and nitrogen by flame photometry and colorimetry, plus TSS/VSS.</p></div></li>
       </ul>
 
-      <h3 class="label subhead">Certifications</h3>
-      <ul class="rows">
-        <li><span class="when">2025 – 2026</span><div><div class="what">MIT OpenCourseWare</div><div class="where">Intro to CS &amp; Python · Computational Thinking &amp; Data Science</div></div></li>
-        <li><span class="when">2025</span><div><div class="what">Seismic Data Processing Certification</div><div class="where">Universiti Sains Malaysia</div></div></li>
-        <li><span class="when">2024</span><div><div class="what">ArcGIS Certification</div><div class="where">Esri</div></div></li>
+      <p class="sub"><span>Certifications</span><span>2024 – 2026</span></p>
+      <ul class="rows" data-reveal>
+        <li class="row"><span class="when">2025 – 2026</span><div><h3>MIT OpenCourseWare</h3><p class="where">Intro to CS &amp; Python · Computational Thinking &amp; Data Science</p></div></li>
+        <li class="row"><span class="when">2025</span><div><h3>Seismic Data Processing Certification</h3><p class="where">Universiti Sains Malaysia</p></div></li>
+        <li class="row"><span class="when">2024</span><div><h3>ArcGIS Certification</h3><p class="where">Esri</p></div></li>
       </ul>
     </div>
   </section>
 
-  <!-- ───────────── Awards ───────────── -->
-  <section id="awards">
-    <div class="wrap">
-      <h2>Honors &amp; awards</h2>
-      <ul class="rows">
-        <li><span class="when">2026</span>
-          <div><div class="what">SEG / P.C. Havens / Seismic Exchange Scholarship</div>
-          <div class="where">Society of Exploration Geophysicists · one student per academic year</div></div></li>
-        <li><span class="when">2026</span>
-          <div><div class="what">Best Poster Presentation</div>
-          <div class="where">AIPG National Conference</div></div></li>
-        <li><span class="when">2026</span>
-          <div><div class="what">AAPG Field Camp Scholarship</div>
-          <div class="where">American Association of Petroleum Geologists · funds Hawaiʻi volcanology field camp</div></div></li>
-        <li><span class="when">2025 &amp; 2026</span>
-          <div><div class="what">AIPG National Award</div>
-          <div class="where">American Institute of Professional Geologists · consecutive years</div></div></li>
-        <li><span class="when">2026</span>
-          <div><div class="what">Morgan-Macaluso Scholarship</div>
-          <div class="where">College of Science, Engineering &amp; Technology, UW–Green Bay · one to three students a year</div></div></li>
-        <li><span class="when">2024</span>
-          <div><div class="what">Exemplary Leadership Award</div>
-          <div class="where">St. Norbert College · five first-year students</div>
-          <div class="note">For organizing a town hall during campus budget cuts, attended by a third of the student body.</div></div></li>
+  <!-- ═════════════ Honors ═════════════ -->
+  <section id="honors" data-c="moss">
+    <div class="container">
+      <p class="eyebrow">Honors</p>
+      <h2 class="title" data-split>Honors <em>&amp; awards</em></h2>
+      <ul class="rows" data-reveal>
+        <li class="row"><span class="when">2026</span><div><h3>SEG / P.C. Havens / Seismic Exchange Scholarship</h3><p class="where">Society of Exploration Geophysicists · one student per academic year</p></div></li>
+        <li class="row"><span class="when">2026</span><div><h3>Best Poster Presentation</h3><p class="where">AIPG National Conference</p></div></li>
+        <li class="row"><span class="when">2026</span><div><h3>AAPG Field Camp Scholarship</h3><p class="where">American Association of Petroleum Geologists · funds Hawaiʻi volcanology field camp</p></div></li>
+        <li class="row"><span class="when">2025 &amp; 2026</span><div><h3>AIPG National Award</h3><p class="where">American Institute of Professional Geologists · consecutive years</p></div></li>
+        <li class="row"><span class="when">2026</span><div><h3>Morgan-Macaluso Scholarship</h3><p class="where">College of Science, Engineering &amp; Technology, UW–Green Bay · one to three students a year</p></div></li>
+        <li class="row"><span class="when">2024</span><div><h3>Exemplary Leadership Award</h3><p class="where">St. Norbert College · five first-year students</p><p class="note">For organizing a town hall during campus budget cuts, attended by a third of the student body.</p></div></li>
       </ul>
     </div>
   </section>
 
-  <!-- ───────────── Skills ───────────── -->
-  <section id="skills">
-    <div class="wrap">
-      <h2>Skills</h2>
-      <div class="skills">
-        <div><h3>Computational</h3><p>Python (NumPy, ObsPy, Pandas, Matplotlib), Jupyter, SAC, GMT, Unix/Linux shell, ArcGIS Pro, QGIS</p></div>
-        <div><h3>Seismology</h3><p>STA/LTA event detection, filtering, component rotation, spectrograms, instrument response removal, FDSN/SAGE data retrieval</p></div>
-        <div><h3>Geophysics &amp; geodesy</h3><p>EM-31 conductivity surveying, data gridding and anomaly mapping, geodetic time-series analysis</p></div>
-        <div><h3>Field &amp; lab</h3><p>Geologic and volcanic mapping, drill-core logging, soil coring, water sampling, petrographic microscopy, fluid inclusion microthermometry, CHNS elemental analysis</p></div>
+  <!-- ═════════════ Toolkit ═════════════ -->
+  <section id="toolkit" data-c="lichen">
+    <div class="container">
+      <p class="eyebrow">Toolkit</p>
+      <h2 class="title" data-split>The <em>toolkit</em></h2>
+      <div class="kit" data-reveal>
+        <div class="card" data-tone="ice"><h3>Computational</h3><ul class="chips"><li>Python</li><li>NumPy</li><li>ObsPy</li><li>Pandas</li><li>Matplotlib</li><li>Jupyter</li><li>SAC</li><li>GMT</li><li>Unix / Linux shell</li><li>ArcGIS Pro</li><li>QGIS</li></ul></div>
+        <div class="card" data-tone="ember"><h3>Seismology</h3><ul class="chips"><li>STA/LTA detection</li><li>Filtering</li><li>Component rotation</li><li>Spectrograms</li><li>Instrument response removal</li><li>FDSN / SAGE retrieval</li></ul></div>
+        <div class="card" data-tone="moss"><h3>Geophysics &amp; geodesy</h3><ul class="chips"><li>EM-31 conductivity surveying</li><li>Data gridding</li><li>Anomaly mapping</li><li>Geodetic time series</li></ul></div>
+        <div class="card" data-tone="stone"><h3>Field &amp; lab</h3><ul class="chips"><li>Geologic mapping</li><li>Volcanic mapping</li><li>Drill-core logging</li><li>Soil coring</li><li>Water sampling</li><li>Petrographic microscopy</li><li>Fluid inclusion microthermometry</li><li>CHNS elemental analysis</li></ul></div>
       </div>
     </div>
   </section>
 
-  <!-- ───────────── Leadership & life ───────────── -->
-  <section id="beyond">
-    <div class="wrap">
-      <h2>Leadership &amp; life</h2>
-      <ul class="rows">
-        <li><span class="when">2025 – now</span>
-          <div><div class="what">Student Body President &amp; Shared Governance Chair</div>
-          <div class="where">UW–Green Bay Student Government Association</div>
-          <div class="note">Co-authored the first AI policy framework in UW System history with the Board of Regents. Represented 13,000 students, expanded the Senate from 4 to 30 members, and led a team of 40+ student leaders. Served as student representative on the search committee for the 10th President of the UW System, representing 165,000+ students, and coordinated student governance across 12 UW campuses.</div></div></li>
-        <li><span class="when">2025</span>
-          <div><div class="what">President, Muslim Students Association &amp; Geology Club</div>
-          <div class="where">UW–Green Bay</div>
-          <div class="note">Organized a campus-wide Ramadan iftar for 150+ attendees that raised $1,500, ran bi-weekly programming drawing 100+ participants, and rebuilt the Geology Club's visual identity with the Graphic Design department.</div></div></li>
-        <li><span class="when">2023 – 2025</span>
-          <div><div class="what">Competitive powerlifter</div>
-          <div class="where">USA Powerlifting &amp; Pakistan Powerlifting Federation</div>
-          <div class="note">Ranked 2nd in Pakistan (Junior, 59 kg). USAPL nationals qualifier representing St. Norbert College.</div></div></li>
-        <!-- ADD: hobbies or other interests as more <li> rows -->
+  <!-- ═════════════ Leadership ═════════════ -->
+  <section id="beyond" data-c="deep">
+    <div class="container">
+      <p class="eyebrow">Leadership &amp; life</p>
+      <h2 class="title" data-split>Beyond the <em>lab</em></h2>
+      <ul class="rows" data-reveal>
+        <li class="row"><span class="when">2025 – now</span><div><h3>Student Body President &amp; Shared Governance Chair</h3><p class="where">UW–Green Bay Student Government Association</p><p class="note">Co-authored the first AI policy framework in UW System history with the Board of Regents. Represented 13,000 students, expanded the Senate from 4 to 30 members, and led a team of 40+ student leaders. Served as student representative on the search committee for the 10th President of the UW System, representing 165,000+ students, and coordinated student governance across 12 UW campuses.</p></div></li>
+        <li class="row"><span class="when">2025</span><div><h3>President, Muslim Students Association &amp; Geology Club</h3><p class="where">UW–Green Bay</p><p class="note">Organized a campus-wide Ramadan iftar for 150+ attendees that raised $1,500, ran bi-weekly programming drawing 100+ participants, and rebuilt the Geology Club's visual identity with the Graphic Design department.</p></div></li>
+        <li class="row"><span class="when">2023 – 2025</span><div><h3>Competitive powerlifter</h3><p class="where">USA Powerlifting &amp; Pakistan Powerlifting Federation</p><p class="note">Ranked 2nd in Pakistan (Junior, 59 kg). USAPL nationals qualifier representing St. Norbert College.</p></div></li>
+        <!-- ADD: hobbies or other interests as more <li class="row"> rows -->
       </ul>
     </div>
   </section>
-  <!-- ───────────── Sign-off ───────────── -->
-  <section class="signoff" aria-label="Contact">
-    <div class="wrap">
-      <h2>Let's talk about what's happening <em>underground.</em></h2>
-      <a class="mail" href="mailto:raffaychaudhary1@gmail.com">raffaychaudhary1@gmail.com <span aria-hidden="true">→</span></a>
+
+  <!-- ═════════════ Contact ═════════════ -->
+  <section id="contact" class="signoff" data-c="ink">
+    <div class="container">
+      <p class="eyebrow">Contact</p>
+      <h2 class="big" data-split>Let's <em>talk.</em></h2>
+      <div class="row2">
+        <div>
+          <p>I'm looking for a PhD lab working on induced seismicity, geophysical monitoring, or ice and fluid mechanics. If that's you, I'd love to hear from you.</p>
+          <a class="mail" href="mailto:raffaychaudhary1@gmail.com" data-cursor="Write">raffaychaudhary1@gmail.com</a>
+        </div>
+        <div class="ctas">
+          <a class="btn" href="cv.pdf" data-magnetic>Curriculum vitae <span class="arr">↓</span></a>
+          <a class="btn ghost" href="https://github.com/Raffaycodes" data-magnetic>GitHub <span class="arr">↗</span></a>
+        </div>
+      </div>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap mono">
+<footer data-c="ink">
+  <div class="container mono">
     <span>© 2026 Muhammad Raffay Chaudhry</span>
-    <span>Green Bay, Wisconsin</span>
+    <span>Green Bay, WI · <span id="clock">--:--</span> local</span>
+    <a href="#top">Back to top ↑</a>
   </div>
 </footer>
 
 <dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
   <img alt="">
   <p></p>
-  <button class="lb-btn lb-close" type="button" aria-label="Close">✕</button>
-  <button class="lb-btn lb-prev" type="button" aria-label="Previous photo">←</button>
-  <button class="lb-btn lb-next" type="button" aria-label="Next photo">→</button>
+  <button class="lb lb-x" type="button" aria-label="Close">✕</button>
+  <button class="lb lb-p" type="button" aria-label="Previous photo">←</button>
+  <button class="lb lb-n" type="button" aria-label="Next photo">→</button>
 </dialog>
 
+<div class="cursor" aria-hidden="true"><div class="ring"><span></span></div><div class="dot"></div></div>
+
 <script>
-/* Theme toggle (remembered per visitor) */
+document.addEventListener('DOMContentLoaded', () => {
+const root = document.documentElement;
+if ('scrollRestoration' in history && !location.hash) { history.scrollRestoration = 'manual'; scrollTo(0, 0); }
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+const G = window.gsap && window.ScrollTrigger ? window.gsap : null;
+const css = name => getComputedStyle(root).getPropertyValue(name).trim();
+
+/* ── Field gallery: removed (with its nav links) until it has photos ── */
 (() => {
-  const root = document.documentElement, btn = document.getElementById('themeBtn');
-  const meta = document.querySelector('meta[name="theme-color"]');
-  const sync = () => { const dark = root.dataset.theme === 'dark'; btn.setAttribute('aria-pressed', dark); meta.content = dark ? '#0d1418' : '#f4f7f6'; };
-  sync();
-  btn.addEventListener('click', () => {
-    const go = () => {
-      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-      try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
-      sync();
-    };
-    // Cross-fade the whole page between themes where the browser supports it
-    if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.startViewTransition(go); else go();
-  });
-})();
-
-const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const easeOut = x => 1 - Math.pow(1 - x, 3);
-
-/* Hero intro: text rises out of a blur, photo wipes up. Uses the Web Animations API and
-   force-finishes after 2.5 s, so nothing can stay hidden if the browser pauses animation. */
-(() => {
-  if (reduceMotion || !Element.prototype.animate) return;
-  const ease = 'cubic-bezier(.22, 1, .36, 1)';
-  const items = ['.hero .status', '.hero h1', '.hero .lede', '.hero .links'].map(s => document.querySelector(s));
-  const anims = items.map((el, i) => el.animate(
-    [{ opacity: 0, transform: 'translateY(22px)', filter: 'blur(8px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }],
-    { duration: 900, delay: 80 + i * 110, easing: ease, fill: 'backwards' }));
-  const img = document.querySelector('.portrait img');
-  anims.push(img.animate(
-    [{ clipPath: 'inset(100% 0 0 0 round 6px)', transform: 'scale(1.08)' }, { clipPath: 'inset(0 0 0 0 round 6px)', transform: 'none' }],
-    { duration: 1300, delay: 150, easing: ease, fill: 'backwards' }));
-  setTimeout(() => anims.forEach(a => { try { a.finish(); } catch (e) {} }), 2500);
-})();
-
-/* Seismogram: draws in, then keeps recording like a live helicorder, with a new
-   synthetic earthquake (P and S picks scroll with it) every 8–14 seconds. */
-(() => {
-  const W = 1000, mid = 60, N = 900, SP = Math.round(0.26 * N);   // S arrives 0.26 widths after P
-  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647 - .5;
-  const quake = (age, amp) => {                                    // signal of one event at a given age (samples)
-    let y = 0, d = age / N;
-    if (age >= 0) y += Math.exp(-d * 9) * 22 * amp * Math.sin(d * 420) * (0.6 + rnd());
-    if (age >= SP) { d = (age - SP) / N; y += Math.exp(-d * 5.5) * 48 * amp * Math.sin(d * 260 + 1) * (0.55 + rnd()); }
-    return y;
-  };
-  const tP = Math.round(0.30 * N);
-  let events = [{ age: -tP, amp: 1 }];
-  const buf = [];
-  const next = () => {                                             // generate one new sample
-    let y = rnd() * 2.2;
-    events.forEach(e => { y += quake(e.age, e.amp); e.age++; });
-    events = events.filter(e => e.age < N * 0.9);
-    return y;
-  };
-  for (let i = 0; i <= N; i++) buf.push(next());
-
-  const path = document.getElementById('wave');
-  const pickP = document.getElementById('pickP'), pickS = document.getElementById('pickS');
-  let picks = [{ x: tP, el: pickP }, { x: tP + SP, el: pickS }];
-  const render = () => {
-    let d = 'M';
-    for (let i = 0; i <= N; i++) d += (i ? 'L' : '') + (i * W / N).toFixed(1) + ' ' + (mid - buf[i]).toFixed(1);
-    path.setAttribute('d', d);
-    picks.forEach(p => {
-      p.el.setAttribute('transform', `translate(${(p.x * W / N).toFixed(1)},0)`);
-      p.el.style.opacity = p.x < 4 ? 0 : 1;
-    });
-  };
-  render();
-  if (reduceMotion) return;
-
-  // 1) draw-in
-  const len = path.getTotalLength();
-  path.style.strokeDasharray = len; path.style.strokeDashoffset = len;
-  [pickP, pickS].forEach(p => { p.style.transition = 'opacity .25s ease-out'; p.style.opacity = 0; });
-  const dur = 1400, delay = 450;
-  let t0 = null, drawn = false;
-  const finishDraw = () => {
-    if (drawn) return; drawn = true;
-    path.style.strokeDasharray = ''; path.style.strokeDashoffset = '';
-    render(); startLive();
-  };
-  const draw = now => {
-    if (t0 === null) t0 = now + delay;
-    const k = easeOut(Math.max(0, Math.min(1, (now - t0) / dur)));
-    path.style.strokeDashoffset = len * (1 - k);
-    pickP.style.opacity = k > 0.32 ? 1 : 0;
-    pickS.style.opacity = k > 0.58 ? 1 : 0;
-    k < 1 ? requestAnimationFrame(draw) : finishDraw();
-  };
-  requestAnimationFrame(draw);
-  setTimeout(finishDraw, delay + dur + 600);                       // fallback if frames are throttled
-
-  // 2) live recording
-  let visible = true, last = 0, carry = 0, nextQuake = 9 + Math.random() * 5;
-  const speed = 55;                                                // samples per second (~16 s across)
-  new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(path.closest('figure'));
-  function startLive() {
-    const tick = now => {
-      if (last && visible && !document.hidden) {
-        const dt = Math.min(0.1, (now - last) / 1000);
-        carry += dt * speed;
-        const k = Math.floor(carry); carry -= k;
-        nextQuake -= dt;
-        if (nextQuake <= 0) {
-          nextQuake = 8 + Math.random() * 6;
-          events.push({ age: 0, amp: 0.35 + Math.random() * 0.75 });
-          picks.push({ x: N + 1, el: null, kind: 'P' }, { x: N + 1 + SP, el: null, kind: 'S' });
-        }
-        for (let i = 0; i < k; i++) { buf.shift(); buf.push(next()); }
-        picks.forEach(p => p.x -= k);
-        // reuse the two pick markers for the newest event still on screen
-        const onScreen = picks.filter(p => p.x > 0);
-        const lastP = [...onScreen].reverse().find(p => p.kind === 'P' || p.el === pickP);
-        const lastS = [...onScreen].reverse().find(p => p.kind === 'S' || p.el === pickS);
-        picks = onScreen;
-        if (lastP) { pickP.setAttribute('transform', `translate(${(lastP.x * W / N).toFixed(1)},0)`); pickP.style.opacity = lastP.x <= N ? 1 : 0; } else pickP.style.opacity = 0;
-        if (lastS) { pickS.setAttribute('transform', `translate(${(lastS.x * W / N).toFixed(1)},0)`); pickS.style.opacity = lastS.x <= N ? 1 : 0; } else pickS.style.opacity = 0;
-        let d = 'M';
-        for (let i = 0; i <= N; i++) d += (i ? 'L' : '') + (i * W / N).toFixed(1) + ' ' + (mid - buf[i]).toFixed(1);
-        path.setAttribute('d', d);
-      }
-      last = now;
-      requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
+  const shots = [...document.querySelectorAll('#gallery .shot')];
+  if (!shots.length) {
+    document.getElementById('field').remove();
+    document.querySelectorAll('a[href="#field"]').forEach(a => (a.closest('li') || a).remove());
+    return;
   }
-})();
-
-/* Scroll reveals (staggered), count-ups, cursor glow and photo tilt */
-(() => {
-  if (reduceMotion) return;
-  // Reveal: content is never hidden by CSS. Just before an element scrolls into view it plays a short
-  // rise-out-of-blur animation (Web Animations, fill "backwards"), force-finished after 2 s.
-  if (Element.prototype.animate) {
-    const ease = 'cubic-bezier(.22, 1, .36, 1)';
-    const groups = ['.prose p', '.themes > .theme', '.facts > .fact', '.project', '.rows > li', '.cites > li', '.skills > div', 'section h2', '.shot', '.signoff .mail'];
-    const delay = new Map();
-    const play = el => {
-      const d = delay.get(el) || 0;
-      const a = el.matches('.shot')
-        ? el.animate([{ clipPath: 'inset(18% 0 0 0 round 6px)', opacity: 0, transform: 'translateY(30px)' }, { clipPath: 'inset(0 0 0 0 round 6px)', opacity: 1, transform: 'none' }], { duration: 1000, delay: d, easing: ease, fill: 'backwards' })
-        : el.animate([{ opacity: 0, transform: 'translateY(26px)', filter: 'blur(4px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }], { duration: 850, delay: d, easing: ease, fill: 'backwards' });
-      setTimeout(() => { try { a.finish(); } catch (e) {} }, 2000);
-    };
-    const io = new IntersectionObserver(es => es.forEach(e => {
-      if (!e.isIntersecting) return;
-      io.unobserve(e.target); play(e.target);
-    }), { rootMargin: '0px 0px 8% 0px' });
-    groups.forEach(sel => {
-      const seen = new Map();
-      document.querySelectorAll(sel).forEach(el => {
-        if (el.getBoundingClientRect().top < innerHeight) return;
-        const i = seen.get(el.parentNode) || 0; seen.set(el.parentNode, i + 1);
-        delay.set(el, Math.min(i, 6) * 80); io.observe(el);
-      });
-    });
-  }
-
-  // Count-ups: the real number is in the HTML; it only animates from zero once in view.
-  const cio = new IntersectionObserver(es => es.forEach(e => {
-    if (!e.isIntersecting) return; cio.unobserve(e.target);
-    const el = e.target, final = el.textContent, target = parseFloat(final), dp = (final.split('.')[1] || '').length;
-    const t0 = performance.now();
-    const step = now => {
-      const k = easeOut(Math.min(1, (now - t0) / 1300));
-      el.textContent = k < 1 ? (target * k).toFixed(dp) : final;
-      if (k < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-    setTimeout(() => { el.textContent = final; }, 1800);
-  }), { threshold: 0.6 });
-  document.querySelectorAll('.fact .v').forEach(v => { if (/^\d+(\.\d+)?$/.test(v.textContent.trim())) cio.observe(v); });
-
-  // Cursor glow in the hero and a gentle 3D tilt on the portrait (mouse/trackpad only)
-  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-  const hero = document.querySelector('.hero');
-  hero.addEventListener('pointermove', e => {
-    const r = hero.getBoundingClientRect();
-    hero.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-    hero.style.setProperty('--my', (e.clientY - r.top) + 'px');
-    hero.classList.add('glow');
-  });
-  hero.addEventListener('pointerleave', () => hero.classList.remove('glow'));
-  const fig = document.querySelector('.portrait');
-  fig.addEventListener('pointermove', e => {
-    const r = fig.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-    fig.style.setProperty('--rx', (-y * 7).toFixed(2) + 'deg');
-    fig.style.setProperty('--ry', (x * 9).toFixed(2) + 'deg');
-    fig.style.setProperty('--gx', ((x + .5) * 100).toFixed(1) + '%');
-    fig.style.setProperty('--gy', ((y + .5) * 100).toFixed(1) + '%');
-    fig.classList.add('tilt');
-  });
-  fig.addEventListener('pointerleave', () => { fig.classList.remove('tilt'); fig.style.setProperty('--rx', '0deg'); fig.style.setProperty('--ry', '0deg'); });
-})();
-
-/* Field gallery: hidden until it has photos; click any photo for a full-screen viewer */
-(() => {
-  const section = document.getElementById('field'), shots = [...document.querySelectorAll('#gallery .shot')];
-  if (!shots.length) { section.remove(); document.querySelector('.nav a[href="#field"]').parentNode.remove(); return; }
   const box = document.getElementById('lightbox'), img = box.querySelector('img'), cap = box.querySelector('p');
   let at = 0;
   const show = (i, dir = 0) => {
@@ -891,36 +743,342 @@ const easeOut = x => 1 - Math.pow(1 - x, 3);
     const s = shots[at].querySelector('img');
     img.src = s.currentSrc || s.src; img.alt = s.alt;
     cap.textContent = shots[at].querySelector('figcaption')?.textContent || '';
-    if (img.animate && !reduceMotion) img.animate([{ opacity: 0, transform: `translateX(${dir * 24}px) scale(${dir ? 1 : .96})` }, { opacity: 1, transform: 'none' }], { duration: 450, easing: 'cubic-bezier(.22, 1, .36, 1)' });
+    if (!reduce && img.animate) img.animate([{ opacity: 0, transform: `translateX(${dir * 30}px) scale(${dir ? 1 : .96})` }, { opacity: 1, transform: 'none' }], { duration: 500, easing: 'cubic-bezier(.22,1,.36,1)' });
   };
   shots.forEach((s, i) => s.querySelector('button').addEventListener('click', () => { show(i); box.showModal(); }));
-  box.querySelector('.lb-close').onclick = () => box.close();
-  box.querySelector('.lb-prev').onclick = () => show(at - 1, -1);
-  box.querySelector('.lb-next').onclick = () => show(at + 1, 1);
+  box.querySelector('.lb-x').onclick = () => box.close();
+  box.querySelector('.lb-p').onclick = () => show(at - 1, -1);
+  box.querySelector('.lb-n').onclick = () => show(at + 1, 1);
   box.addEventListener('click', e => { if (e.target === box) box.close(); });
   box.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') show(at - 1, -1); if (e.key === 'ArrowRight') show(at + 1, 1); });
   let x0 = null;
   box.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
   box.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) show(at + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1); x0 = null; });
-  if (shots.length < 2) box.querySelectorAll('.lb-prev, .lb-next').forEach(b => b.hidden = true);
+  if (shots.length < 2) box.querySelectorAll('.lb-p, .lb-n').forEach(b => b.hidden = true);
 })();
 
-/* Nav border, reading progress and active link */
+/* ── Topographic contour field behind the hero (marching squares over a moving
+      field; the cursor sends out rings like a seismic source) ── */
 (() => {
-  const nav = document.getElementById('nav'), bar = document.getElementById('progress');
-  const onScroll = () => {
-    nav.classList.toggle('scrolled', scrollY > 8);
-    const max = document.documentElement.scrollHeight - innerHeight;
-    bar.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
+  const cv = document.getElementById('topo'), ctx = cv.getContext('2d');
+  const hero = cv.parentElement;
+  const SEG = [[],[3,2],[2,1],[3,1],[0,1],[3,0,2,1],[0,2],[3,0],[3,0],[0,2],[0,1,3,2],[0,1],[3,1],[2,1],[3,2],[]];
+  const COLORS = [css('--a-ice'), css('--a-lichen'), css('--a-ember')];
+  let W, H, S, cols, rows, vals, dpr, mx = .7, my = .4, pulse = 0, running = true, last = 0;
+  const resize = () => {
+    dpr = Math.min(devicePixelRatio || 1, 1.5);
+    W = hero.clientWidth; H = hero.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    S = W < 700 ? 18 : 16;
+    cols = Math.ceil(W / S) + 1; rows = Math.ceil(H / S) + 1;
+    vals = new Float32Array(cols * rows);
   };
-  addEventListener('scroll', onScroll, { passive: true }); onScroll();
-
-  const links = [...document.querySelectorAll('.nav li a')];
-  const spy = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
-  }), { rootMargin: '-45% 0px -50% 0px' });
-  document.querySelectorAll('section[id]').forEach(s => spy.observe(s));
+  const field = (x, y, t) => {
+    const nx = x / 520, ny = y / 520;
+    let v = Math.sin(nx * 2.1 + t * .11) * .9 + Math.sin(ny * 2.7 - t * .09) * .8
+          + Math.sin((nx * 1.3 + ny * 1.9) * 1.6 + t * .07) * .7 + Math.sin(nx * 4.2 - ny * 3.1 + t * .05) * .25;
+    const dx = x / W - mx, dy = (y / H - my) * H / W, d = Math.sqrt(dx * dx + dy * dy);
+    v += Math.sin(d * 34 - t * 2.2) * Math.exp(-d * 6) * (.35 + pulse);
+    return v;
+  };
+  const draw = t => {
+    for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) vals[j * cols + i] = field(i * S, j * S, t);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    ctx.lineCap = 'round';
+    let n = 0;
+    for (let L = -2.4; L <= 2.4; L += .3, n++) {
+      const major = n % 4 === 0;
+      ctx.strokeStyle = COLORS[n % 3];
+      ctx.globalAlpha = major ? .5 : .2;
+      ctx.lineWidth = major ? 1.2 : .8;
+      ctx.beginPath();
+      for (let j = 0; j < rows - 1; j++) for (let i = 0; i < cols - 1; i++) {
+        const a = vals[j * cols + i], b = vals[j * cols + i + 1], c = vals[(j + 1) * cols + i + 1], d = vals[(j + 1) * cols + i];
+        const k = (a > L) << 3 | (b > L) << 2 | (c > L) << 1 | (d > L);
+        if (k === 0 || k === 15) continue;
+        const x0 = i * S, y0 = j * S, seg = SEG[k];
+        const pt = e => e === 0 ? [x0 + (L - a) / (b - a) * S, y0]
+                     : e === 1 ? [x0 + S, y0 + (L - b) / (c - b) * S]
+                     : e === 2 ? [x0 + (L - d) / (c - d) * S, y0 + S]
+                     :           [x0, y0 + (L - a) / (d - a) * S];
+        for (let s = 0; s < seg.length; s += 2) { const p = pt(seg[s]), q = pt(seg[s + 1]); ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); }
+      }
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  };
+  resize(); draw(0);
+  addEventListener('resize', () => { resize(); draw(last / 1000); });
+  if (reduce) return;
+  hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); mx += ((e.clientX - r.left) / r.width - mx) * .2; my += ((e.clientY - r.top) / r.height - my) * .2; });
+  hero.addEventListener('pointerdown', () => { pulse = 1.2; });
+  new IntersectionObserver(([e]) => { running = e.isIntersecting; if (running) requestAnimationFrame(loop); }).observe(hero);
+  let prev = 0;
+  const loop = now => {
+    if (!running) return;
+    if (now - prev > 40) { prev = now; last = now; pulse *= .94; draw(now / 1000); }
+    requestAnimationFrame(loop);
+  };
+  requestAnimationFrame(loop);
 })();
+
+/* ── Live helicorder: noise plus a synthetic earthquake every 7–12 s, with P and S picks ── */
+(() => {
+  const N = 640, buf = new Float32Array(N), path = document.getElementById('hwave');
+  const pP = document.getElementById('pP'), pS = document.getElementById('pS');
+  let queue = [], picks = [];
+  const noise = () => (Math.random() - .5) * .06;
+  const quake = amp => {
+    const out = [];
+    for (let j = 0; j < 320; j++) {
+      const p = j < 80 ? Math.sin(j * 1.7 + Math.random()) * amp * .35 * Math.exp(-j / 22) * Math.min(1, j / 3) : 0;
+      const s = j >= 70 ? Math.sin(j * .85 + Math.random() * .6) * amp * Math.exp(-(j - 70) / 48) * Math.min(1, (j - 70) / 4) : 0;
+      out.push({ v: p + s + noise(), m: j === 0 ? 'P' : j === 70 ? 'S' : null });
+    }
+    return out;
+  };
+  const push = (v, m) => {
+    buf.copyWithin(0, 1); buf[N - 1] = v;
+    for (const p of picks) p.i--;
+    if (m) picks.push({ i: N - 1, k: m });
+    picks = picks.filter(p => p.i >= 0);
+  };
+  const step = () => { const q = queue.shift(); q ? push(q.v, q.m) : push(noise()); };
+  // prefill so it looks alive immediately
+  for (let i = 0; i < 260; i++) push(noise());
+  queue = quake(.95); for (let i = 0; i < N - 260; i++) step();
+  const render = () => {
+    let d = '';
+    for (let i = 0; i < N; i++) d += (i ? 'L' : 'M') + (i * 1000 / (N - 1)).toFixed(1) + ' ' + (28 - buf[i] * 25).toFixed(1);
+    path.setAttribute('d', d);
+    const lastOf = k => [...picks].reverse().find(p => p.k === k);
+    [[pP, lastOf('P')], [pS, lastOf('S')]].forEach(([el, p]) => {
+      if (p) { el.setAttribute('transform', `translate(${(p.i * 1000 / (N - 1)).toFixed(1)},0)`); el.setAttribute('opacity', 1); }
+      else el.setAttribute('opacity', 0);
+    });
+  };
+  render();
+  if (reduce) return;
+  let acc = 0, prev = performance.now(), nextQuake = prev + 7000, visible = true;
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(path.closest('.heli'));
+  const loop = now => {
+    const dt = Math.min(100, now - prev); prev = now;
+    if (visible && !document.hidden) {
+      acc += dt * .06;
+      while (acc >= 1) { step(); acc--; }
+      if (now > nextQuake && !queue.length) { queue = quake(.45 + Math.random() * .6); nextQuake = now + 7000 + Math.random() * 5000; }
+      render();
+    }
+    requestAnimationFrame(loop);
+  };
+  requestAnimationFrame(loop);
+})();
+
+/* ── Mobile menu ── */
+(() => {
+  const btn = document.getElementById('menuBtn'), ov = document.getElementById('overlay');
+  const set = open => {
+    btn.textContent = open ? 'Close' : 'Menu'; btn.setAttribute('aria-expanded', open); ov.setAttribute('aria-hidden', !open);
+    if (!window.gsap || reduce) { ov.classList.toggle('open', open); return; }
+    // GSAP drives the wipe so it never depends on CSS transitions
+    if (open) {
+      ov.classList.add('open');
+      gsap.fromTo(ov, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: .8, ease: 'expo.inOut', overwrite: true });
+      gsap.from(ov.querySelectorAll('a'), { yPercent: 60, opacity: 0, duration: .9, stagger: .05, delay: .25, ease: 'expo.out' });
+    } else {
+      gsap.to(ov, { clipPath: 'inset(0% 0% 100% 0%)', duration: .6, ease: 'expo.inOut', overwrite: true, onComplete: () => { ov.classList.remove('open'); gsap.set(ov, { clearProps: 'clipPath' }); } });
+    }
+  };
+  btn.addEventListener('click', () => set(!ov.classList.contains('open')));
+  ov.querySelectorAll('a').forEach(a => a.addEventListener('click', () => set(false)));
+  addEventListener('keydown', e => { if (e.key === 'Escape') set(false); });
+})();
+
+/* ── Local time in Green Bay ── */
+(() => {
+  const el = document.getElementById('clock');
+  const tick = () => { el.textContent = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago' }).format(new Date()); };
+  tick(); setInterval(tick, 30000);
+})();
+
+/* ── Custom cursor (mouse/trackpad only) ── */
+if (fine && !reduce) {
+  root.classList.add('has-cursor');
+  const cur = document.querySelector('.cursor'), label = cur.querySelector('span'), dot = cur.querySelector('.dot'), ring = cur.querySelector('.ring');
+  let x = innerWidth / 2, y = innerHeight / 2, rx = x, ry = y;
+  addEventListener('pointermove', e => { x = e.clientX; y = e.clientY; dot.style.transform = `translate(${x}px,${y}px)`; });
+  const follow = () => { rx += (x - rx) * .18; ry += (y - ry) * .18; ring.style.transform = `translate(${rx}px,${ry}px)`; requestAnimationFrame(follow); };
+  follow();
+  document.addEventListener('pointerover', e => {
+    const t = e.target.closest('a, button, summary, [data-cursor]');
+    const lab = t?.dataset.cursor && t.dataset.cursor !== 'link' ? t.dataset.cursor : t?.closest('.shot') ? 'View' : '';
+    cur.classList.toggle('big', !!lab); cur.classList.toggle('link', !!t && !lab); label.textContent = lab;
+  });
+}
+
+/* ═════════════ Everything below needs GSAP (loaded from CDN). Without it the page is fully static and readable. ═════════════ */
+if (!G) return;
+const gsap = G, ST = window.ScrollTrigger;
+gsap.registerPlugin(ST);
+root.classList.add('gsap');
+const ease = 'expo.out';
+
+/* Split headings into masked words */
+const split = el => {
+  const out = [];
+  const walk = node => [...node.childNodes].forEach(n => {
+    if (n.nodeType === 3) {
+      const frag = document.createDocumentFragment();
+      n.textContent.split(/(\s+)/).forEach(p => {
+        if (!p) return;
+        if (/^\s+$/.test(p)) { frag.append(' '); return; }
+        const w = document.createElement('span'), i = document.createElement('span');
+        w.className = 'w'; i.className = 'wi'; i.textContent = p; w.append(i); frag.append(w); out.push(i);
+      });
+      n.replaceWith(frag);
+    } else if (n.nodeType === 1 && n.tagName !== 'BR' && n.tagName !== 'SVG') walk(n);
+  });
+  walk(el);
+  return out;
+};
+
+/* Smooth scrolling */
+let lenis = null;
+if (!reduce && window.Lenis) {
+  lenis = new Lenis({ duration: 1.15, smoothWheel: true });
+  lenis.on('scroll', ST.update);
+  gsap.ticker.add(t => lenis.raf(t * 1000));
+  gsap.ticker.lagSmoothing(0);
+}
+document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+  const id = a.getAttribute('href'), target = id === '#top' ? document.body : document.querySelector(id);
+  if (!target) return;
+  e.preventDefault();
+  if (lenis) lenis.scrollTo(id === '#top' ? 0 : target, { duration: 1.6 }); else target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+}));
+
+/* Page colour morphs section by section */
+const THEME = { ink: ['--c-ink', '--c-snow'], ice: ['--c-ice', '--c-ink'], stone: ['--c-stone', '--c-ink'], moss: ['--c-moss', '--c-ink'], lichen: ['--c-lichen', '--c-snow'], deep: ['--c-deep', '--c-snow'], ember: ['--c-ember', '--c-ink'] };
+const meta = document.querySelector('meta[name="theme-color"]');
+root.classList.add('morph');
+const setTheme = (c, instant) => {
+  const [b, f] = THEME[c].map(css);
+  gsap.to(root, { '--bg': b, '--fg': f, duration: instant || reduce ? 0 : .9, ease: 'power2.out', overwrite: true });
+  meta.content = b;
+};
+setTheme('ink', true);
+document.querySelectorAll('main > [data-c]').forEach(s => ST.create({
+  trigger: s, start: 'top 55%', end: 'bottom 55%',
+  onToggle: self => self.isActive && setTheme(s.dataset.c)
+}));
+
+/* Reading progress */
+gsap.to('#progress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: true } });
+
+/* Nav: active link */
+const links = [...document.querySelectorAll('.nav ul a')];
+links.forEach(a => {
+  const s = document.querySelector(a.getAttribute('href'));
+  if (s) ST.create({ trigger: s, start: 'top 50%', end: 'bottom 50%', onToggle: self => self.isActive && links.forEach(l => l.classList.toggle('active', l === a)) });
+});
+
+/* Marquees: drift constantly, speed up with scroll velocity */
+document.querySelectorAll('.marquee').forEach(m => {
+  m.innerHTML += m.innerHTML;
+  const dir = +m.dataset.dir;
+  const tw = gsap.fromTo(m, { xPercent: dir > 0 ? 0 : -50 }, { xPercent: dir > 0 ? -50 : 0, duration: 38, ease: 'none', repeat: -1 });
+  if (reduce) { tw.pause(); return; }
+  ST.create({ onUpdate: self => {
+    const v = Math.min(5, 1 + Math.abs(self.getVelocity()) / 350);
+    gsap.to(tw, { timeScale: v, duration: .2, overwrite: true, onComplete: () => gsap.to(tw, { timeScale: 1, duration: 1.2 }) });
+  }});
+});
+
+if (reduce) { document.querySelector(".loader").classList.add("done"); return; }
+
+/* Magnetic buttons */
+if (fine) document.querySelectorAll('[data-magnetic]').forEach(el => {
+  const xT = gsap.quickTo(el, 'x', { duration: .6, ease: 'elastic.out(1, .4)' }), yT = gsap.quickTo(el, 'y', { duration: .6, ease: 'elastic.out(1, .4)' });
+  el.addEventListener('pointermove', e => { const r = el.getBoundingClientRect(); xT((e.clientX - r.left - r.width / 2) * .3); yT((e.clientY - r.top - r.height / 2) * .4); });
+  el.addEventListener('pointerleave', () => { xT(0); yT(0); });
+});
+
+/* Hero intro (after the loader on first visit) */
+const nameWords = split(document.querySelector('.hero-name'));
+const intro = gsap.timeline({ paused: true, defaults: { ease } })
+  .from(nameWords, { yPercent: 115, rotate: 4, duration: 1.4, stagger: .09 })
+  .from('.hero-photo', { clipPath: 'inset(100% 0% 0% 0%)', duration: 1.4, ease: 'expo.inOut' }, 0)
+  .from('.hero-photo img', { scale: 1.35, duration: 1.8 }, 0)
+  .from('.hero-top > *, .hero-foot > *, .heli', { y: 24, opacity: 0, duration: 1.1, stagger: .08 }, .45);
+const playIntro = () => { intro.play(); setTimeout(() => intro.progress(1), 4000); };
+
+const loader = document.querySelector('.loader');
+let seen = false;
+try { seen = sessionStorage.getItem('rc-intro') === '1'; sessionStorage.setItem('rc-intro', '1'); } catch (e) {}
+if (seen) { loader.classList.add('done'); playIntro(); }
+else {
+  const num = document.getElementById('lnum'), lp = document.getElementById('lpath');
+  let d = 'M0 30'; for (let i = 1; i <= 200; i++) { const x = i * 5, k = Math.exp(-Math.pow((i - 120) / 22, 2)); d += ` L${x} ${(30 + Math.sin(i * 1.9) * (2 + 26 * k)).toFixed(1)}`; }
+  lp.setAttribute('d', d);
+  const len = lp.getTotalLength(); lp.style.strokeDasharray = len; lp.style.strokeDashoffset = len;
+  const o = { v: 0 };
+  const finish = () => { loader.classList.add('done'); playIntro(); };
+  gsap.timeline({ onComplete: finish })
+    .to(o, { v: 100, duration: 1.6, ease: 'power3.inOut', onUpdate: () => { num.textContent = Math.round(o.v); } })
+    .to(lp, { strokeDashoffset: 0, duration: 1.6, ease: 'power3.inOut' }, 0)
+    .to(loader, { yPercent: -100, duration: 1, ease: 'expo.inOut' }, '+=.15');
+  setTimeout(() => { if (!loader.classList.contains('done')) finish(); }, 5000);
+}
+
+/* Hero: name and photo drift apart on scroll */
+gsap.to('.hero-name', { yPercent: -18, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+gsap.to('.hero-photo img', { yPercent: -12, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+
+/* Section titles rise word by word */
+document.querySelectorAll('main section [data-split]').forEach(el => {
+  gsap.from(split(el), { yPercent: 115, rotate: 3, duration: 1.3, stagger: .07, ease, scrollTrigger: { trigger: el, start: 'top 88%', once: true } });
+});
+
+/* About statement lights up as you read it */
+const sw = split(document.querySelector('[data-scrub]'));
+gsap.fromTo(sw, { opacity: .16 }, { opacity: 1, stagger: .1, ease: 'none', scrollTrigger: { trigger: '[data-scrub]', start: 'top 80%', end: 'bottom 45%', scrub: true } });
+
+/* Groups fade up, staggered */
+document.querySelectorAll('[data-reveal]').forEach(g => {
+  gsap.from(g.children, { y: 60, opacity: 0, duration: 1.2, stagger: .08, ease, scrollTrigger: { trigger: g, start: 'top 88%', once: true } });
+});
+gsap.utils.toArray('.eyebrow, .sub').forEach(el => gsap.from(el, { opacity: 0, x: -20, duration: 1, ease, scrollTrigger: { trigger: el, start: 'top 92%', once: true } }));
+
+/* Count-ups */
+document.querySelectorAll('[data-count]').forEach(el => {
+  const final = el.textContent, target = parseFloat(final), dp = (final.split('.')[1] || '').length, o = { v: 0 };
+  ST.create({ trigger: el, start: 'top 90%', once: true, onEnter: () => gsap.to(o, { v: target, duration: 1.8, ease: 'power3.out', onUpdate: () => { el.textContent = o.v.toFixed(dp); }, onComplete: () => { el.textContent = final; } }) });
+});
+
+/* Research cards: each one settles back as the next stacks over it */
+const mmq = gsap.matchMedia();
+mmq.add('(min-width: 900px)', () => {
+  const cards = gsap.utils.toArray('.project');
+  cards.forEach((c, i) => {
+    gsap.from(c, { y: 120, rotate: i % 2 ? 2 : -2, duration: 1.2, ease, scrollTrigger: { trigger: c, start: 'top 95%', once: true } });
+    if (i === cards.length - 1) return;
+    gsap.fromTo(c, { scale: 1, filter: 'brightness(1)' }, { scale: .92, filter: 'brightness(.72)', ease: 'none', scrollTrigger: { trigger: cards[i + 1], start: 'top bottom', end: 'top 20%', scrub: true } });
+  });
+});
+mmq.add('(max-width: 899px)', () => {
+  gsap.utils.toArray('.project').forEach(c => gsap.from(c, { y: 70, opacity: 0, duration: 1.1, ease, scrollTrigger: { trigger: c, start: 'top 92%', once: true } }));
+});
+
+/* Gallery photos wipe in */
+gsap.utils.toArray('.shot').forEach(s => gsap.from(s, { clipPath: 'inset(30% 0% 0% 0% round 18px)', y: 60, opacity: 0, duration: 1.3, ease, scrollTrigger: { trigger: s, start: 'top 92%', once: true } }));
+
+/* Giant sign-off letters lean with scroll */
+gsap.from('.big', { xPercent: -6, ease: 'none', scrollTrigger: { trigger: '.signoff', start: 'top bottom', end: 'bottom bottom', scrub: true } });
+
+/* Recalculate trigger positions once images and fonts have loaded */
+addEventListener('load', () => ST.refresh());
+});
 </script>
 </body>
 </html>
