@@ -413,8 +413,9 @@ footer .container { justify-content: center; }
 .hero-name { line-height: 1.05; }
 .hero-name .first { font-size: clamp(2rem, 4vw, 3.4rem); }
 .hero-name em { font-style: normal; padding-left: .08em; }
-.hero-name .w { padding: .12em .3em .32em .12em; margin: -.12em -.3em -.32em -.12em; }
-@media (min-width: 900px) { .hero-name { margin-top: 1.2rem !important; } }
+.hero-name .w { padding: .6em .45em .5em .3em; margin: -.6em -.45em -.5em -.3em; }
+.hero-name.shown .w { overflow: visible; }
+.hero-name { margin-top: 1.4rem !important; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
 }
@@ -1088,6 +1089,7 @@ const intro = gsap.timeline({ paused: true, defaults: { ease } })
   .from('.hero-photo img', { scale: 1.35, duration: 1.8 }, 0)
   .from('.hero-photo', { scale: .9, opacity: 0, duration: 1.4 }, 0)
   .from('.hero-top > *, .hero-foot > *, .heli', { y: 24, opacity: 0, duration: 1.1, stagger: .08 }, .45);
+intro.eventCallback('onComplete', () => document.querySelector('.hero-name').classList.add('shown'));
 const playIntro = () => { intro.play(); setTimeout(() => intro.progress(1), 4000); };
 
 const loader = document.querySelector('.loader');
