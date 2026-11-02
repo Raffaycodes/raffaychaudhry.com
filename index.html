@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js');</script>
 <style>
 /* ═══════════════════════════ Brand tokens ═══════════════════════════
@@ -44,7 +44,8 @@
   --fg: var(--c-snow);
 
   --display: "Instrument Serif", "Times New Roman", serif;
-  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --sans: "Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --script: "Pinyon Script", "Snell Roundhand", cursive;
   --mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --ease: cubic-bezier(.22, 1, .36, 1);
   --gutter: clamp(1.1rem, 4vw, 3.5rem);
@@ -70,7 +71,7 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 body {
   margin: 0; background: var(--bg); color: var(--fg);
-  font: 400 1.0625rem/1.6 var(--sans); letter-spacing: -.005em;
+  font: 400 .95rem/1.7 var(--sans); letter-spacing: -.01em;
   -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
   overflow-x: clip;
 }
@@ -407,6 +408,13 @@ html.has-cursor .cursor { display: block; }
 .signoff p { margin-inline: auto; }
 footer .container { justify-content: center; }
 
+/* Script name (copperplate, after the Declaration's engrossing hand) */
+.hero-name, .hero-name .first { font-family: var(--script); font-style: normal; letter-spacing: 0; }
+.hero-name { line-height: 1.05; }
+.hero-name .first { font-size: clamp(2rem, 4vw, 3.4rem); }
+.hero-name em { font-style: normal; padding-left: .08em; }
+.hero-name .w { padding: .12em .3em .32em .12em; margin: -.12em -.3em -.32em -.12em; }
+@media (min-width: 900px) { .hero-name { margin-top: 1.2rem !important; } }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
 }
